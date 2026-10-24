@@ -7,6 +7,7 @@ import com.aicte.complaints.exception.BadRequestException;
 import com.aicte.complaints.exception.ResourceNotFoundException;
 import com.aicte.complaints.repository.*;
 import com.aicte.complaints.security.UserPrincipal;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -56,7 +59,6 @@ public class CaseService {
     public PagedResponse<CaseDto> getQueue(Long bureauId, String status, String priority, String category,
                                           String query, String sortBy, String sortDir, int page, int size,
                                           UserPrincipal principal) {
-        // Enforce bureau scoping for BUREAU_OFFICER
         Long effectiveBureauId = bureauId;
         if (principal != null && "BUREAU_OFFICER".equalsIgnoreCase(principal.getRole())) {
             effectiveBureauId = principal.getBureauId();
@@ -87,7 +89,6 @@ public class CaseService {
         CaseEntity c = caseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Case not found with ID: " + id));
 
-        // Enforce bureau scoping: a bureau officer can only access cases assigned to their bureau
         if (principal != null && "BUREAU_OFFICER".equalsIgnoreCase(principal.getRole())) {
             if (!c.getBureau().getId().equals(principal.getBureauId())) {
                 throw new AccessDeniedCustomException("Access denied: You are not authorized to view cases belonging to another Bureau.");
@@ -131,7 +132,6 @@ public class CaseService {
 
         CaseEntity saved = caseRepository.save(caseEntity);
 
-        // Append initial action history
         CaseAction initialAction = new CaseAction(
                 saved,
                 user,
@@ -142,7 +142,6 @@ public class CaseService {
         );
         caseActionRepository.save(initialAction);
 
-        // Audit Log
         auditLogService.logAction(
                 user,
                 user != null ? user.getEmail() : "SYSTEM",
@@ -153,10 +152,183 @@ public class CaseService {
                 "127.0.0.1"
         );
 
-        // Check for cross-bureau overlaps
         overlapService.checkForOverlaps(saved);
-
         return mapToDto(saved);
+    }
+
+    @Transactional
+    public CaseDto fileComplaintByComplainant(FileComplaintRequest req, UserPrincipal complainant, HttpServletRequest httpRequest) {
+        Institution inst = institutionRepository.findByPermanentId(req.getInstitutionPermanentId().trim())
+                .orElseThrow(() -> new BadRequestException("Institution with Permanent ID '" + req.getInstitutionPermanentId() + "' not found."));
+
+        String cat = req.getCategory().toLowerCase();
+        String bureauCode = "PGRC";
+        if (cat.contains("faculty") || cat.contains("infrastructure") || cat.contains("norm") || cat.contains("cadre")) {
+            bureauCode = "RB";
+        } else if (cat.contains("admission") || cat.contains("intake") || cat.contains("approval") || cat.contains("affiliation")) {
+            bureauCode = "APPROVAL";
+        } else if (cat.contains("fee") || cat.contains("capitation") || cat.contains("certificate") || cat.contains("harassment") || cat.contains("grievance")) {
+            bureauCode = "PGRC";
+        }
+
+        final String targetBureauCode = bureauCode;
+        Bureau bureau = bureauRepository.findByCode(targetBureauCode)
+                .orElseGet(() -> bureauRepository.findAll().stream().findFirst().orElseThrow(() -> new BadRequestException("No active Bureau configured.")));
+
+        User user = null;
+        if (complainant != null) {
+            user = userRepository.findById(complainant.getId()).orElse(null);
+        }
+
+        int year = LocalDateTime.now().getYear();
+        String caseNumber = "EDU-" + year + "-COMP-" + String.format("%04d", (int)(Math.random() * 9000 + 1000));
+        while (caseRepository.existsByCaseNumber(caseNumber)) {
+            caseNumber = "EDU-" + year + "-COMP-" + String.format("%04d", (int)(Math.random() * 9000 + 1000));
+        }
+
+        CaseEntity c = new CaseEntity();
+        c.setCaseNumber(caseNumber);
+        c.setSourceCaseId("PORTAL-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+        c.setInstitution(inst);
+        c.setBureau(bureau);
+        c.setTitle(req.getTitle().trim());
+        c.setDescription(req.getDescription().trim());
+        c.setCategory(req.getCategory());
+        c.setPriority(req.getPriority() != null && !req.getPriority().isBlank() ? req.getPriority().toUpperCase() : "MEDIUM");
+        c.setStatus("RECEIVED");
+        c.setReceiptDate(LocalDateTime.now());
+        c.setExpectedDisposalDate(LocalDateTime.now().plusDays(45));
+        c.setCreatedBy(user);
+
+        CaseEntity savedCase = caseRepository.save(c);
+
+        overlapService.checkForOverlaps(savedCase);
+
+        CaseAction action = new CaseAction(
+                savedCase,
+                user,
+                "COMPLAINT_FILED",
+                null,
+                "RECEIVED",
+                "Grievance officially filed via EduVision Complaint Portal. Assigned to " + bureau.getName() + " (" + bureau.getCode() + ")."
+        );
+        action.setNextAction("Scrutiny & document verification by Bureau Officer");
+        action.setNextActionDueDate(LocalDateTime.now().plusDays(7));
+        caseActionRepository.save(action);
+
+        auditLogService.logAction(
+                user,
+                user != null ? user.getEmail() : "COMPLAINANT",
+                "COMPLAINT_SUBMITTED",
+                "CASE",
+                savedCase.getCaseNumber(),
+                "Complainant submitted grievance against " + inst.getName() + " (" + inst.getPermanentId() + ") assigned to " + bureau.getCode(),
+                httpRequest != null ? httpRequest.getRemoteAddr() : "127.0.0.1"
+        );
+
+        return mapToDto(savedCase);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CaseDto> getComplainantCases(UserPrincipal complainant) {
+        if (complainant == null) return List.of();
+        List<CaseEntity> list = caseRepository.findByCreatedBy_IdOrderByReceiptDateDesc(complainant.getId());
+        return list.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public PublicTrackingDto trackComplaintPublic(String caseNumber) {
+        CaseEntity c = caseRepository.findByCaseNumber(caseNumber.trim())
+                .orElseThrow(() -> new ResourceNotFoundException("No complaint record found with Case Reference: " + caseNumber));
+
+        PublicTrackingDto dto = new PublicTrackingDto();
+        dto.setCaseNumber(c.getCaseNumber());
+        dto.setTitle(c.getTitle());
+        dto.setCategory(c.getCategory());
+        dto.setPriority(c.getPriority());
+        dto.setStatus(c.getStatus());
+        if (c.getInstitution() != null) {
+            dto.setInstitutionName(c.getInstitution().getName());
+            dto.setInstitutionPermanentId(c.getInstitution().getPermanentId());
+            dto.setInstitutionRegion(c.getInstitution().getRegion());
+            dto.setInstitutionCity(c.getInstitution().getCity());
+        }
+        if (c.getBureau() != null) {
+            dto.setBureauName(c.getBureau().getName());
+        }
+        dto.setReceiptDate(c.getReceiptDate());
+        dto.setExpectedDisposalDate(c.getExpectedDisposalDate());
+        dto.setDisposedDate(c.getDisposedDate());
+
+        List<CaseAction> actions = caseActionRepository.findByCaseEntityIdOrderByCreatedAtAsc(c.getId());
+        for (CaseAction a : actions) {
+            String stage = a.getActionType();
+            String desc = a.getRemarks();
+            if ("STATUS_CHANGE".equalsIgnoreCase(stage)) {
+                stage = "Status: " + a.getToStatus();
+            } else if ("COMPLAINT_FILED".equalsIgnoreCase(stage)) {
+                stage = "Complaint Registered";
+            }
+            dto.getMilestones().add(new PublicTrackingDto.Milestone(stage, a.getToStatus() != null ? a.getToStatus() : c.getStatus(), desc, a.getCreatedAt()));
+        }
+
+        return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public PagedResponse<CaseDto> getRegionalCases(String region, String status, String priority, String query, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "receiptDate"));
+        Page<CaseEntity> casePage = caseRepository.searchRegionalCases(region, status, priority, query, pageable);
+        List<CaseDto> dtos = casePage.getContent().stream().map(this::mapToDto).collect(Collectors.toList());
+        return new PagedResponse<>(dtos, casePage.getNumber(), casePage.getSize(), casePage.getTotalElements(), casePage.getTotalPages(), casePage.isLast());
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getRegionalStats(String region) {
+        long total = caseRepository.countByInstitutionRegion(region);
+        long active = caseRepository.countActiveByInstitutionRegion(region);
+        long disposed = caseRepository.countDisposedByInstitutionRegion(region);
+        long overdue = caseRepository.countOverdueByInstitutionRegion(region, LocalDateTime.now());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("region", region);
+        map.put("totalCases", total);
+        map.put("activeCases", active);
+        map.put("disposedCases", disposed);
+        map.put("overdueCases", overdue);
+        return map;
+    }
+
+    @Transactional
+    public CaseDto escalateRegionalCase(Long caseId, String reason, UserPrincipal principal, HttpServletRequest httpRequest) {
+        CaseEntity caseEntity = caseRepository.findById(caseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Case not found with ID: " + caseId));
+
+        User user = (principal != null) ? userRepository.findById(principal.getId()).orElse(null) : null;
+
+        CaseAction action = new CaseAction(
+                caseEntity,
+                user,
+                "REGIONAL_ESCALATION",
+                caseEntity.getStatus(),
+                caseEntity.getStatus(),
+                "Escalated by Regional Office (" + (principal != null ? principal.getRegion() : "RO") + "): " + reason.trim()
+        );
+        action.setNextAction("Senior Authority Review & Directives");
+        action.setNextActionDueDate(LocalDateTime.now().plusDays(5));
+        caseActionRepository.save(action);
+
+        auditLogService.logAction(
+                user,
+                user != null ? user.getEmail() : "REGIONAL_OFFICER",
+                "CASE_ESCALATED",
+                "CASE",
+                caseEntity.getCaseNumber(),
+                "Case escalated by Regional Office to Senior Authority. Reason: " + reason,
+                httpRequest != null ? httpRequest.getRemoteAddr() : "127.0.0.1"
+        );
+
+        return mapToDto(caseEntity);
     }
 
     @Transactional
@@ -164,7 +336,6 @@ public class CaseService {
         CaseEntity caseEntity = caseRepository.findById(caseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Case not found with ID: " + caseId));
 
-        // Enforce bureau scoping
         if (principal != null && "BUREAU_OFFICER".equalsIgnoreCase(principal.getRole())) {
             if (!caseEntity.getBureau().getId().equals(principal.getBureauId())) {
                 throw new AccessDeniedCustomException("Access denied: You cannot update status of a case belonging to another Bureau.");
@@ -189,13 +360,11 @@ public class CaseService {
 
         User user = (principal != null) ? userRepository.findById(principal.getId()).orElse(null) : null;
 
-        // Append immutable action history
         CaseAction action = new CaseAction(updated, user, "STATUS_CHANGE", oldStatus, newStatus, request.getRemarks().trim());
         action.setNextAction(request.getNextAction());
         action.setNextActionDueDate(request.getNextActionDueDate());
         caseActionRepository.save(action);
 
-        // Audit Log
         auditLogService.logAction(
                 user,
                 user != null ? user.getEmail() : "SYSTEM",
@@ -293,7 +462,6 @@ public class CaseService {
 
         TransferRequest saved = transferRequestRepository.save(transfer);
 
-        // Append to immutable action history
         CaseAction action = new CaseAction(
                 caseEntity,
                 user,

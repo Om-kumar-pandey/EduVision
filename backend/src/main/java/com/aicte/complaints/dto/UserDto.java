@@ -10,6 +10,7 @@ public class UserDto {
     private Long bureauId;
     private String bureauCode;
     private String bureauName;
+    private String region;
     private String designation;
     private String phone;
     private Boolean isActive;
@@ -30,6 +31,8 @@ public class UserDto {
     public void setBureauCode(String bureauCode) { this.bureauCode = bureauCode; }
     public String getBureauName() { return bureauName; }
     public void setBureauName(String bureauName) { this.bureauName = bureauName; }
+    public String getRegion() { return region; }
+    public void setRegion(String region) { this.region = region; }
     public String getDesignation() { return designation; }
     public void setDesignation(String designation) { this.designation = designation; }
     public String getPhone() { return phone; }

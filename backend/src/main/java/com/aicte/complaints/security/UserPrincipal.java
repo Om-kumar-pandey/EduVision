@@ -17,6 +17,7 @@ public class UserPrincipal implements UserDetails {
     private final String role;
     private final Long bureauId;
     private final String bureauCode;
+    private final String region;
     private final boolean isActive;
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -28,6 +29,7 @@ public class UserPrincipal implements UserDetails {
         this.role = user.getRole();
         this.bureauId = (user.getBureau() != null) ? user.getBureau().getId() : null;
         this.bureauCode = (user.getBureau() != null) ? user.getBureau().getCode() : null;
+        this.region = user.getRegion();
         this.isActive = Boolean.TRUE.equals(user.getIsActive());
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
@@ -38,6 +40,7 @@ public class UserPrincipal implements UserDetails {
     public String getRole() { return role; }
     public Long getBureauId() { return bureauId; }
     public String getBureauCode() { return bureauCode; }
+    public String getRegion() { return region; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }

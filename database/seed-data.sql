@@ -37,12 +37,15 @@ ON DUPLICATE KEY UPDATE `name`=VALUES(`name`);
 -- pgrc_officer@aicte.gov.in-> Officer@123
 -- approval_officer@aicte.gov.in -> Officer@123
 -- -----------------------------------------------------------------------------
-INSERT INTO `users` (`id`, `email`, `password_hash`, `full_name`, `role`, `bureau_id`, `designation`, `phone`, `is_active`) VALUES
-(1, 'admin@aicte.gov.in', '$2a$12$ayMCqwKdcEBIGE7fYfazN.VUKvpkSm08xlZMS/CsH8N00RGwrj7k.', 'Dr. Ramesh Sharma', 'SYS_ADMIN', NULL, 'Chief Information Officer & Administrator', '+91 11 2958 1001', 1),
-(2, 'monitor@aicte.gov.in', '$2a$12$hWuWpWGLFc3tGcfxm1tRK.mSdneUvcyFYC9W1gc3uthsNKKTYs.hu', 'Smt. Sunita Verma', 'CENTRAL_MONITOR', NULL, 'Director, Central Monitoring & Quality Assurance', '+91 11 2958 1002', 1),
-(3, 'rb_officer@aicte.gov.in', '$2a$12$w1MDJd47/IirguaZ3gmXPOFrdGcyReAOKxiqYE4qj7RJcBBEiaOzi', 'Shri Rajesh Kulkarni', 'BUREAU_OFFICER', 1, 'Senior Regulatory Officer (RB)', '+91 11 2958 1003', 1),
-(4, 'pgrc_officer@aicte.gov.in', '$2a$12$L/8eDuyE/EGejL05gIFLsuLF5ZUypciUL5F/nisHF.I.n70I0V7CC', 'Dr. Ananya Sen', 'BUREAU_OFFICER', 2, 'Senior Grievance Redressal Officer (PGRC)', '+91 11 2958 1004', 1),
-(5, 'approval_officer@aicte.gov.in', '$2a$12$CzbEhKOviyQx6ufizRiMau86ebfVVBj10kKZZeQt8SM8L1RuLjXZG', 'Shri Vikram Patil', 'BUREAU_OFFICER', 3, 'Approval Bureau Scrutiny Officer', '+91 11 2958 1005', 1)
+INSERT INTO `users` (`id`, `email`, `password_hash`, `full_name`, `role`, `bureau_id`, `region`, `designation`, `phone`, `is_active`) VALUES
+(1, 'admin@aicte.gov.in', '$2a$12$ayMCqwKdcEBIGE7fYfazN.VUKvpkSm08xlZMS/CsH8N00RGwrj7k.', 'Dr. Ramesh Sharma', 'SYS_ADMIN', NULL, NULL, 'Chief Information Officer & Administrator', '+91 11 2958 1001', 1),
+(2, 'monitor@aicte.gov.in', '$2a$12$hWuWpWGLFc3tGcfxm1tRK.mSdneUvcyFYC9W1gc3uthsNKKTYs.hu', 'Smt. Sunita Verma', 'CENTRAL_MONITOR', NULL, NULL, 'Director, Central Monitoring & Quality Assurance', '+91 11 2958 1002', 1),
+(3, 'rb_officer@aicte.gov.in', '$2a$12$w1MDJd47/IirguaZ3gmXPOFrdGcyReAOKxiqYE4qj7RJcBBEiaOzi', 'Shri Rajesh Kulkarni', 'BUREAU_OFFICER', 1, NULL, 'Senior Regulatory Officer (RB)', '+91 11 2958 1003', 1),
+(4, 'pgrc_officer@aicte.gov.in', '$2a$12$L/8eDuyE/EGejL05gIFLsuLF5ZUypciUL5F/nisHF.I.n70I0V7CC', 'Dr. Ananya Sen', 'BUREAU_OFFICER', 2, NULL, 'Senior Grievance Redressal Officer (PGRC)', '+91 11 2958 1004', 1),
+(5, 'approval_officer@aicte.gov.in', '$2a$12$CzbEhKOviyQx6ufizRiMau86ebfVVBj10kKZZeQt8SM8L1RuLjXZG', 'Shri Vikram Patil', 'BUREAU_OFFICER', 3, NULL, 'Approval Bureau Scrutiny Officer', '+91 11 2958 1005', 1),
+(6, 'western_ro@aicte.gov.in', '$2a$12$w1MDJd47/IirguaZ3gmXPOFrdGcyReAOKxiqYE4qj7RJcBBEiaOzi', 'Dr. Sandeep Deshmukh', 'REGIONAL_OFFICER', NULL, 'Western', 'Regional Officer - Western Region', '+91 22 2285 5412', 1),
+(7, 'northern_ro@aicte.gov.in', '$2a$12$w1MDJd47/IirguaZ3gmXPOFrdGcyReAOKxiqYE4qj7RJcBBEiaOzi', 'Shri Alok Kumar', 'REGIONAL_OFFICER', NULL, 'Northern', 'Regional Officer - Northern Region', '+91 11 2372 4151', 1),
+(8, 'rahul.sharma@gmail.com', '$2a$12$pG5Z4tG7w3s5M7o4L8y2k.x9Q8W7e6R5t4Y3u2I1O0p9A8s7D6f5G', 'Rahul Sharma', 'COMPLAINANT', NULL, NULL, 'Final Year B.Tech Student', '+91 98765 43210', 1)
 ON DUPLICATE KEY UPDATE `full_name`=VALUES(`full_name`);
 
 -- -----------------------------------------------------------------------------

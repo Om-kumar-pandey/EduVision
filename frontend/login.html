@@ -3,75 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AICTE Integrated Complaint Monitoring Platform - Officer Login</title>
+    <title>EduVision — Authorized Portal Access &amp; Registration</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/role-auth-modal.css">
+    <style>
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-header-strip {
+            background: #0b2545;
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #d97706;
+        }
+        .page-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+        .page-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 820px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body class="login-body">
+<body>
 
-    <!-- Top Banner -->
-    <header class="login-header-banner">
-        <div class="gov-emblem-strip">
-            <div class="aicte-logo">AICTE</div>
-            <div>
-                <strong style="font-size: 0.95rem; letter-spacing: 0.5px;">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</strong>
-                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.7);">Statutory Body under Ministry of Education, Govt. of India</div>
-            </div>
+    <!-- Header Strip -->
+    <header class="page-header-strip">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="index.html" style="color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.4rem;">🎓</span>
+                <div>
+                    <strong style="font-size:1.15rem;letter-spacing:-0.01em;">EduVision</strong>
+                    <div style="font-size:0.7rem;color:#cbd5e1;">All India Council for Technical Education</div>
+                </div>
+            </a>
         </div>
-        <div class="sih-badge">SIH 2026 | Problem ID: 26264</div>
+        <div style="display:flex;align-items:center;gap:16px;">
+            <a href="index.html" style="color:#cbd5e1;text-decoration:none;font-size:0.85rem;font-weight:600;">
+                &larr; Return to Homepage
+            </a>
+            <span style="background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:3px;font-size:0.75rem;font-weight:700;">
+                SIH 2026 #26264
+            </span>
+        </div>
     </header>
 
-    <!-- Center Login Card -->
-    <main class="login-container">
-        <div class="login-card">
-            <div class="login-card-header">
-                <div class="login-logo">⚖️</div>
-                <h2>Institution Complaint Monitoring &amp; Status Dashboard</h2>
-                <p>Authorized Officer &amp; Monitoring Personnel Access Portal</p>
+    <!-- Main Section with Reusable Role Auth Screen -->
+    <main class="page-container">
+        <div class="page-card" id="pageCardWrapper">
+            <!-- Mode Switcher -->
+            <div class="role-mode-switcher">
+                <button class="role-mode-tab active" id="tabModeLogin" onclick="RoleAuthModal.switchMode('login')">
+                    Sign In
+                </button>
+                <button class="role-mode-tab" id="tabModeSignup" onclick="RoleAuthModal.switchMode('signup')">
+                    Sign Up / Register
+                </button>
             </div>
 
-            <div class="login-card-body">
-                <form id="loginForm" autocomplete="off">
-                    <div class="form-group">
-                        <label class="form-label" for="email">Official Email Address <span class="required">*</span></label>
-                        <input type="email" id="email" class="form-input" style="width: 100%;" placeholder="officer@aicte.gov.in" required autofocus>
+            <div class="role-modal-body" style="padding:28px;">
+                <!-- Step 1: Five Options View -->
+                <div id="roleSelectionView">
+                    <div style="margin-bottom:18px;">
+                        <h2 style="font-size:1.3rem;font-weight:800;color:#0b2545;margin:0 0 4px;" id="rolePageHeading">Select Your Designated Role</h2>
+                        <p class="role-options-instruction" id="roleOptionsInstruction" style="margin:0;">
+                            Please select the option that corresponds to your relationship with AICTE:
+                        </p>
+                    </div>
+                    <div class="role-cards-grid" id="roleCardsGrid"></div>
+                </div>
+
+                <!-- Step 2: Form View -->
+                <div id="roleFormView" class="role-form-view">
+                    <div class="role-form-header">
+                        <button class="role-form-back-btn" onclick="RoleAuthModal.backToRoleSelection()">
+                            &larr; Back to Role Selection
+                        </button>
+                        <div class="role-form-role-indicator" id="roleFormIndicator"></div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password <span class="required">*</span></label>
-                        <div class="input-password-wrapper">
-                            <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                            <button type="button" class="toggle-password-btn" id="togglePasswordBtn" title="Show or hide password">👁️</button>
+                    <div id="roleAlert" class="role-alert"></div>
+
+                    <!-- Login Form -->
+                    <div id="roleLoginFormContainer" style="display:none;">
+                        <form id="roleLoginForm" onsubmit="RoleAuthModal.handleLoginSubmit(event)">
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="roleLoginEmail">Official Email Address *</label>
+                                <input type="email" id="roleLoginEmail" class="role-form-input" required placeholder="name@domain.gov.in" autocomplete="email">
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="roleLoginPassword">Password *</label>
+                                <input type="password" id="roleLoginPassword" class="role-form-input" required placeholder="••••••••" autocomplete="current-password">
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnRoleLoginSubmit">
+                                <span>Sign In to Designated Workspace</span> &rarr;
+                            </button>
+                        </form>
+
+                        <!-- Evaluator Quick Fill Area -->
+                        <div class="role-quickfill-box" id="roleLoginQuickFillBox">
+                            <div class="role-quickfill-title">Evaluator Quick-Fill Credentials:</div>
+                            <div id="roleLoginQuickFillButtons"></div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block" id="btnLogin">
-                        Sign In to Secure Workspace
-                    </button>
-                </form>
+                    <!-- Complainant Sign Up -->
+                    <div id="roleSignupComplainantContainer" style="display:none;">
+                        <form id="roleSignupComplainantForm" onsubmit="RoleAuthModal.handleComplainantSignupSubmit(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compFullName">Full Name *</label>
+                                    <input type="text" id="compFullName" class="role-form-input" required placeholder="e.g. Rahul Sharma">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compEmail">Email Address *</label>
+                                    <input type="email" id="compEmail" class="role-form-input" required placeholder="name@example.com">
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compPhone">Mobile Number</label>
+                                    <input type="tel" id="compPhone" class="role-form-input" placeholder="+91 98765 43210">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compType">I am a *</label>
+                                    <select id="compType" class="role-form-select" required>
+                                        <option value="Student">Student / Enrolled Scholar</option>
+                                        <option value="Faculty">Faculty / Teacher / Researcher</option>
+                                        <option value="Parent">Parent / Guardian</option>
+                                        <option value="Stakeholder">General Citizen / Stakeholder</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compPassword">Password * (Min 6 chars)</label>
+                                    <input type="password" id="compPassword" class="role-form-input" required minlength="6" placeholder="••••••••">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="compConfirmPassword">Confirm Password *</label>
+                                    <input type="password" id="compConfirmPassword" class="role-form-input" required minlength="6" placeholder="••••••••">
+                                </div>
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnRoleSignupSubmit">
+                                <span>Register &amp; Access Complaint Portal</span> &rarr;
+                            </button>
+                        </form>
+                    </div>
 
-                <!-- Quick Demo Login Selection for SIH Evaluation -->
-                <div class="demo-accounts-section">
-                    <div class="demo-title">⚡ SIH 2026 Evaluator Quick-Fill Credentials</div>
-                    <div class="demo-grid">
-                        <button type="button" class="btn-demo-quick" onclick="quickFill('admin@aicte.gov.in', 'Admin@123')">
-                            <span class="demo-role">System Admin</span>
-                            <span class="demo-email">admin@aicte.gov.in</span>
-                        </button>
-                        <button type="button" class="btn-demo-quick" onclick="quickFill('monitor@aicte.gov.in', 'Monitor@123')">
-                            <span class="demo-role">Central Monitor</span>
-                            <span class="demo-email">monitor@aicte.gov.in</span>
-                        </button>
-                        <button type="button" class="btn-demo-quick" onclick="quickFill('rb_officer@aicte.gov.in', 'Officer@123')">
-                            <span class="demo-role">RB Bureau Officer</span>
-                            <span class="demo-email">rb_officer@aicte.gov.in</span>
-                        </button>
-                        <button type="button" class="btn-demo-quick" onclick="quickFill('pgrc_officer@aicte.gov.in', 'Officer@123')">
-                            <span class="demo-role">PGRC Officer</span>
-                            <span class="demo-email">pgrc_officer@aicte.gov.in</span>
-                        </button>
+                    <!-- Official Access Request -->
+                    <div id="roleSignupOfficialContainer" style="display:none;">
+                        <div class="role-notice-box">
+                            <strong>Government Officer Access Policy:</strong> Official accounts for Senior Authority, Regional Offices, and AICTE Bureaus/Cells are provisioned exclusively through administrative verification. You may submit an access request below, or use the pre-configured evaluator test accounts for immediate inspection.
+                        </div>
+                        <form id="roleOfficialAccessForm" onsubmit="RoleAuthModal.handleOfficialAccessSubmit(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offFullName">Full Name *</label>
+                                    <input type="text" id="offFullName" class="role-form-input" required placeholder="e.g. Dr. Ramesh Kumar">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offEmail">Government / Official Email *</label>
+                                    <input type="email" id="offEmail" class="role-form-input" required placeholder="officer@aicte.gov.in">
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offPhone">Official Phone Number</label>
+                                    <input type="tel" id="offPhone" class="role-form-input" placeholder="+91 11 2958 1000">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offOrgUnit">Organization / Regional Unit *</label>
+                                    <input type="text" id="offOrgUnit" class="role-form-input" required placeholder="e.g. Western Regional Office / Regulation Bureau">
+                                </div>
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="offJustification">Official Justification / Designatory Reference *</label>
+                                <textarea id="offJustification" class="role-form-textarea" rows="2" required placeholder="Specify your designation, employee ID, and official purpose for accessing the monitoring dashboard."></textarea>
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnRoleAccessSubmit">
+                                <span>Submit Official Access Request</span> &rarr;
+                            </button>
+                        </form>
+
+                        <div class="role-quickfill-box" style="margin-top:16px;">
+                            <div class="role-quickfill-title">For Evaluators / Hackathon Testing:</div>
+                            <p style="font-size:0.8rem;color:#475569;margin-bottom:8px;">Switch to the <strong>Sign In</strong> tab to immediately test this role using verified credentials.</p>
+                            <button type="button" class="role-quickfill-btn" onclick="RoleAuthModal.switchMode('login')">Switch to Sign In &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Super Admin Restricted -->
+                    <div id="roleSignupAdminContainer" style="display:none;">
+                        <div class="role-notice-box warning">
+                            <strong>Access Prohibited:</strong> Public self-registration for the <strong>Super Admin</strong> role is strictly disabled under AICTE security directives. Super Admin accounts are provisioned exclusively via secure server-level configuration.
+                        </div>
+                        <p style="font-size:0.85rem;color:#475569;">
+                            If you are an evaluator inspecting system administration capabilities, please switch to <strong>Sign In</strong> and use the verified administrator credentials.
+                        </p>
+                        <div style="margin-top:16px;">
+                            <button type="button" class="role-form-btn-submit" onclick="RoleAuthModal.switchMode('login')">
+                                Switch to Super Admin Sign In &rarr;
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,82 +230,29 @@
     </main>
 
     <!-- Footer -->
-    <footer class="login-footer">
-        <p>&copy; 2026 All India Council for Technical Education (AICTE). All Rights Reserved. Smart India Hackathon 2026 Technical Submission.</p>
+    <footer style="background:#0b2545;color:#94a3b8;text-align:center;padding:16px;font-size:0.75rem;">
+        &copy; 2026 EduVision &bull; AICTE Integrated Institution Complaint Monitoring Platform.
     </footer>
 
     <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/common.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/role-auth-modal.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if user is already authenticated
-            if (Auth.isAuthenticated()) {
-                const user = Auth.getUser();
-                if (user && user.role) {
-                    window.location.href = Auth.getDefaultDashboardUrl(user.role);
-                    return;
-                }
+            // Check url parameter ?mode=signup or ?role=...
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode') || 'login';
+            const role = urlParams.get('role') || null;
+
+            RoleAuthModal.switchMode(mode, false);
+            if (role) {
+                RoleAuthModal.selectRole(role);
+            } else {
+                RoleAuthModal.backToRoleSelection();
             }
-
-            // Check if token expired
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('expired') === 'true') {
-                Common.showToast('Your session has expired. Please log in again.', 'warning');
-            }
-
-            // Password Toggle
-            const toggleBtn = document.getElementById('togglePasswordBtn');
-            const passInput = document.getElementById('password');
-            if (toggleBtn && passInput) {
-                toggleBtn.addEventListener('click', () => {
-                    const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passInput.setAttribute('type', type);
-                    toggleBtn.textContent = type === 'password' ? '👁️' : '🔒';
-                });
-            }
-
-            // Login submission
-            const loginForm = document.getElementById('loginForm');
-            const btnLogin = document.getElementById('btnLogin');
-
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
-
-                if (!email || !password) {
-                    Common.showToast('Please enter both email and password.', 'warning');
-                    return;
-                }
-
-                try {
-                    btnLogin.disabled = true;
-                    btnLogin.textContent = 'Authenticating...';
-
-                    const res = await Auth.login(email, password);
-                    Common.showToast('Authentication successful. Redirecting...', 'success');
-
-                    setTimeout(() => {
-                        window.location.href = Auth.getDefaultDashboardUrl(res.user.role);
-                    }, 500);
-
-                } catch (error) {
-                    Common.showToast(error.message, 'error');
-                    btnLogin.disabled = false;
-                    btnLogin.textContent = 'Sign In to Secure Workspace';
-                }
-            });
         });
-
-        // Global quick-fill helper
-        function quickFill(email, password) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-            Common.showToast(`Loaded demo credentials for: ${email}`, 'info');
-        }
     </script>
 </body>
 </html>

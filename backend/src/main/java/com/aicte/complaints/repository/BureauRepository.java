@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface BureauRepository extends JpaRepository<Bureau, Long> {
+    Optional<Bureau> findByCode(String code);
     Optional<Bureau> findByCodeIgnoreCase(String code);
     List<Bureau> findByIsActiveTrue();
 }

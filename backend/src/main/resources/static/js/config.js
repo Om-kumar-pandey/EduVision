@@ -1,5 +1,6 @@
 /**
  * AICTE Integrated Institution Complaint Monitoring & Status Dashboard
+ * EduVision — Integrated Institution Complaint Monitoring and Status Dashboard
  * Frontend Configuration
  */
 
@@ -23,8 +24,20 @@ const CONFIG = {
         LOGIN: '/auth/login',
         LOGOUT: '/auth/logout',
         ME: '/auth/me',
+        REGISTER_COMPLAINANT: '/auth/register-complainant',
+        REQUEST_OFFICIAL_ACCESS: '/auth/request-official-access',
 
-        // Central Monitoring (Dashboard 1)
+        // Complainant & Public Tracking
+        FILE_COMPLAINT: '/complainant/complaints',
+        MY_COMPLAINTS: '/complainant/my-complaints',
+        TRACK_COMPLAINT_PUBLIC: (ref) => `/complaints/track/${encodeURIComponent(ref)}`,
+
+        // Regional Office
+        REGIONAL_CASES: '/regional/cases',
+        REGIONAL_STATS: '/regional/stats',
+        REGIONAL_ESCALATE: (id) => `/regional/cases/${id}/escalate`,
+
+        // Central Monitoring / Senior Authority (Dashboard 1)
         CENTRAL_KPIS: '/dashboard/central-kpis',
         BUREAU_WORKLOAD: '/dashboard/bureau-workload',
         MONTHLY_TRENDS: '/dashboard/monthly-trends',
@@ -69,9 +82,9 @@ const CONFIG = {
     DEFAULT_PAGE_SIZE: 10,
 
     // Project Meta
-    PROJECT_NAME: 'AICTE Integrated Institution Complaint Monitoring & Status Dashboard',
+    PROJECT_NAME: 'EduVision — Integrated Institution Complaint Monitoring & Status Dashboard',
     PROBLEM_ID: '26264',
-    VERSION: '1.0.0-SIH2026'
+    VERSION: '2.0.0-SIH2026'
 };
 
 // Prevent modifications

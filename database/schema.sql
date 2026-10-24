@@ -79,6 +79,7 @@ CREATE TABLE `users` (
     `full_name` VARCHAR(150) NOT NULL,
     `role` VARCHAR(50) NOT NULL,
     `bureau_id` BIGINT NULL,
+    `region` VARCHAR(50) NULL,
     `designation` VARCHAR(100) NULL,
     `phone` VARCHAR(30) NULL,
     `is_active` TINYINT(1) NOT NULL DEFAULT 1,

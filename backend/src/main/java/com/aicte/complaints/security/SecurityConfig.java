@@ -24,7 +24,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -57,6 +57,8 @@ public class SecurityConfig {
                     "/",
                     "/index.html",
                     "/login.html",
+                    "/complaint-portal.html",
+                    "/regional-dashboard.html",
                     "/central-dashboard.html",
                     "/bureau-workspace.html",
                     "/institution-tracking.html",
@@ -66,7 +68,15 @@ public class SecurityConfig {
                     "/assets/**",
                     "/favicon.ico"
                 ).permitAll()
-                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/logout").permitAll()
+                .requestMatchers(
+                    "/api/v1/auth/login",
+                    "/api/v1/auth/logout",
+                    "/api/v1/auth/register-complainant",
+                    "/api/v1/auth/request-official-access",
+                    "/api/v1/complaints/track/**"
+                ).permitAll()
+                .requestMatchers("/api/v1/complainant/**").authenticated()
+                .requestMatchers("/api/v1/regional/**").hasAnyRole("REGIONAL_OFFICER", "CENTRAL_MONITOR", "SYS_ADMIN")
                 .requestMatchers("/api/v1/dashboard/**").hasAnyRole("CENTRAL_MONITOR", "SYS_ADMIN")
                 .requestMatchers("/api/v1/admin/**").hasRole("SYS_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/cases/queue").hasAnyRole("BUREAU_OFFICER", "CENTRAL_MONITOR", "SYS_ADMIN")

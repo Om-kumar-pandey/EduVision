@@ -21,6 +21,8 @@ public interface CaseRepository extends JpaRepository<CaseEntity, Long> {
 
     List<CaseEntity> findByInstitutionIdOrderByReceiptDateDesc(Long institutionId);
 
+    List<CaseEntity> findByCreatedBy_IdOrderByReceiptDateDesc(Long createdById);
+
     @Query("SELECT c FROM CaseEntity c WHERE c.institution.id = :institutionId AND c.status <> 'DISPOSED'")
     List<CaseEntity> findActiveCasesByInstitution(@Param("institutionId") Long institutionId);
 
@@ -68,4 +70,31 @@ public interface CaseRepository extends JpaRepository<CaseEntity, Long> {
                                  @Param("category") String category,
                                  @Param("query") String query,
                                  Pageable pageable);
+
+    @Query("SELECT c FROM CaseEntity c WHERE " +
+           "(:region IS NULL OR :region = '' OR LOWER(c.institution.region) = LOWER(:region)) AND " +
+           "(:status IS NULL OR :status = '' OR c.status = :status) AND " +
+           "(:priority IS NULL OR :priority = '' OR c.priority = :priority) AND " +
+           "(:query IS NULL OR :query = '' OR " +
+           " LOWER(c.caseNumber) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           " LOWER(c.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           " LOWER(c.institution.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           " LOWER(c.institution.permanentId) LIKE LOWER(CONCAT('%', :query, '%')))")
+    Page<CaseEntity> searchRegionalCases(@Param("region") String region,
+                                         @Param("status") String status,
+                                         @Param("priority") String priority,
+                                         @Param("query") String query,
+                                         Pageable pageable);
+
+    @Query("SELECT COUNT(c) FROM CaseEntity c WHERE LOWER(c.institution.region) = LOWER(:region)")
+    long countByInstitutionRegion(@Param("region") String region);
+
+    @Query("SELECT COUNT(c) FROM CaseEntity c WHERE LOWER(c.institution.region) = LOWER(:region) AND c.status <> 'DISPOSED'")
+    long countActiveByInstitutionRegion(@Param("region") String region);
+
+    @Query("SELECT COUNT(c) FROM CaseEntity c WHERE LOWER(c.institution.region) = LOWER(:region) AND c.status = 'DISPOSED'")
+    long countDisposedByInstitutionRegion(@Param("region") String region);
+
+    @Query("SELECT COUNT(c) FROM CaseEntity c WHERE LOWER(c.institution.region) = LOWER(:region) AND c.status <> 'DISPOSED' AND c.expectedDisposalDate < :now")
+    long countOverdueByInstitutionRegion(@Param("region") String region, @Param("now") LocalDateTime now);
 }

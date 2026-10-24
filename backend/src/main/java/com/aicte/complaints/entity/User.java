@@ -27,6 +27,9 @@ public class User {
     @JoinColumn(name = "bureau_id")
     private Bureau bureau;
 
+    @Column(length = 50)
+    private String region;
+
     @Column(length = 100)
     private String designation;
 
@@ -67,6 +70,8 @@ public class User {
     public void setRole(String role) { this.role = role; }
     public Bureau getBureau() { return bureau; }
     public void setBureau(Bureau bureau) { this.bureau = bureau; }
+    public String getRegion() { return region; }
+    public void setRegion(String region) { this.region = region; }
     public String getDesignation() { return designation; }
     public void setDesignation(String designation) { this.designation = designation; }
     public String getPhone() { return phone; }
