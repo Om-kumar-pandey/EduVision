@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICTE Integrated Complaint Monitoring &amp; Status Dashboard</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b2545;color:#fff;">
+    <div style="text-align:center;">
+        <div class="aicte-logo" style="margin:0 auto 16px;width:64px;height:64px;font-size:1.5rem;">AICTE</div>
+        <h2 style="font-size:1.4rem;font-weight:700;">AICTE Integrated Complaint Monitoring &amp; Status Dashboard</h2>
+        <p style="color:var(--color-accent-gold);margin-top:8px;">Smart India Hackathon 2026 | Problem Statement 26264</p>
+        <div style="margin-top:24px;">
+            <div class="spinner"></div>
+            <p style="margin-top:12px;font-size:0.85rem;color:rgba(255,255,255,0.7);">Redirecting to authorized dashboard...</p>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (Auth.isAuthenticated()) {
+                const user = Auth.getUser();
+                if (user && user.role) {
+                    window.location.href = Auth.getDefaultDashboardUrl(user.role);
+                    return;
+                }
+            }
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

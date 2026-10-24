@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Monitoring Dashboard - AICTE Integrated Grievance Platform</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/central-dashboard.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="aicte-logo">AICTE</div>
+                <div class="brand-text">
+                    <h1>AICTE Portal</h1>
+                    <p>SIH 2026 | ID: 26264</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Navigation (Four Dashboards)</div>
+                <ul class="nav-list">
+                    <li class="nav-item" id="navCentral">
+                        <a href="central-dashboard.html" class="nav-link active">
+                            <span class="nav-icon">📊</span>
+                            <span>Central Monitoring</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navBureau">
+                        <a href="bureau-workspace.html" class="nav-link">
+                            <span class="nav-icon">🏢</span>
+                            <span>Bureau Workspace</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navInstitution">
+                        <a href="institution-tracking.html" class="nav-link">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Institution &amp; Case Tracking</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navAdmin">
+                        <a href="admin-dashboard.html" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            <span>System Admin &amp; Import</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div>National AICTE Oversight</div>
+                <div style="font-size: 0.68rem; margin-top: 4px; opacity: 0.7;">Third Normal Form (3NF) Architecture</div>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" aria-label="Toggle Navigation">☰</button>
+                    <div class="page-title-area">
+                        <h2>Central Monitoring Dashboard</h2>
+                        <p>National-Level Oversight &amp; Grievance Analytics</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="btn btn-secondary btn-sm" id="refreshBtn">
+                        <span>🔄</span> Refresh Data
+                    </button>
+
+                    <div class="user-badge">
+                        <div class="user-avatar" id="headerUserAvatar">U</div>
+                        <div class="user-details">
+                            <span class="user-name" id="headerUserName">Loading...</span>
+                            <div class="user-meta">
+                                <span class="role-pill" id="headerUserRole">MONITOR</span>
+                                <span class="bureau-pill" id="headerUserBureau" style="display: none;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-logout" id="logoutBtn" title="Logout">
+                        Sign Out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Body Content -->
+            <main class="content-body">
+                <!-- 1. KPI Metric Strip -->
+                <section class="kpi-strip">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">📋</div>
+                        <div class="kpi-value" id="kpiTotal">—</div>
+                        <div class="kpi-label">Total Cases</div>
+                    </div>
+                    <div class="kpi-card pending">
+                        <div class="kpi-icon">📥</div>
+                        <div class="kpi-value" id="kpiPending">—</div>
+                        <div class="kpi-label">Pending / Received</div>
+                    </div>
+                    <div class="kpi-card under-process">
+                        <div class="kpi-icon">⏳</div>
+                        <div class="kpi-value" id="kpiUnderProcess">—</div>
+                        <div class="kpi-label">Under Process</div>
+                    </div>
+                    <div class="kpi-card disposed">
+                        <div class="kpi-icon">✅</div>
+                        <div class="kpi-value" id="kpiDisposed">—</div>
+                        <div class="kpi-label">Disposed</div>
+                    </div>
+                    <div class="kpi-card transferred">
+                        <div class="kpi-icon">🔄</div>
+                        <div class="kpi-value" id="kpiTransferred">—</div>
+                        <div class="kpi-label">Transferred</div>
+                    </div>
+                    <div class="kpi-card overdue">
+                        <div class="kpi-icon">⚠️</div>
+                        <div class="kpi-value" id="kpiOverdue" style="color:#ef4444;">—</div>
+                        <div class="kpi-label">Overdue Cases</div>
+                    </div>
+                    <div class="kpi-card overlaps">
+                        <div class="kpi-icon">⚡</div>
+                        <div class="kpi-value" id="kpiOverlaps" style="color:#ec4899;">—</div>
+                        <div class="kpi-label">Cross-Bureau Overlaps</div>
+                    </div>
+                </section>
+
+                <!-- 2. Visual Analytics Section (Chart.js) -->
+                <section class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Bureau Workload Distribution</h3>
+                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">Real-time case stages across statutory Bureaus</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="bureauWorkloadChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Monthly Inflow vs. Disposal Trends</h3>
+                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">6-Month Redressal Trajectory</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="monthlyTrendsChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Alert Queues Section -->
+                <section class="alerts-grid">
+                    <!-- Overdue & Urgent Queue -->
+                    <div class="alert-panel overdue-panel">
+                        <div class="alert-panel-header">
+                            <h3>⚠️ High-Priority &amp; Overdue Complaints</h3>
+                            <span class="alert-count-badge" id="overdueCountBadge">0</span>
+                        </div>
+                        <div class="alert-list" id="overdueList">
+                            <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Cross-Bureau Overlaps Queue -->
+                    <div class="alert-panel overlap-panel">
+                        <div class="alert-panel-header">
+                            <h3>⚡ Cross-Bureau Overlap Alerts (Action Required)</h3>
+                            <span class="alert-count-badge pink" id="overlapCountBadge">0</span>
+                        </div>
+                        <div class="alert-list" id="overlapList">
+                            <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Case Inspection Modal (Subordinate View) -->
+    <div class="modal-overlay" id="caseInspectModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <div>
+                    <h3 id="inspectCaseId">Case Details</h3>
+                    <p id="inspectCaseTitle" style="font-size: 0.82rem; color: var(--color-text-muted);"></p>
+                </div>
+                <button class="modal-close-btn" data-close-modal="caseInspectModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Institution</div>
+                        <div class="detail-val" id="inspectInstName">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Assigned Bureau</div>
+                        <div class="detail-val" id="inspectBureau">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Category</div>
+                        <div class="detail-val" id="inspectCategory">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Priority</div>
+                        <div class="detail-val" id="inspectPriority">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Current Status</div>
+                        <div class="detail-val" id="inspectStatus">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Receipt Date</div>
+                        <div class="detail-val" id="inspectReceiptDate">—</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Expected Disposal Date</div>
+                        <div class="detail-val" id="inspectExpectedDisposal">—</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--spacing-md);">
+                    <div class="card-header"><h4>Official Description of Grievance</h4></div>
+                    <div class="card-body" id="inspectDescription" style="font-size: 0.88rem; line-height: 1.5;">—</div>
+                </div>
+
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--color-primary-navy);">
+                    Chronological Action History (Append-Only Audit Trail)
+                </h4>
+                <div class="action-timeline" id="inspectTimeline">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-close-modal="caseInspectModal">Close Inspection View</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlap Review Modal (Subordinate View) -->
+    <div class="modal-overlay" id="overlapReviewModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div>
+                    <h3 id="reviewOverlapTitle">Review Cross-Bureau Overlap</h3>
+                    <p id="reviewInstInfo" style="font-size: 0.82rem; color: var(--color-text-muted);"></p>
+                </div>
+                <button class="modal-close-btn" data-close-modal="overlapReviewModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="background: #fff1f2; border: 1px solid #fecdd3; border-radius: var(--radius-md); padding: 12px; margin-bottom: var(--spacing-md); font-size: 0.82rem; color: #9f1239;">
+                    <strong>Non-Destructive Alerting:</strong> Reviewing an overlap allows classification and coordinated investigation. It will <em>never</em> automatically merge or close distinct case files.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: var(--spacing-md);">
+                    <div style="background: #f8fafc; border: 1px solid var(--color-border); padding: 10px; border-radius: var(--radius-md);" id="reviewCase1Details"></div>
+                    <div style="background: #f8fafc; border: 1px solid var(--color-border); padding: 10px; border-radius: var(--radius-md);" id="reviewCase2Details"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="overlapClassification">Official Overlap Classification <span class="required">*</span></label>
+                    <select id="overlapClassification" class="form-select" style="width: 100%;">
+                        <option value="">-- Select Classification --</option>
+                        <option value="RELATED">RELATED (Complaints share same root grievance cause)</option>
+                        <option value="UNRELATED">UNRELATED (Distinct statutory violations investigating separately)</option>
+                        <option value="REQUIRES_COORDINATION">REQUIRES_COORDINATION (Joint committee or inter-bureau exchange)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="overlapRemarks">Supervisory Remarks &amp; Direction <span class="required">*</span></label>
+                    <textarea id="overlapRemarks" class="form-input" style="width: 100%; min-height: 90px;" placeholder="Record mandatory official findings and instructions for Bureau officers..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-close-modal="overlapReviewModal">Cancel</button>
+                <button class="btn btn-primary" id="submitOverlapReviewBtn">Confirm Classification</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/central-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institution &amp; Case Tracking - AICTE Integrated Grievance Platform</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/institution-tracking.css">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="aicte-logo">AICTE</div>
+                <div class="brand-text">
+                    <h1>AICTE Portal</h1>
+                    <p>SIH 2026 | ID: 26264</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Navigation (Four Dashboards)</div>
+                <ul class="nav-list">
+                    <li class="nav-item" id="navCentral">
+                        <a href="central-dashboard.html" class="nav-link">
+                            <span class="nav-icon">📊</span>
+                            <span>Central Monitoring</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navBureau">
+                        <a href="bureau-workspace.html" class="nav-link">
+                            <span class="nav-icon">🏢</span>
+                            <span>Bureau Workspace</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navInstitution">
+                        <a href="institution-tracking.html" class="nav-link active">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Institution &amp; Case Tracking</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navAdmin">
+                        <a href="admin-dashboard.html" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            <span>System Admin &amp; Import</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div>AICTE Institution Master Truth</div>
+                <div style="font-size: 0.68rem; margin-top: 4px; opacity: 0.7;">Verified Permanent IDs</div>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" aria-label="Toggle Navigation">☰</button>
+                    <div class="page-title-area">
+                        <h2>Institution &amp; Case Tracking</h2>
+                        <p>Consolidated Single Source of Truth for AICTE Technical Institutions</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="user-badge">
+                        <div class="user-avatar" id="headerUserAvatar">A</div>
+                        <div class="user-details">
+                            <span class="user-name" id="headerUserName">Official</span>
+                            <div class="user-meta">
+                                <span class="role-pill" id="headerUserRole">OFFICIAL</span>
+                                <span class="bureau-pill" id="headerUserBureau" style="display:none;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-logout" id="logoutBtn" title="Logout">
+                        Sign Out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Body Content -->
+            <main class="content-body">
+                <!-- Search Hero Card -->
+                <section class="inst-search-card">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-primary-navy); margin-bottom: var(--spacing-sm);">
+                        Search AICTE Approved Technical Institution
+                    </h3>
+                    <form id="instSearchForm" class="inst-search-form">
+                        <input type="text" id="instSearchQuery" class="form-input inst-search-input" placeholder="Enter Verified AICTE Permanent ID (e.g. 1-1097234567) or Institution Name...">
+                        <select id="regionFilter" class="form-select">
+                            <option value="">All Regions</option>
+                            <option value="Western">Western</option>
+                            <option value="Northern">Northern</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Eastern">Eastern</option>
+                            <option value="Central">Central</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary" id="btnSearchInst">
+                            <span>🔍</span> Search Master Records
+                        </button>
+                    </form>
+                    <div style="margin-top: 10px; font-size: 0.78rem; color: var(--color-text-muted); display: flex; gap: 8px; align-items: center;">
+                        <span>Quick Demo IDs:</span>
+                        <a href="javascript:void(0)" onclick="quickSearch('1-1097234567')" style="color:var(--color-gov-blue);text-decoration:underline;">1-1097234567 (Apex Tech - Overlap Demo)</a> |
+                        <a href="javascript:void(0)" onclick="quickSearch('1-2048912384')" style="color:var(--color-gov-blue);text-decoration:underline;">1-2048912384 (National Academy)</a> |
+                        <a href="javascript:void(0)" onclick="quickSearch('1-3958102931')" style="color:var(--color-gov-blue);text-decoration:underline;">1-3958102931 (Deccan College)</a>
+                    </div>
+                </section>
+
+                <!-- Search Results Picker (When multiple matches occur) -->
+                <section id="searchResultsContainer" style="display: none; margin-bottom: var(--spacing-xl);">
+                    <div id="searchResultsList"></div>
+                </section>
+
+                <!-- Institution Profile & Consolidated Timeline (Hidden until loaded) -->
+                <section id="instProfileContainer" style="display: none;">
+                    <!-- Profile Card -->
+                    <div class="inst-profile-card">
+                        <div class="inst-profile-header">
+                            <div class="inst-name-box">
+                                <h2 id="profileName">Apex Institute of Technology</h2>
+                                <div class="inst-meta-tags">
+                                    <span class="verified-badge">
+                                        <span>🛡️</span> AICTE Verified Permanent ID: <strong id="profilePermanentId">1-1097234567</strong>
+                                    </span>
+                                    <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff;" id="profileRegion">Western Region</span>
+                                    <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff;" id="profileType">Engineering &amp; Technology</span>
+                                    <span class="badge" style="background: #10b981; color: #fff;" id="profileApproval">APPROVED</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inst-profile-body">
+                            <!-- Metrics Strip -->
+                            <div class="inst-summary-metrics">
+                                <div class="inst-metric-box">
+                                    <div class="inst-metric-val" id="metricTotalCases">0</div>
+                                    <div class="inst-metric-lbl">Total Registered Complaints</div>
+                                </div>
+                                <div class="inst-metric-box">
+                                    <div class="inst-metric-val" id="metricActiveCases" style="color: var(--color-accent-amber);">0</div>
+                                    <div class="inst-metric-lbl">Active Investigations</div>
+                                </div>
+                                <div class="inst-metric-box">
+                                    <div class="inst-metric-val" id="metricDisposedCases" style="color: #10b981;">0</div>
+                                    <div class="inst-metric-lbl">Disposed Grievances</div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-border);">
+                                <div style="font-size: 0.85rem; color: var(--color-text-secondary);">
+                                    📍 <strong>Campus Location:</strong> <span id="profileAddress">Mumbai, Maharashtra</span> | 📞 <span id="profileContact">info@institution.edu.in</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Bureau Breakdown:</span>
+                                    <div id="bureauDistributionBadges" style="display: flex; gap: 4px;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Cross-Bureau Overlap Callout Banner -->
+                            <div class="overlap-warning-banner" id="overlapBanner" style="display: none;">
+                                <div class="overlap-warning-text" id="overlapBannerText">
+                                    <h4>Potential Cross-Bureau Overlap Detected!</h4>
+                                    <p>Multiple active cases exist across distinct Bureaus for this institution.</p>
+                                </div>
+                                <a href="central-dashboard.html" class="btn btn-primary btn-sm" style="background: #9f1239;">
+                                    Open Supervisory Review
+                                </a>
+                            </div>
+
+                            <!-- Case Timeline Heading -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-md);">
+                                <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--color-primary-navy);">
+                                    Multi-Case History Timeline (Individual Case Records Preserved)
+                                </h3>
+                                <span style="font-size: 0.75rem; color: var(--color-text-muted);">
+                                    Non-destructive auditing: Distinct records are never merged
+                                </span>
+                            </div>
+
+                            <!-- Timeline List -->
+                            <div class="inst-case-timeline" id="caseTimelineList">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/institution-tracking.js"></script>
+    <script>
+        function quickSearch(id) {
+            document.getElementById('instSearchQuery').value = id;
+            document.getElementById('btnSearchInst').click();
+        }
+    </script>
+</body>
+</html>

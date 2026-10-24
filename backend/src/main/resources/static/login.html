@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICTE Integrated Complaint Monitoring Platform - Officer Login</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-body">
+
+    <!-- Top Banner -->
+    <header class="login-header-banner">
+        <div class="gov-emblem-strip">
+            <div class="aicte-logo">AICTE</div>
+            <div>
+                <strong style="font-size: 0.95rem; letter-spacing: 0.5px;">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</strong>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.7);">Statutory Body under Ministry of Education, Govt. of India</div>
+            </div>
+        </div>
+        <div class="sih-badge">SIH 2026 | Problem ID: 26264</div>
+    </header>
+
+    <!-- Center Login Card -->
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-card-header">
+                <div class="login-logo">⚖️</div>
+                <h2>Institution Complaint Monitoring &amp; Status Dashboard</h2>
+                <p>Authorized Officer &amp; Monitoring Personnel Access Portal</p>
+            </div>
+
+            <div class="login-card-body">
+                <form id="loginForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Official Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" class="form-input" style="width: 100%;" placeholder="officer@aicte.gov.in" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password <span class="required">*</span></label>
+                        <div class="input-password-wrapper">
+                            <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                            <button type="button" class="toggle-password-btn" id="togglePasswordBtn" title="Show or hide password">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btnLogin">
+                        Sign In to Secure Workspace
+                    </button>
+                </form>
+
+                <!-- Quick Demo Login Selection for SIH Evaluation -->
+                <div class="demo-accounts-section">
+                    <div class="demo-title">⚡ SIH 2026 Evaluator Quick-Fill Credentials</div>
+                    <div class="demo-grid">
+                        <button type="button" class="btn-demo-quick" onclick="quickFill('admin@aicte.gov.in', 'Admin@123')">
+                            <span class="demo-role">System Admin</span>
+                            <span class="demo-email">admin@aicte.gov.in</span>
+                        </button>
+                        <button type="button" class="btn-demo-quick" onclick="quickFill('monitor@aicte.gov.in', 'Monitor@123')">
+                            <span class="demo-role">Central Monitor</span>
+                            <span class="demo-email">monitor@aicte.gov.in</span>
+                        </button>
+                        <button type="button" class="btn-demo-quick" onclick="quickFill('rb_officer@aicte.gov.in', 'Officer@123')">
+                            <span class="demo-role">RB Bureau Officer</span>
+                            <span class="demo-email">rb_officer@aicte.gov.in</span>
+                        </button>
+                        <button type="button" class="btn-demo-quick" onclick="quickFill('pgrc_officer@aicte.gov.in', 'Officer@123')">
+                            <span class="demo-role">PGRC Officer</span>
+                            <span class="demo-email">pgrc_officer@aicte.gov.in</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="login-footer">
+        <p>&copy; 2026 All India Council for Technical Education (AICTE). All Rights Reserved. Smart India Hackathon 2026 Technical Submission.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already authenticated
+            if (Auth.isAuthenticated()) {
+                const user = Auth.getUser();
+                if (user && user.role) {
+                    window.location.href = Auth.getDefaultDashboardUrl(user.role);
+                    return;
+                }
+            }
+
+            // Check if token expired
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('expired') === 'true') {
+                Common.showToast('Your session has expired. Please log in again.', 'warning');
+            }
+
+            // Password Toggle
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            const passInput = document.getElementById('password');
+            if (toggleBtn && passInput) {
+                toggleBtn.addEventListener('click', () => {
+                    const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passInput.setAttribute('type', type);
+                    toggleBtn.textContent = type === 'password' ? '👁️' : '🔒';
+                });
+            }
+
+            // Login submission
+            const loginForm = document.getElementById('loginForm');
+            const btnLogin = document.getElementById('btnLogin');
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!email || !password) {
+                    Common.showToast('Please enter both email and password.', 'warning');
+                    return;
+                }
+
+                try {
+                    btnLogin.disabled = true;
+                    btnLogin.textContent = 'Authenticating...';
+
+                    const res = await Auth.login(email, password);
+                    Common.showToast('Authentication successful. Redirecting...', 'success');
+
+                    setTimeout(() => {
+                        window.location.href = Auth.getDefaultDashboardUrl(res.user.role);
+                    }, 500);
+
+                } catch (error) {
+                    Common.showToast(error.message, 'error');
+                    btnLogin.disabled = false;
+                    btnLogin.textContent = 'Sign In to Secure Workspace';
+                }
+            });
+        });
+
+        // Global quick-fill helper
+        function quickFill(email, password) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+            Common.showToast(`Loaded demo credentials for: ${email}`, 'info');
+        }
+    </script>
+</body>
+</html>
