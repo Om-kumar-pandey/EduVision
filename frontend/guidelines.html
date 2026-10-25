@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guidelines &amp; FAQs – EduVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/complaints.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .faq-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 16px 20px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      display: none;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="brand-link"><img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img"></a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header"><h4>Notifications</h4><p>Updates on your submitted grievances</p></div>
+        <div id="notifications-list-container"></div>
+      </div>
+
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header"><h4 class="user-name-label">Rahul Sharma</h4><p class="user-role-label">Student</p></div>
+          <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>My Complaints</span></a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-nav-item"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>My Complaints</span></a></li>
+        <li class="sidebar-nav-item"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
+        <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
+        <li class="sidebar-nav-item active"><a href="guidelines.html#faqs"><i class="far fa-question-circle"></i><span>FAQs</span></a></li>
+      </ul>
+
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="form-card-container">
+        
+        <div class="page-header-block">
+          <h2>Grievance Redressal Guidelines</h2>
+          <p>Official procedural directions pursuant to the All India Council for Technical Education (Establishment of Mechanism for Grievance Redressal) Regulations.</p>
+        </div>
+
+        <!-- Download Banner -->
+        <div id="download" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:32px;">
+          <div>
+            <h4 style="font-size:15px; font-weight:700; color:#1e3a8a;">AICTE Grievance Guidelines Handbook (2026 Edition)</h4>
+            <p style="font-size:12.5px; color:#475569; margin-top:2px;">Official comprehensive guidelines on procedures, timelines, appeals, and regulatory compliance.</p>
+          </div>
+          <button type="button" class="btn-primary" onclick="downloadGuidelinesPdf()">
+            <i class="fas fa-file-download"></i> Download PDF
+          </button>
+        </div>
+
+        <!-- Guidelines Points -->
+        <div style="margin-bottom:36px;">
+          <h3 style="font-size:17px; font-weight:700; color:#0f172a; margin-bottom:14px;">1. Step-by-Step Filing Procedure</h3>
+          <ul style="padding-left:20px; font-size:13px; line-height:1.7; color:#334155;">
+            <li><strong>Exhaust Internal Remedies:</strong> Complainants are encouraged to initially represent grievances before the Institutional Grievance Redressal Committee (SGRC/CGRC).</li>
+            <li><strong>Provide Specifics:</strong> Include exact course name, registration number, semester, and dates when referencing academic or financial disputes.</li>
+            <li><strong>Permitted Attachments:</strong> Official fee receipts, mark sheets, official communications, emails, and circulars in PDF, JPG, PNG or DOCX formats (max 5MB each).</li>
+            <li><strong>Resolution Timelines:</strong> AICTE regulations mandate an initial evaluation within 7 working days and standard resolution within 15 to 30 calendar days.</li>
+          </ul>
+        </div>
+
+        <!-- FAQs Section -->
+        <div id="faqs" style="margin-bottom:36px;">
+          <h3 style="font-size:17px; font-weight:700; color:#0f172a; margin-bottom:14px;">Frequently Asked Questions (FAQs)</h3>
+
+          <div class="faq-item active">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <span>Who is eligible to submit a grievance on EduVision?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              Any enrolled student, teacher, head of department, or administrative member belonging to any AICTE-approved technical institution across all Indian States and Union Territories can register and file grievances.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <span>Is my identity revealed to the college authorities?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              Grievances are investigated objectively. In sensitive categories such as harassment or ragging, confidential complainant safeguards are enforced pursuant to AICTE anti-harassment regulations.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <span>How can I track the progress of my filed complaint?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              Every filed grievance is assigned a unique tracking number (e.g. <code>CMP-2026-000103</code>). You can track live milestones on the Track Complaint page or through your authenticated My Complaints dashboard.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <span>What happens if an institution fails to respond?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              If an institution does not submit remarks within the statutory 14-day inquiry window, the matter is automatically escalated to the AICTE Regional Officer and Central Ombudsman for enforcement measures.
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms and Privacy Anchors -->
+        <div id="terms" style="border-top:1px solid #e2e8f0; padding-top:24px; margin-bottom:24px;">
+          <h4 style="font-size:14px; font-weight:700; color:#334155; margin-bottom:6px;">Terms &amp; Conditions</h4>
+          <p style="font-size:12px; color:#64748b; line-height:1.5;">
+            By utilizing the EduVision portal, users agree to provide truthful declarations. Submissions made with malicious intent or knowingly falsified documents are subject to administrative dismissal and appropriate statutory action.
+          </p>
+        </div>
+
+        <div id="privacy">
+          <h4 style="font-size:14px; font-weight:700; color:#334155; margin-bottom:6px;">Privacy Policy</h4>
+          <p style="font-size:12px; color:#64748b; line-height:1.5;">
+            Data stored within EduVision is maintained under government-grade encryption standards in compliance with the Digital Personal Data Protection (DPDP) Act. Personal identifying data is accessed solely by designated grievance review officers.
+          </p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-left">EduVision | AICTE Complaint Monitoring Portal</div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a> |
+      <a href="guidelines.html#privacy">Privacy Policy</a> |
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">© 2026 EduVision. All Rights Reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    function toggleFaq(el) {
+      el.closest('.faq-item').classList.toggle('active');
+    }
+
+    function downloadGuidelinesPdf() {
+      const content = `AICTE GRIEVANCE REDRESSAL GUIDELINES 2026\n\n1. SCOPE AND ELIGIBILITY\nThese regulations apply to all technical colleges, deemed universities, and polytechnics approved by the All India Council for Technical Education.\n\n2. TIMELINES\n- Acknowledgment: 24 Hours\n- Preliminary Assessment: 7 Working Days\n- Complete Resolution: 30 Calendar Days\n\n3. GRIEVANCE CATEGORIES\nAcademic, Examinations, Fee refunds, Faculty conduct, Harassment, Infrastructure.\n\nEduVision National Grievance Redressal Directorate.`;
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'AICTE_Grievance_Guidelines_2026.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Guidelines handbook downloaded.', 'success');
+    }
+  </script>
+</body>
+</html>
