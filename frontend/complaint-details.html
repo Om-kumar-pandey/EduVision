@@ -126,7 +126,14 @@
       try {
         c = await api.get(`${CONFIG.ENDPOINTS.COMPLAINTS}/${encodeURIComponent(trackingId)}`);
       } catch (err) {
-        c = CONFIG.FALLBACK_DATA.recentComplaints.find(x => x.id === trackingId) || CONFIG.FALLBACK_DATA.recentComplaints[0];
+        try {
+          const stored = JSON.parse(localStorage.getItem('eduvision_user_complaints') || '[]');
+          c = stored.find(x => (x.trackingId || x.id || '').toUpperCase() === trackingId.toUpperCase());
+        } catch (e) {}
+
+        if (!c) {
+          c = CONFIG.FALLBACK_DATA.recentComplaints.find(x => (x.id || x.trackingId || '').toUpperCase() === trackingId.toUpperCase()) || CONFIG.FALLBACK_DATA.recentComplaints[0];
+        }
       }
 
       const statusMeta = c.status === 'RESOLVED' 

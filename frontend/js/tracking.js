@@ -45,36 +45,44 @@ async function performTrack(trackingId) {
       data = await api.get(`${CONFIG.ENDPOINTS.TRACK}/${encodeURIComponent(trackingId)}`);
     } catch (err) {
       console.warn('Backend tracking endpoint failed, using local lookup:', err);
-      // Fallback search inside sample data
-      const match = CONFIG.FALLBACK_DATA.recentComplaints.find(c => c.id.toUpperCase() === trackingId.toUpperCase());
+      // Fallback search inside user submissions or sample data
+      let match = null;
+      try {
+        const stored = JSON.parse(localStorage.getItem('eduvision_user_complaints') || '[]');
+        match = stored.find(c => (c.trackingId || c.id || '').toUpperCase() === trackingId.toUpperCase());
+      } catch (e) {}
+
+      if (!match) {
+        match = CONFIG.FALLBACK_DATA.recentComplaints.find(c => (c.id || c.trackingId || '').toUpperCase() === trackingId.toUpperCase());
+      }
+
       if (match) {
         data = {
-          trackingId: match.id,
-          date: match.date,
-          institution: match.institution,
-          category: match.category,
-          subject: match.subject,
-          status: match.status,
-          history: [
+          trackingId: match.trackingId || match.id,
+          date: match.createdAt ? (typeof formatDateString === 'function' ? formatDateString(match.createdAt) : match.createdAt.split('T')[0]) : (match.date || 'Today'),
+          institution: match.institutionName || match.institution || 'AICTE Affiliated Institution',
+          category: match.category || 'Academic Issues',
+          subject: match.subject || match.description || 'Grievance description',
+          status: match.status || 'UNDER_REVIEW',
+          history: (match.timeline && match.timeline.length > 0) ? match.timeline.map(t => ({
+            status: match.status || 'UNDER_REVIEW',
+            title: t.title || 'Complaint Registered',
+            timestamp: t.timestamp ? (typeof formatDateString === 'function' ? formatDateString(t.timestamp) : 'Recently') : 'Recently',
+            remarks: t.description || 'Grievance cataloged in EduVision National Grievance Repository.'
+          })) : [
             {
               status: 'SUBMITTED',
               title: 'Complaint Submitted',
-              timestamp: '22 Oct 2026, 09:30 AM',
-              remarks: 'Grievance received and cataloged in AICTE National Grievance Repository.'
+              timestamp: 'Recently',
+              remarks: 'Grievance received and cataloged in EduVision National Grievance Repository.'
             },
             {
-              status: 'UNDER_REVIEW',
-              title: 'Under Initial Assessment',
-              timestamp: '22 Oct 2026, 11:15 AM',
-              remarks: 'Assigned to AICTE Regional Monitoring Officer for preliminary verification.'
-            },
-            {
-              status: match.status,
-              title: match.status === 'RESOLVED' ? 'Resolution Provided' : 'In Active Investigation',
-              timestamp: '23 Oct 2026, 02:40 PM',
-              remarks: match.status === 'RESOLVED' 
-                ? 'Issue formally addressed. Redressal notice dispatched to complainant and institution.' 
-                : 'Notice sent to Institution Registrar. Awaiting formal institutional clarification.'
+              status: match.status || 'UNDER_REVIEW',
+              title: match.status === 'RESOLVED' ? 'Resolution Provided' : 'Under Assessment',
+              timestamp: 'In Progress',
+              remarks: match.status === 'RESOLVED'
+                ? 'Issue formally addressed. Redressal notice dispatched.'
+                : 'Assigned to AICTE Regional Grievance Cell for evaluation.'
             }
           ]
         };

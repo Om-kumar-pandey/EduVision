@@ -169,6 +169,11 @@
   margin-bottom: 6px;
 }
 
+.page-header-block h2:only-child,
+.page-header-block h2:last-child {
+  margin-bottom: 0;
+}
+
 .page-header-block p {
   font-size: 13.5px;
   color: var(--text-muted);

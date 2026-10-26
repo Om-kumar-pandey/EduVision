@@ -76,17 +76,42 @@ function initCategorySelect() {
   const categorySelect = document.getElementById('complaintCategory');
   if (!categorySelect) return;
 
-  // If options are empty or only placeholder
+  // Unwrap any legacy optgroup if present so Academic Issues is directly selectable
+  const optgroup = categorySelect.querySelector('optgroup');
+  if (optgroup) {
+    while (optgroup.firstChild) {
+      categorySelect.insertBefore(optgroup.firstChild, optgroup);
+    }
+    optgroup.remove();
+  }
+
+  // If options are empty or only placeholder, populate from CONFIG.CATEGORIES
   if (categorySelect.options.length <= 1) {
-    const optgroup = document.createElement('optgroup');
-    optgroup.label = 'Academic Issues';
     CONFIG.CATEGORIES.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat;
       opt.textContent = cat;
-      optgroup.appendChild(opt);
+      categorySelect.appendChild(opt);
     });
-    categorySelect.appendChild(optgroup);
+  } else {
+    // Verify "Academic Issues" is present as a selectable option
+    let hasAcademic = false;
+    for (let i = 0; i < categorySelect.options.length; i++) {
+      if (categorySelect.options[i].value === 'Academic Issues') {
+        hasAcademic = true;
+        break;
+      }
+    }
+    if (!hasAcademic) {
+      const opt = document.createElement('option');
+      opt.value = 'Academic Issues';
+      opt.textContent = 'Academic Issues';
+      if (categorySelect.options.length > 1) {
+        categorySelect.insertBefore(opt, categorySelect.options[1]);
+      } else {
+        categorySelect.appendChild(opt);
+      }
+    }
   }
 }
 

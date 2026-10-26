@@ -54,8 +54,9 @@ const CONFIG = {
     THEME: 'eduvision_theme'
   },
 
-  // Complaint Categories (Academic Issues group)
+  // Complaint Categories
   CATEGORIES: [
+    'Academic Issues',
     'Admission Related',
     'Examination',
     'Result & Evaluation',
