@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="40%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="glassBldg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#CBD5E1" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#F1F5F9" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="overlayFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0F284E" stop-opacity="0.98"/>
+      <stop offset="45%" stop-color="#0F284E" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0F284E" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky background -->
+  <rect x="0" y="0" width="800" height="300" fill="url(#skyGrad)"/>
+  
+  <!-- Campus Building Modern Glass Facade -->
+  <g transform="translate(350, 40)">
+    <!-- Main central block -->
+    <polygon points="120,40 380,10 380,240 120,240" fill="url(#glassBldg)"/>
+    <polygon points="0,70 120,40 120,240 0,240" fill="#E2E8F0"/>
+    
+    <!-- Roof parapet -->
+    <polygon points="115,35 385,5 385,15 115,45" fill="#334155"/>
+    <text x="240" y="32" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="900" fill="#1E293B" letter-spacing="4">AICTE</text>
+
+    <!-- Glass Windows grid -->
+    <g fill="#38BDF8" opacity="0.65">
+      <rect x="140" y="55" width="25" height="18" rx="1"/>
+      <rect x="175" y="52" width="25" height="18" rx="1"/>
+      <rect x="210" y="49" width="25" height="18" rx="1"/>
+      <rect x="245" y="46" width="25" height="18" rx="1"/>
+      <rect x="280" y="43" width="25" height="18" rx="1"/>
+      <rect x="315" y="40" width="25" height="18" rx="1"/>
+      <rect x="350" y="37" width="20" height="18" rx="1"/>
+
+      <rect x="140" y="85" width="25" height="18" rx="1"/>
+      <rect x="175" y="82" width="25" height="18" rx="1"/>
+      <rect x="210" y="79" width="25" height="18" rx="1"/>
+      <rect x="245" y="76" width="25" height="18" rx="1"/>
+      <rect x="280" y="73" width="25" height="18" rx="1"/>
+      <rect x="315" y="70" width="25" height="18" rx="1"/>
+      <rect x="350" y="67" width="20" height="18" rx="1"/>
+
+      <rect x="140" y="115" width="25" height="18" rx="1"/>
+      <rect x="175" y="112" width="25" height="18" rx="1"/>
+      <rect x="210" y="109" width="25" height="18" rx="1"/>
+      <rect x="245" y="106" width="25" height="18" rx="1"/>
+      <rect x="280" y="103" width="25" height="18" rx="1"/>
+      <rect x="315" y="100" width="25" height="18" rx="1"/>
+      <rect x="350" y="97" width="20" height="18" rx="1"/>
+
+      <rect x="140" y="145" width="25" height="18" rx="1"/>
+      <rect x="175" y="142" width="25" height="18" rx="1"/>
+      <rect x="210" y="139" width="25" height="18" rx="1"/>
+      <rect x="245" y="136" width="25" height="18" rx="1"/>
+      <rect x="280" y="133" width="25" height="18" rx="1"/>
+      <rect x="315" y="130" width="25" height="18" rx="1"/>
+      <rect x="350" y="127" width="20" height="18" rx="1"/>
+    </g>
+
+    <!-- Side wing windows -->
+    <g fill="#0284C7" opacity="0.45">
+      <rect x="15" y="80" width="20" height="20"/>
+      <rect x="45" y="75" width="20" height="20"/>
+      <rect x="75" y="70" width="20" height="20"/>
+      <rect x="15" y="115" width="20" height="20"/>
+      <rect x="45" y="110" width="20" height="20"/>
+      <rect x="75" y="105" width="20" height="20"/>
+    </g>
+  </g>
+
+  <!-- Trees & Greenery in front -->
+  <g fill="#15803D" opacity="0.9">
+    <circle cx="340" cy="235" r="28"/>
+    <circle cx="370" cy="225" r="32"/>
+    <circle cx="410" cy="235" r="26"/>
+    <circle cx="450" cy="230" r="30"/>
+    <circle cx="500" cy="225" r="35"/>
+    <circle cx="560" cy="230" r="30"/>
+    <circle cx="620" cy="235" r="34"/>
+    <circle cx="680" cy="225" r="28"/>
+    <circle cx="740" cy="230" r="35"/>
+    <rect x="300" y="240" width="500" height="60" fill="#166534"/>
+  </g>
+
+  <!-- Elegant Dark overlay on left so text reads with crystal clarity -->
+  <rect x="0" y="0" width="800" height="300" fill="url(#overlayFade)"/>
+</svg>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register – EduVision Complaint Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page-body">
+
+  <div class="auth-container" style="max-width: 540px;">
+    <div class="auth-header">
+      <a href="index.html">
+        <img src="assets/images/logo.svg" alt="EduVision Logo" class="auth-brand-logo">
+      </a>
+      <h2 class="auth-title">Create your EduVision Account</h2>
+      <p class="auth-subtitle">Join the transparent technical education monitoring network</p>
+    </div>
+
+    <div class="auth-body">
+      <form id="register-form">
+        <div class="auth-form-group">
+          <label class="auth-label" for="regFullName">Full Name *</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-user"></i>
+            <input type="text" id="regFullName" class="auth-input" placeholder="e.g. Priya Sharma" required>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regEmail">Institutional or Personal Email *</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="regEmail" class="auth-input" placeholder="name@domain.com" required>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regRole">I am registering as: *</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-id-badge"></i>
+            <select id="regRole" class="auth-select" required>
+              <option value="STUDENT">Student</option>
+              <option value="TEACHER">Teacher / Faculty</option>
+              <option value="HOD">Head of Department (HOD)</option>
+              <option value="INSTITUTION_HEAD">Institution Head / Principal</option>
+              <option value="AICTE_OFFICER">AICTE Officer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regInstitution">Associated Institution Name *</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-university"></i>
+            <input type="text" id="regInstitution" class="auth-input" placeholder="e.g. Delhi Technological University" required>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regPassword">Password * (min 8 characters)</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="regPassword" class="auth-input" placeholder="••••••••" required minlength="8">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary-auth" id="btn-register-submit">
+          <i class="fas fa-user-plus"></i>
+          <span>Create Account</span>
+        </button>
+      </form>
+
+      <div class="auth-footer-prompt">
+        Already registered? <a href="login.html">Sign in here</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-register-submit');
+      const fullName = document.getElementById('regFullName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const role = document.getElementById('regRole').value;
+      const institutionName = document.getElementById('regInstitution').value.trim();
+      const password = document.getElementById('regPassword').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Creating Account...';
+
+      try {
+        await auth.register({ fullName, email, role, institutionName, password });
+        showToast('Registration successful! Redirecting...', 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      } catch (err) {
+        showToast(err.message || 'Registration failed.', 'danger');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+      }
+    });
+  </script>
+</body>
+</html>
