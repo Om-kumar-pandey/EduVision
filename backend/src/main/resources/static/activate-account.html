@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICTE Officer Account Activation — EduVision</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .header-bar {
+            background: #0b2545;
+            color: #ffffff;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #d97706;
+        }
+        .main-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+        .activation-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .activation-card-header {
+            background: #0b2545;
+            color: #ffffff;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .activation-card-body {
+            padding: 28px 24px;
+        }
+        .officer-badge-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+        .form-input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2,132,199,0.15);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px 20px;
+            background: #0b2545;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-submit:hover {
+            background: #1e3a8a;
+        }
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .alert-box {
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            margin-bottom: 18px;
+            display: none;
+        }
+        .alert-box.error {
+            background: #fef2f2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+        }
+        .alert-box.success {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="index.html" style="color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.4rem;">🎓</span>
+                <div>
+                    <strong style="font-size:1.15rem;letter-spacing:-0.01em;">EduVision</strong>
+                    <div style="font-size:0.7rem;color:#cbd5e1;">All India Council for Technical Education</div>
+                </div>
+            </a>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <span style="background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:3px;font-size:0.75rem;font-weight:700;">
+                AICTE Official Portal
+            </span>
+        </div>
+    </header>
+
+    <main class="main-box">
+        <div class="activation-card">
+            <div class="activation-card-header">
+                <span style="font-size:1.8rem;">🛡️</span>
+                <div>
+                    <h2 style="font-size:1.25rem;font-weight:800;margin:0 0 2px;color:#ffffff;">Officer Account Activation</h2>
+                    <p style="font-size:0.8rem;color:#cbd5e1;margin:0;">AICTE Bureau / Cell Authorized Portal Provisioning</p>
+                </div>
+            </div>
+
+            <div class="activation-card-body">
+                <!-- Status & Alerts -->
+                <div id="activationAlert" class="alert-box"></div>
+
+                <!-- Loading State -->
+                <div id="loadingState" style="text-align:center;padding:32px 16px;">
+                    <div class="spinner" style="width:28px;height:28px;border-width:3px;margin:0 auto 12px;"></div>
+                    <p style="color:#475569;font-size:0.9rem;font-weight:600;">Verifying security activation token...</p>
+                </div>
+
+                <!-- Invalid / Expired Token State -->
+                <div id="invalidState" style="display:none;text-align:center;padding:24px 12px;">
+                    <div style="font-size:2.8rem;color:#ef4444;margin-bottom:12px;">⚠️</div>
+                    <h3 style="color:#991b1b;margin:0 0 8px;font-size:1.2rem;">Invalid or Expired Activation Token</h3>
+                    <p style="color:#475569;font-size:0.88rem;line-height:1.5;max-width:440px;margin:0 auto 20px;" id="invalidReason">
+                        This activation token is unrecognized, has expired (past 48 hours), or has already been used to activate an official account.
+                    </p>
+                    <div style="display:flex;gap:12px;justify-content:center;">
+                        <a href="login.html" class="btn-submit" style="width:auto;text-decoration:none;display:inline-block;padding:10px 20px;">
+                            Return to Sign In
+                        </a>
+                        <a href="login.html?mode=signup" class="btn-submit" style="width:auto;background:#475569;text-decoration:none;display:inline-block;padding:10px 20px;">
+                            Submit New Request
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Verified Token & Password Form -->
+                <div id="verifiedState" style="display:none;">
+                    <div class="officer-badge-box">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                            <strong style="font-size:1.05rem;color:#0b2545;" id="officerName">-</strong>
+                            <span class="badge badge-primary" id="officerBureauBadge" style="background:#0b2545;color:#ffffff;padding:4px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;">-</span>
+                        </div>
+                        <div style="font-size:0.83rem;color:#475569;line-height:1.5;">
+                            <div><strong>Official Email:</strong> <span id="officerEmail">-</span></div>
+                            <div><strong>Designation:</strong> <span id="officerDesignation">-</span> &bull; <strong>Staff Code:</strong> <span id="officerEmpId">-</span></div>
+                            <div><strong>Authorized By:</strong> AICTE Super Admin &bull; <strong>Request ID:</strong> <span id="officerReqId">-</span></div>
+                        </div>
+                    </div>
+
+                    <form id="activationForm" onsubmit="handleActivationSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="newPassword">Create Official Password *</label>
+                            <input type="password" id="newPassword" class="form-input" required minlength="6" placeholder="••••••••" autocomplete="new-password">
+                            <span style="font-size:0.75rem;color:#64748b;margin-top:4px;display:block;">Must be at least 6 characters with letters and numbers</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Confirm Official Password *</label>
+                            <input type="password" id="confirmPassword" class="form-input" required minlength="6" placeholder="••••••••" autocomplete="new-password">
+                        </div>
+
+                        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:10px 14px;margin-bottom:20px;font-size:0.8rem;color:#1e40af;">
+                            🔒 By activating this account, you confirm adherence to AICTE official confidentiality and security protocols.
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btnActivate">
+                            <span>Activate Account &amp; Enter Workspace</span> &rarr;
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="background:#0b2545;color:#94a3b8;text-align:center;padding:16px;font-size:0.75rem;">
+        &copy; 2026 EduVision &bull; AICTE Integrated Institution Complaint Monitoring Platform.
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/activate-account.js"></script>
+</body>
+</html>

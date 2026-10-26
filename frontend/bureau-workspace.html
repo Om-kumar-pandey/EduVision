@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bureau / Cell Workspace — AICTE Integrated Complaint Monitoring System</title>
+    <!-- Government Design Tokens & Reusable Styles -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/bureau-workspace.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- 1. SIDEBAR NAVIGATION (Dark Navy #04244a matching reference design) -->
+        <aside class="sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="aicte-logo-circle">AICTE</div>
+                <div class="sidebar-brand-text">
+                    <h1>AICTE</h1>
+                    <p>Integrated Institution Complaint<br>Monitoring System</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Primary Action -->
+                <ul class="nav-list" style="margin-bottom: 12px;">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link active" data-tab-target="paneDashboard">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title">BUREAU / CELL</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneMyCases">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">📁</span>
+                                <span>My Cases</span>
+                            </div>
+                            <span class="nav-badge" id="badgeMyCasesCount">12</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneAllCases">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">📑</span>
+                                <span>All Cases</span>
+                            </div>
+                            <span class="nav-arrow">&rsaquo;</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneCaseAssignment">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">👥</span>
+                                <span>Case Assignment</span>
+                            </div>
+                            <span class="nav-arrow">&rsaquo;</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneInstitutions">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">🏛️</span>
+                                <span>Institutions</span>
+                            </div>
+                            <span class="nav-arrow">&rsaquo;</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneOverlaps">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">🔍</span>
+                                <span>Overlapping Cases</span>
+                            </div>
+                            <span class="nav-badge amber" id="badgeOverlapsCount">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneCoordination">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">🤝</span>
+                                <span>Cross-Bureau Coordination</span>
+                            </div>
+                            <span class="nav-badge" id="badgeCoordCount">1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneReports">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">📈</span>
+                                <span>Reports</span>
+                            </div>
+                            <span class="nav-arrow">&rsaquo;</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title">QUICK LINKS</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneAudit">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">🛡️</span>
+                                <span>Audit Logs</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">📥</span>
+                                <span>Data Import</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">❓</span>
+                                <span>Help &amp; Support</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <div class="nav-link-content">
+                                <span class="nav-icon">🏠</span>
+                                <span>EduVision Public Home</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Bottom Photo Banner matching screenshot -->
+            <div class="sidebar-bottom-card">
+                <img src="assets/aicte-building.jpg" alt="AICTE Headquarters">
+                <div class="card-caption">
+                    Better Regulation for a Stronger Technical Education System
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sidebar mobile backdrop -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- 2. MAIN CONTENT AREA -->
+        <div class="main-wrapper">
+            <!-- Top Navigation Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="notif-bell-btn" id="mobileSidebarToggle" style="font-size:1.4rem;">☰</button>
+                    <div class="header-search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="globalBureauSearch" placeholder="Search by Case ID, Institution, Complaint, etc...">
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div style="position:relative;">
+                        <button class="notif-bell-btn" id="headerNotifBtn" title="View Notifications" onclick="toggleBureauNotifDropdown(event)">
+                            🔔
+                            <span class="notif-badge-count" id="headerNotifBadge">3</span>
+                        </button>
+                        <div class="header-dropdown-menu" id="headerNotifDropdown" style="display:none;position:absolute;top:44px;right:0;background:#ffffff;border:1px solid #cbd5e1;box-shadow:0 10px 25px rgba(0,0,0,0.15);border-radius:6px;width:340px;z-index:1000;padding:12px;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-bottom:8px;">
+                                <strong style="font-size:0.88rem;color:#0b2545;">Official Bureau Alerts</strong>
+                                <span class="badge" style="background:#0284c7;color:#ffffff;font-size:0.75rem;" id="notifUnreadBadge">3 New</span>
+                            </div>
+                            <div id="headerNotifList" style="max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="user-profile-header" id="userProfileHeaderBtn">
+                        <div class="user-avatar-circle" id="headerUserAvatar">R</div>
+                        <div class="user-info-text">
+                            <div class="user-name" id="headerUserName">Rahul Sharma</div>
+                            <div class="user-role" id="headerUserRole">RB Officer (Regulation Bureau)</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary btn-sm" id="headerLogoutBtn" style="color:#dc2626;">
+                        Sign Out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content Panes -->
+            <main class="content-body">
+
+                <!-- ======================================================== -->
+                <!-- PANE 1: MAIN DASHBOARD VIEW (MATCHING ATTACHED SCREENSHOT) -->
+                <!-- ======================================================== -->
+                <div class="tab-pane active" id="paneDashboard">
+                    <div class="dashboard-two-column-layout">
+                        <!-- LEFT MAIN COLUMN -->
+                        <div class="dash-col-left">
+                            <!-- 1. Welcome Banner -->
+                            <div class="welcome-banner">
+                                <div class="welcome-banner-left">
+                                    <div class="welcome-icon-box">🏛️</div>
+                                    <div class="welcome-text">
+                                        <h2 id="welcomeHeading">Welcome, Rahul Sharma!</h2>
+                                        <p id="welcomeSubtext">Here's the overview of your assigned cases and activities in the Regulation Bureau.</p>
+                                    </div>
+                                </div>
+                                <img src="assets/aicte-building.jpg" alt="" class="welcome-banner-bg-img" onerror="this.style.display='none'">
+                                <div class="welcome-banner-right">
+                                    <div class="date-time-card">
+                                        <span class="calendar-icon">📅</span>
+                                        <div>
+                                            <div class="date-text" id="liveDateText">24 Oct 2026</div>
+                                            <div class="time-text" id="liveTimeText">10:42 AM</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. 4 Top Metric Cards Grid (Interactive Filtering) -->
+                            <div class="kpi-cards-grid">
+                                <div class="kpi-card" onclick="filterCasesByKpi('TOTAL')" style="cursor:pointer;" title="Click to view all cases">
+                                    <div class="kpi-icon-square blue">📄</div>
+                                    <div class="kpi-content">
+                                        <div class="kpi-title">Total Cases</div>
+                                        <div class="kpi-value" id="kpiTotalCases">412</div>
+                                        <div class="kpi-subtext green">&uarr; +18 this month</div>
+                                    </div>
+                                </div>
+
+                                <div class="kpi-card" onclick="filterCasesByKpi('PENDING')" style="cursor:pointer;" title="Click to view pending cases">
+                                    <div class="kpi-icon-square purple">⏱️</div>
+                                    <div class="kpi-content">
+                                        <div class="kpi-title">Pending Cases</div>
+                                        <div class="kpi-value" id="kpiPendingCases">187</div>
+                                        <div class="kpi-subtext green">&uarr; +12 this month</div>
+                                    </div>
+                                </div>
+
+                                <div class="kpi-card" onclick="filterCasesByKpi('RESOLVED')" style="cursor:pointer;" title="Click to view resolved cases">
+                                    <div class="kpi-icon-square orange">✅</div>
+                                    <div class="kpi-content">
+                                        <div class="kpi-title">Resolved Cases</div>
+                                        <div class="kpi-value" id="kpiResolvedCases">198</div>
+                                        <div class="kpi-subtext green">&uarr; +26 this month</div>
+                                    </div>
+                                </div>
+
+                                <div class="kpi-card" onclick="filterCasesByKpi('OVERDUE')" style="cursor:pointer;" title="Click to view overdue cases">
+                                    <div class="kpi-icon-square red">⚠️</div>
+                                    <div class="kpi-content">
+                                        <div class="kpi-title">Overdue Cases</div>
+                                        <div class="kpi-value" id="kpiOverdueCases">27</div>
+                                        <div class="kpi-subtext red">&uarr; +6 this month</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. Middle Row: 2 Charts Side-by-Side -->
+                            <div class="charts-two-col-grid">
+                                <!-- Chart 1: Cases by Status (Donut on left, breakdown on right) -->
+                                <div class="dashboard-card">
+                                    <div class="card-title-row">
+                                        <h3>📊 Cases by Status</h3>
+                                    </div>
+                                    <div class="donut-card-body">
+                                        <div class="chart-container-donut">
+                                            <canvas id="casesStatusDonutChart"></canvas>
+                                            <div class="donut-center-stat">
+                                                <div class="center-val" id="donutTotalVal">412</div>
+                                                <div class="center-lbl">Total Cases</div>
+                                            </div>
+                                        </div>
+                                        <ul class="status-breakdown-list">
+                                            <li class="status-breakdown-item">
+                                                <span class="status-dot-label"><span class="status-dot" style="background:#0284c7;"></span> Pending</span>
+                                                <span class="status-count-pct"><span id="sbPendingCount">187</span> <span id="sbPendingPct">45.4%</span></span>
+                                            </li>
+                                            <li class="status-breakdown-item">
+                                                <span class="status-dot-label"><span class="status-dot" style="background:#7c3aed;"></span> In Progress</span>
+                                                <span class="status-count-pct"><span id="sbProgressCount">102</span> <span id="sbProgressPct">24.8%</span></span>
+                                            </li>
+                                            <li class="status-breakdown-item">
+                                                <span class="status-dot-label"><span class="status-dot" style="background:#16a34a;"></span> Resolved</span>
+                                                <span class="status-count-pct"><span id="sbResolvedCount">79</span> <span id="sbResolvedPct">19.2%</span></span>
+                                            </li>
+                                            <li class="status-breakdown-item">
+                                                <span class="status-dot-label"><span class="status-dot" style="background:#dc2626;"></span> Overdue</span>
+                                                <span class="status-count-pct"><span id="sbOverdueCount">27</span> <span id="sbOverduePct">6.6%</span></span>
+                                            </li>
+                                            <li class="status-breakdown-item">
+                                                <span class="status-dot-label"><span class="status-dot" style="background:#f59e0b;"></span> Transferred</span>
+                                                <span class="status-count-pct"><span id="sbTransferCount">17</span> <span id="sbTransferPct">3.9%</span></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Chart 2: Cases by Bureau / Cell (Bar) -->
+                                <div class="dashboard-card">
+                                    <div class="card-title-row">
+                                        <h3>🛡️ Cases by Bureau / Cell</h3>
+                                    </div>
+                                    <div style="height: 145px; position: relative; width: 100%;">
+                                        <canvas id="casesBureauBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4. My Assigned Cases Table Card -->
+                            <div class="dashboard-card assigned-cases-card">
+                                <div class="card-title-row">
+                                    <h3>📋 My Assigned Cases</h3>
+                                    <a href="javascript:void(0)" class="card-action-link" onclick="switchPane('paneMyCases')">View All &rarr;</a>
+                                </div>
+                                <div class="gov-table-container">
+                                    <table class="gov-data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Case ID</th>
+                                                <th>Institution</th>
+                                                <th>Bureau / Cell</th>
+                                                <th>Region</th>
+                                                <th>Status</th>
+                                                <th>Assigned On</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashMyCasesTableBody">
+                                            <tr>
+                                                <td><strong style="color:#0076ff;">CASE-2026-0784</strong></td>
+                                                <td>Global Institute of Technology</td>
+                                                <td>RB</td>
+                                                <td>North</td>
+                                                <td><span class="status-pill status-in-progress">In Progress</span></td>
+                                                <td>12 Oct 2026</td>
+                                                <td><button class="btn btn-secondary btn-sm" onclick="openCaseModal(1)">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="color:#0076ff;">CASE-2026-0732</strong></td>
+                                                <td>Techno College of Engineering</td>
+                                                <td>PGRC</td>
+                                                <td>South</td>
+                                                <td><span class="status-pill status-pending">Pending</span></td>
+                                                <td>10 Oct 2026</td>
+                                                <td><button class="btn btn-secondary btn-sm" onclick="openCaseModal(2)">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="color:#0076ff;">CASE-2026-0721</strong></td>
+                                                <td>Sunrise College</td>
+                                                <td>RB</td>
+                                                <td>East</td>
+                                                <td><span class="status-pill status-resolved">Resolved</span></td>
+                                                <td>08 Oct 2026</td>
+                                                <td><button class="btn btn-secondary btn-sm" onclick="openCaseModal(3)">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="color:#0076ff;">CASE-2026-0715</strong></td>
+                                                <td>National Institute of Management</td>
+                                                <td>PGRC</td>
+                                                <td>West</td>
+                                                <td><span class="status-pill status-in-progress">In Progress</span></td>
+                                                <td>06 Oct 2026</td>
+                                                <td><button class="btn btn-secondary btn-sm" onclick="openCaseModal(4)">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="color:#0076ff;">CASE-2026-0698</strong></td>
+                                                <td>Bavi Engineering College</td>
+                                                <td>RB</td>
+                                                <td>South</td>
+                                                <td><span class="status-pill status-overdue">Overdue</span></td>
+                                                <td>03 Oct 2026</td>
+                                                <td><button class="btn btn-secondary btn-sm" onclick="openCaseModal(5)">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- 5. Bottom Row: 2 Cards Side-by-Side -->
+                            <div class="bottom-two-col-grid">
+                                <!-- Card 1: Region-wise Case Distribution -->
+                                <div class="dashboard-card">
+                                    <div class="card-title-row" style="margin-bottom:8px;">
+                                        <h3>🗺️ Region-wise Case Distribution</h3>
+                                        <a href="javascript:void(0)" class="card-action-link" onclick="switchPane('paneReports')">View Details &rarr;</a>
+                                    </div>
+                                    <div class="region-bar-list">
+                                        <div class="region-bar-item">
+                                            <div class="region-header"><span>North Region</span><span>98 cases</span></div>
+                                            <div class="region-bar-track"><div class="region-bar-fill blue" style="width:24%;"></div></div>
+                                            <div style="font-size:0.7rem; color:#64748b; text-align:right; margin-top:2px;">24%</div>
+                                        </div>
+                                        <div class="region-bar-item">
+                                            <div class="region-header"><span>South Region</span><span>112 cases</span></div>
+                                            <div class="region-bar-track"><div class="region-bar-fill green" style="width:27%;"></div></div>
+                                            <div style="font-size:0.7rem; color:#64748b; text-align:right; margin-top:2px;">27%</div>
+                                        </div>
+                                        <div class="region-bar-item">
+                                            <div class="region-header"><span>East Region</span><span>104 cases</span></div>
+                                            <div class="region-bar-track"><div class="region-bar-fill orange" style="width:25%;"></div></div>
+                                            <div style="font-size:0.7rem; color:#64748b; text-align:right; margin-top:2px;">25%</div>
+                                        </div>
+                                        <div class="region-bar-item">
+                                            <div class="region-header"><span>West Region</span><span>98 cases</span></div>
+                                            <div class="region-bar-track"><div class="region-bar-fill purple" style="width:24%;"></div></div>
+                                            <div style="font-size:0.7rem; color:#64748b; text-align:right; margin-top:2px;">24%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Top Institutions (by Case Count) -->
+                                <div class="dashboard-card">
+                                    <div class="card-title-row" style="margin-bottom:8px;">
+                                        <h3>🏛️ Top Institutions (by Case Count)</h3>
+                                        <a href="javascript:void(0)" class="card-action-link" onclick="switchPane('paneInstitutions')">View All &rarr;</a>
+                                    </div>
+                                    <div class="gov-table-container">
+                                        <table class="gov-data-table" style="font-size:0.73rem;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Institution Name</th>
+                                                    <th>Region</th>
+                                                    <th>Total Cases</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="dashTopInstitutionsBody">
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><strong>Global Institute of Technology</strong></td>
+                                                    <td><span class="status-pill status-transferred" style="background:#eff6ff;color:#1d4ed8;">North</span></td>
+                                                    <td><strong>42</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td><strong>National Institute of Management</strong></td>
+                                                    <td><span class="status-pill status-in-progress" style="background:#fff7ed;color:#c2410c;">West</span></td>
+                                                    <td><strong>36</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td><strong>Sunrise College</strong></td>
+                                                    <td><span class="status-pill" style="background:#f5f3ff;color:#7c3aed;">East</span></td>
+                                                    <td><strong>28</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td><strong>Techno College of Engineering</strong></td>
+                                                    <td><span class="status-pill status-resolved" style="background:#f0fdf4;color:#15803d;">South</span></td>
+                                                    <td><strong>25</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td><strong>United Engineering College</strong></td>
+                                                    <td><span class="status-pill status-transferred" style="background:#eff6ff;color:#1d4ed8;">North</span></td>
+                                                    <td><strong>22</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT SIDEBAR COLUMN -->
+                        <div class="dash-col-right">
+                            <!-- Card 1: Quick Actions -->
+                            <div class="dashboard-card">
+                                <div class="card-title-row">
+                                    <h3>⚙️ Quick Actions</h3>
+                                </div>
+                                <div class="quick-action-btn-list">
+                                    <a href="javascript:void(0)" class="quick-action-item" onclick="switchPane('paneAllCases')">
+                                        <div class="quick-action-left">
+                                            <span class="quick-action-icon">📋</span>
+                                            <div class="quick-action-text">
+                                                <div class="action-name">View All Cases</div>
+                                                <div class="action-desc">Check all assigned cases</div>
+                                            </div>
+                                        </div>
+                                        <span>&rsaquo;</span>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="quick-action-item" onclick="openAssignModalQuick()">
+                                        <div class="quick-action-left">
+                                            <span class="quick-action-icon">👤</span>
+                                            <div class="quick-action-text">
+                                                <div class="action-name">Assign Case</div>
+                                                <div class="action-desc">Assign case to another officer</div>
+                                            </div>
+                                        </div>
+                                        <span>&rsaquo;</span>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="quick-action-item" onclick="downloadBureauCasesCSV()">
+                                        <div class="quick-action-left">
+                                            <span class="quick-action-icon">📊</span>
+                                            <div class="quick-action-text">
+                                                <div class="action-name">Generate Report</div>
+                                                <div class="action-desc">Download bureau cases CSV</div>
+                                            </div>
+                                        </div>
+                                        <span>&rsaquo;</span>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="quick-action-item" onclick="openAddInstitutionQuick()">
+                                        <div class="quick-action-left">
+                                            <span class="quick-action-icon">🏛️</span>
+                                            <div class="quick-action-text">
+                                                <div class="action-name">Add Institution</div>
+                                                <div class="action-desc">Add new institution (if required)</div>
+                                            </div>
+                                        </div>
+                                        <span>&rsaquo;</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Recent Activities -->
+                            <div class="dashboard-card">
+                                <div class="card-title-row">
+                                    <h3>⚙️ Recent Activities</h3>
+                                    <a href="javascript:void(0)" class="card-action-link" onclick="switchPane('paneAudit')">View All &rarr;</a>
+                                </div>
+                                <ul class="activity-stream" id="recentActivityList">
+                                    <li class="activity-item">
+                                        <div class="activity-icon-badge blue">👤</div>
+                                        <div class="activity-text-box">
+                                            <div class="activity-title">Case assigned to you</div>
+                                            <div class="activity-desc">CASE-2026-0784 &rarr; RB-03</div>
+                                            <div class="activity-time">1 hour ago</div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon-badge green">🔄</div>
+                                        <div class="activity-text-box">
+                                            <div class="activity-title">Status updated</div>
+                                            <div class="activity-desc">CASE-2026-0721 &rarr; In Progress</div>
+                                            <div class="activity-time">2 hours ago</div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon-badge purple">📥</div>
+                                        <div class="activity-text-box">
+                                            <div class="activity-title">New complaint received</div>
+                                            <div class="activity-desc">CASE-2026-0812 &rarr; PGRC-02</div>
+                                            <div class="activity-time">3 hours ago</div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon-badge blue" style="background:#ccfbf1;color:#0f766e;">🏛️</div>
+                                        <div class="activity-text-box">
+                                            <div class="activity-title">Institution mapped</div>
+                                            <div class="activity-desc">IMS-2026-0045 &rarr; North Region</div>
+                                            <div class="activity-time">4 hours ago</div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon-badge blue">📄</div>
+                                        <div class="activity-text-box">
+                                            <div class="activity-title">Report generated</div>
+                                            <div class="activity-desc">Monthly Case Report (RB)</div>
+                                            <div class="activity-time">5 hours ago</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 3: Pending & Overdue Summary -->
+                            <div class="dashboard-card">
+                                <div class="card-title-row">
+                                    <h3>📍 Pending &amp; Overdue Summary</h3>
+                                    <a href="javascript:void(0)" class="card-action-link" onclick="switchPane('paneAllCases')">View Details &rarr;</a>
+                                </div>
+                                <div class="gauges-two-circles">
+                                    <div class="gauge-circle-item">
+                                        <div class="circular-ring-blue">
+                                            <span class="gauge-number" id="gaugePendingVal">187</span>
+                                        </div>
+                                        <div class="gauge-caption">Pending Cases</div>
+                                    </div>
+                                    <div class="gauge-circle-item">
+                                        <div class="circular-ring-red">
+                                            <span class="gauge-number" id="gaugeOverdueVal">27</span>
+                                        </div>
+                                        <div class="gauge-caption">Overdue Cases</div>
+                                    </div>
+                                </div>
+                                <div class="overdue-alert-callout">
+                                    <span class="alert-icon" style="font-size:1.1rem;">⚠️</span>
+                                    <span class="alert-msg"><strong>6 cases</strong> are overdue for more than 7 days.<br>Please review and take action.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 2: AI-POWERED OVERLAPPING CASES SUITE (CORE NEW)      -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneOverlaps">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">AI-Powered Overlapping Complaint Detection</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Hybrid Rule-Based &amp; Semantic Similarity Engine &bull; AICTE Cross-Bureau Integration</p>
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn btn-secondary btn-sm" id="btnReanalyzeOverlaps">
+                                🔄 Re-Analyze All Active Complaints
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 7 Overlap Metric Summary Strip -->
+                    <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:14px; margin-bottom:20px;">
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px;">
+                            <div class="kpi-title" style="font-size:0.72rem;">Total Overlaps</div>
+                            <div class="kpi-value" id="kpiOverlapTotal" style="font-size:1.35rem; margin:0;">0</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #ef4444;">
+                            <div class="kpi-title" style="font-size:0.72rem; color:#b91c1c;">High Similarity</div>
+                            <div class="kpi-value" id="kpiOverlapHigh" style="font-size:1.35rem; margin:0; color:#b91c1c;">0</div>
+                            <div style="font-size:0.65rem; color:#64748b;">80% - 100% Match</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #f59e0b;">
+                            <div class="kpi-title" style="font-size:0.72rem; color:#b45309;">Medium Similarity</div>
+                            <div class="kpi-value" id="kpiOverlapMedium" style="font-size:1.35rem; margin:0; color:#b45309;">0</div>
+                            <div style="font-size:0.65rem; color:#64748b;">50% - 79% Match</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #64748b;">
+                            <div class="kpi-title" style="font-size:0.72rem;">Inconclusive</div>
+                            <div class="kpi-value" id="kpiOverlapInconclusive" style="font-size:1.35rem; margin:0;">0</div>
+                            <div style="font-size:0.65rem; color:#64748b;">Insufficient Info</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #2563eb;">
+                            <div class="kpi-title" style="font-size:0.72rem; color:#1d4ed8;">Confirmed Duplicates</div>
+                            <div class="kpi-value" id="kpiOverlapDuplicates" style="font-size:1.35rem; margin:0; color:#1d4ed8;">0</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #7c3aed;">
+                            <div class="kpi-title" style="font-size:0.72rem; color:#6d28d9;">Related Cases</div>
+                            <div class="kpi-value" id="kpiOverlapRelated" style="font-size:1.35rem; margin:0; color:#6d28d9;">0</div>
+                        </div>
+                        <div class="kpi-card" style="padding:14px; flex-direction:column; gap:4px; border-left:4px solid #16a34a;">
+                            <div class="kpi-title" style="font-size:0.72rem; color:#15803d;">Marked Unrelated</div>
+                            <div class="kpi-value" id="kpiOverlapUnrelated" style="font-size:1.35rem; margin:0; color:#15803d;">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Overlap Toolbar & Filters -->
+                    <div class="dashboard-card" style="padding:16px; margin-bottom:20px;">
+                        <div class="toolbar-filter-grid">
+                            <input type="text" id="overlapSearchQuery" placeholder="Search Case ID, Institution, or Permanent ID..." style="flex:1; min-width:260px;">
+                            <select id="overlapBandFilter">
+                                <option value="">All Review Bands</option>
+                                <option value="HIGH">High Similarity (80% - 100%)</option>
+                                <option value="MEDIUM">Medium Similarity (50% - 79%)</option>
+                                <option value="LOW">Low Similarity (&lt; 50%)</option>
+                                <option value="INCONCLUSIVE">Inconclusive (Missing Signals)</option>
+                            </select>
+                            <select id="overlapDecisionFilter">
+                                <option value="">All Decision Statuses</option>
+                                <option value="AWAITING_REVIEW">Awaiting Review</option>
+                                <option value="CONFIRMED_DUPLICATE">Confirmed Duplicate</option>
+                                <option value="CONFIRMED_RELATED">Confirmed Related</option>
+                                <option value="MARKED_UNRELATED">Marked Unrelated</option>
+                                <option value="COORDINATION_REQUESTED">Coordination Requested</option>
+                                <option value="REOPENED">Reopened</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" id="btnFilterOverlaps">Apply Filters</button>
+                            <button class="btn btn-secondary btn-sm" id="btnResetOverlaps">Reset</button>
+                        </div>
+
+                        <!-- Candidates Table -->
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Candidate Case Pair</th>
+                                        <th>Institution Details</th>
+                                        <th>Bureaus Involved</th>
+                                        <th>Hybrid Similarity Score</th>
+                                        <th>Signal Breakdown</th>
+                                        <th>Decision Status</th>
+                                        <th>Analysis Version</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="overlapTableBody">
+                                    <tr><td colspan="8" style="text-align:center;padding:30px;">Loading overlap candidate records...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:0.8rem;">
+                            <div id="overlapPaginationInfo">Showing 0 of 0 candidates</div>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-secondary btn-sm" id="btnPrevOverlap" disabled>&laquo; Previous</button>
+                                <button class="btn btn-secondary btn-sm" id="btnNextOverlap" disabled>Next &raquo;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 3: CROSS-BUREAU COORDINATION SUITE                    -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneCoordination">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">Cross-Bureau / Cell Coordination</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Formal Inter-Division Inquiries &bull; RB &harr; PGRC &harr; Approval &harr; Policy</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="btnNewCoordination">
+                            ➕ Initiate Coordination Request
+                        </button>
+                    </div>
+
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request #</th>
+                                        <th>Primary Case</th>
+                                        <th>Linked Case</th>
+                                        <th>Initiating Bureau</th>
+                                        <th>Target Bureau</th>
+                                        <th>Reason / Subject</th>
+                                        <th>Deadline</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coordinationTableBody">
+                                    <tr><td colspan="9" style="text-align:center;padding:30px;">Loading coordination requests...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 4: MY CASES QUEUE                                    -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneMyCases">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">My Assigned Cases Queue</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Complaints under your active investigation and resolution progression</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Institution</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Disposal Deadline</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myCasesQueueTableBody">
+                                    <tr><td colspan="7" style="text-align:center;padding:30px;">Loading assigned cases...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 5: ALL CASES QUEUE                                   -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneAllCases">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">All Authorized Bureau Cases</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Master queue of all complaints scoped to your regulatory division</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Institution (Permanent ID)</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Current Status</th>
+                                        <th>Assigned Officer</th>
+                                        <th>Receipt Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allCasesQueueTableBody">
+                                    <tr><td colspan="8" style="text-align:center;padding:30px;">Loading all bureau cases...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 6: INSTITUTIONS DIRECTORY                             -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneInstitutions">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">Technical Institutions Directory</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Verified AICTE Permanent ID Database &bull; Complaint History per Institution</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>AICTE Permanent ID</th>
+                                        <th>Institution Name</th>
+                                        <th>Region</th>
+                                        <th>State / City</th>
+                                        <th>Approval Status</th>
+                                        <th>Active Complaints</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bureauInstitutionsTableBody">
+                                    <tr><td colspan="7" style="text-align:center;padding:30px;">Loading institutions directory...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 7: REPORTS & ANALYTICS                                -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneReports">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">Bureau Compliance &amp; Workload Reports</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Statutory resolution metrics, SLA breach audits, and category summaries</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ Print Report</button>
+                    </div>
+                    <div class="dashboard-card" style="padding:20px;">
+                        <div id="reportsContentArea">Loading bureau analytics...</div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 8: NOTIFICATIONS & AUDIT LOGS                         -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneAudit">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">Immutable Security Audit Trail</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Chronological action tracking &bull; Bureau operations log</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Officer / User</th>
+                                        <th>Action Type</th>
+                                        <th>Entity ID</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bureauAuditTableBody">
+                                    <tr><td colspan="5" style="text-align:center;padding:30px;">Loading audit logs...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- Footer matching reference design -->
+            <footer class="app-footer">
+                <div>AICTE | Integrated Institution Complaint Monitoring and Status Dashboard</div>
+                <div>Version 1.0.0 | Developed for Better Governance</div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 1: EXPLAINABLE SIDE-BY-SIDE OVERLAP COMPARISON     -->
+    <!-- ======================================================== -->
+    <div class="modal-overlay" id="modalOverlapCompare">
+        <div class="modal-container xlarge">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalCompareHeading">Explainable Complaint Overlap Comparison</h3>
+                    <p style="font-size:0.8rem; color:#64748b; margin:2px 0 0;" id="modalCompareSubheading">Evaluating candidate pair against verified Permanent ID and semantic embeddings</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('modalOverlapCompare')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Visual Scoring Breakdown Card -->
+                <div class="score-breakdown-bar-container">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:#64748b;">Hybrid Similarity Score:</span>
+                            <span id="compareScoreBadge" class="overlap-score-pill band-high" style="font-size:0.9rem; margin-left:8px;">92.4% HIGH SIMILARITY</span>
+                        </div>
+                        <div style="font-size:0.75rem; color:#64748b;">
+                            Engine: <strong id="compareEngineVersion">HYBRID-V2.1-TFIDF-COSINE</strong> &bull; <span id="compareTimestamp">Just now</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual Multi-segment Progress Bar -->
+                    <div class="score-progress-bar">
+                        <div class="score-progress-segment segment-inst" id="barSegInst" title="Institution Match (Max 25%)" style="width:25%;"></div>
+                        <div class="score-progress-segment segment-cat" id="barSegCat" title="Category Compatibility (Max 20%)" style="width:20%;"></div>
+                        <div class="score-progress-segment segment-kw" id="barSegKw" title="Keyword Overlap (Max 15%)" style="width:12%;"></div>
+                        <div class="score-progress-segment segment-sem" id="barSegSem" title="AI Semantic Vector Cosine (Max 30%)" style="width:28%;"></div>
+                        <div class="score-progress-segment segment-ctx" id="barSegCtx" title="Temporal & Regulatory Context (Max 10%)" style="width:7.4%;"></div>
+                    </div>
+
+                    <!-- Signal Legend -->
+                    <div style="display:flex; flex-wrap:wrap; gap:16px; font-size:0.72rem; color:#475569; margin-top:6px;">
+                        <span><span style="color:#2563eb; font-weight:800;">■</span> Institution: <strong id="valSegInst">25</strong>/25</span>
+                        <span><span style="color:#7c3aed; font-weight:800;">■</span> Category: <strong id="valSegCat">20</strong>/20</span>
+                        <span><span style="color:#ea580c; font-weight:800;">■</span> Keywords Jaccard: <strong id="valSegKw">12</strong>/15</span>
+                        <span><span style="color:#059669; font-weight:800;">■</span> AI Semantic Cosine: <strong id="valSegSem">28</strong>/30</span>
+                        <span><span style="color:#d97706; font-weight:800;">■</span> Temporal/Context: <strong id="valSegCtx">7.4</strong>/10</span>
+                    </div>
+
+                    <!-- Matching Concepts & Signals Badges -->
+                    <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:6px;" id="compareKeywordsContainer">
+                        <!-- Filled dynamically -->
+                    </div>
+
+                    <!-- Conflicting / Missing Signals Alert (if any) -->
+                    <div id="compareAlertsBox" style="margin-top:10px;"></div>
+                </div>
+
+                <!-- Side-by-Side Comparison Grid -->
+                <div class="comparison-grid">
+                    <!-- Left: Case 1 -->
+                    <div class="case-compare-box">
+                        <div class="case-compare-header">
+                            <span class="status-pill status-received" id="c1BureauPill">RB</span>
+                            <h4 id="c1CaseNumber" style="margin-top:6px;">AICTE-2026-CASE-001</h4>
+                            <div class="case-compare-meta">
+                                <span style="font-size:0.75rem; color:#64748b;">Receipt: <strong id="c1ReceiptDate">12 Oct 2026</strong></span>
+                                <span style="font-size:0.75rem; color:#64748b;">Status: <strong id="c1Status">IN_PROGRESS</strong></span>
+                                <span style="font-size:0.75rem; color:#64748b;">Officer: <strong id="c1Officer">Rahul Sharma</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Institution Details</div>
+                            <div class="compare-field-val" id="c1InstitutionDetails">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Complaint Title</div>
+                            <div class="compare-field-val" id="c1Title" style="font-weight:700;">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Category &amp; Priority</div>
+                            <div class="compare-field-val" id="c1CategoryPriority">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Full Grievance Description</div>
+                            <div class="compare-field-val" id="c1Description" style="background:#ffffff; padding:10px; border:1px solid #cbd5e1; border-radius:6px; max-height:180px; overflow-y:auto; font-size:0.8rem; line-height:1.5;">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Case 2 -->
+                    <div class="case-compare-box">
+                        <div class="case-compare-header">
+                            <span class="status-pill status-transferred" id="c2BureauPill">PGRC</span>
+                            <h4 id="c2CaseNumber" style="margin-top:6px;">AICTE-2026-CASE-002</h4>
+                            <div class="case-compare-meta">
+                                <span style="font-size:0.75rem; color:#64748b;">Receipt: <strong id="c2ReceiptDate">15 Oct 2026</strong></span>
+                                <span style="font-size:0.75rem; color:#64748b;">Status: <strong id="c2Status">RECEIVED</strong></span>
+                                <span style="font-size:0.75rem; color:#64748b;">Officer: <strong id="c2Officer">Vikram Patil</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Institution Details</div>
+                            <div class="compare-field-val" id="c2InstitutionDetails">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Complaint Title</div>
+                            <div class="compare-field-val" id="c2Title" style="font-weight:700;">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Category &amp; Priority</div>
+                            <div class="compare-field-val" id="c2CategoryPriority">—</div>
+                        </div>
+
+                        <div class="compare-field">
+                            <div class="compare-field-label">Full Grievance Description</div>
+                            <div class="compare-field-val" id="c2Description" style="background:#ffffff; padding:10px; border:1px solid #cbd5e1; border-radius:6px; max-height:180px; overflow-y:auto; font-size:0.8rem; line-height:1.5;">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Human Review & Duplicate Management Panel -->
+                <div style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:8px; padding:18px; margin-top:20px;">
+                    <h4 style="margin:0 0 12px; font-size:0.95rem; font-weight:800; color:#0f172a;">⚖️ Official Human Review &amp; Duplicate Management</h4>
+                    <p style="font-size:0.75rem; color:#64748b; margin:0 0 14px;">The AI identifies potential overlaps; authorized officers must verify and confirm decisions. Original Case IDs and histories are strictly preserved.</p>
+
+                    <form id="overlapDecisionForm" onsubmit="handleOverlapDecisionSubmit(event)">
+                        <input type="hidden" id="decisionOverlapId">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:12px;">
+                            <div>
+                                <label style="font-size:0.75rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Verification Decision <span style="color:#dc2626;">*</span></label>
+                                <select id="selectOverlapDecision" class="form-select" required onchange="toggleDecisionFields()" style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;">
+                                    <option value="CONFIRMED_DUPLICATE">Confirm Duplicate (Designate Primary Case &amp; Link)</option>
+                                    <option value="CONFIRMED_RELATED">Confirm Related (Link Cases Without Merging Workflows)</option>
+                                    <option value="MARKED_UNRELATED">Mark Unrelated (Suppress Repetitive Overlap Alerts)</option>
+                                    <option value="COORDINATION_REQUESTED">Request Cross-Bureau Coordination</option>
+                                    <option value="ADDITIONAL_INFO_REQUESTED">Request Additional Institutional Information</option>
+                                    <option value="ESCALATED">Escalate for Senior Authority Review</option>
+                                </select>
+                            </div>
+
+                            <div id="primaryCaseSelectGroup">
+                                <label style="font-size:0.75rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Designate Primary Case</label>
+                                <select id="selectPrimaryCase" class="form-select" style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;">
+                                    <option value="" id="optCase1">Case 1</option>
+                                    <option value="" id="optCase2">Case 2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:14px;">
+                            <label style="font-size:0.75rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Officer Decision Remarks &amp; Justification <span style="color:#dc2626;">*</span></label>
+                            <textarea id="overlapDecisionRemarks" class="form-textarea" rows="2" required placeholder="State regulatory reasons, verified facts, or coordination directives..." style="width:100%; border-radius:6px; border:1px solid #cbd5e1; padding:8px 10px; font-size:0.82rem;"></textarea>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <button type="button" class="btn btn-warning btn-sm" id="btnReopenDecision" onclick="handleReopenOverlap()">
+                                ↺ Reopen Previous Decision
+                            </button>
+                            <div style="display:flex; gap:10px;">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modalOverlapCompare')">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm" id="btnSubmitDecision">Record Official Decision</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 2: INITIATE CROSS-BUREAU COORDINATION              -->
+    <!-- ======================================================== -->
+    <div class="modal-overlay" id="modalInitiateCoordination">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Initiate Cross-Bureau Coordination</h3>
+                <button class="modal-close-btn" onclick="closeModal('modalInitiateCoordination')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="coordinationForm" onsubmit="handleCoordinationSubmit(event)">
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#334155;">Primary Case ID <span style="color:#dc2626;">*</span></label>
+                        <select id="coordPrimaryCase" class="form-select" required style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;"></select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#334155;">Linked Case ID (Cross-Bureau) <span style="color:#dc2626;">*</span></label>
+                        <select id="coordLinkedCase" class="form-select" required style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;"></select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#334155;">Target Regulatory Bureau / Cell <span style="color:#dc2626;">*</span></label>
+                        <select id="coordTargetBureau" class="form-select" required style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;">
+                            <option value="1">Regulation Bureau (RB)</option>
+                            <option value="2">Public Grievance Redressal Cell (PGRC)</option>
+                            <option value="3">Approval Bureau</option>
+                            <option value="4">Policy &amp; Planning Bureau</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#334155;">Coordination Reason / Query <span style="color:#dc2626;">*</span></label>
+                        <textarea id="coordReason" class="form-textarea" rows="3" required placeholder="Specify why joint review, inspection clarification, or document cross-check is required..." style="width:100%; border-radius:6px; border:1px solid #cbd5e1; padding:8px 10px; font-size:0.82rem;"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#334155;">Response Deadline</label>
+                        <input type="date" id="coordDeadline" style="width:100%; height:38px; border-radius:6px; border:1px solid #cbd5e1; padding:0 10px; font-size:0.82rem;">
+                    </div>
+
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modalInitiateCoordination')">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmitCoordination">Submit Coordination Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 3: CASE WORKSPACE & TIMELINE DETAILS               -->
+    <!-- ======================================================== -->
+    <div class="modal-overlay" id="modalCaseWorkspace">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <div>
+                    <h3 id="workspaceModalCaseNum">Case Workspace</h3>
+                    <p id="workspaceModalInst" style="font-size:0.8rem; color:#64748b; margin:2px 0 0;"></p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('modalCaseWorkspace')">&times;</button>
+            </div>
+            <div class="modal-body" id="workspaceModalBody">
+                <!-- Case details loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" onclick="closeModal('modalCaseWorkspace')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Quick Assign Case -->
+    <div class="modal-overlay" id="assignCaseModalQuick">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div>
+                    <h3 style="color:#ffffff;">Assign Bureau Case</h3>
+                    <p style="font-size:0.8rem;color:#cbd5e1;margin:2px 0 0;">Internal Case Reassignment / Delegation</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('assignCaseModalQuick')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="assignCaseQuickForm" onsubmit="handleQuickAssignSubmit(event)">
+                    <div class="form-group" style="margin-bottom:14px;">
+                        <label class="form-label" for="assignCaseSelect">Select Case *</label>
+                        <select id="assignCaseSelect" class="form-select" required style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                            <option value="">-- Select Bureau Case --</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:14px;">
+                        <label class="form-label" for="assignOfficerSelect">Assign To Officer *</label>
+                        <select id="assignOfficerSelect" class="form-select" required style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                            <option value="3">Shri Rajesh Kulkarni (Regulation Bureau Officer)</option>
+                            <option value="4">Dr. Ananya Sen (Public Grievance Redressal Officer)</option>
+                            <option value="1">Super Admin (System Oversight)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:14px;">
+                        <label class="form-label" for="assignInstructions">Official Assignment Notes / Directive *</label>
+                        <textarea id="assignInstructions" class="form-textarea" rows="3" required placeholder="Specify investigative priority, statutory scrutiny requirements, or deadline..." style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;"></textarea>
+                    </div>
+                    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('assignCaseModalQuick')">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmitQuickAssign">Confirm Assignment &rarr;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Quick Add Institution -->
+    <div class="modal-overlay" id="addInstitutionModalQuick">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div>
+                    <h3 style="color:#ffffff;">Register Technical Institution</h3>
+                    <p style="font-size:0.8rem;color:#cbd5e1;margin:2px 0 0;">Add Accredited Institution to National Registry</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('addInstitutionModalQuick')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addInstitutionQuickForm" onsubmit="handleQuickAddInstitutionSubmit(event)">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="qInstPermId">AICTE Permanent ID *</label>
+                            <input type="text" id="qInstPermId" class="form-input" required placeholder="e.g. 1-3849102938" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="qInstRegion">AICTE Region *</label>
+                            <select id="qInstRegion" class="form-select" required style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                                <option value="North">Northern Region</option>
+                                <option value="South">Southern Region</option>
+                                <option value="East">Eastern Region</option>
+                                <option value="West">Western Region</option>
+                                <option value="Central">Central Region</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="qInstName">Official Institution Name *</label>
+                        <input type="text" id="qInstName" class="form-input" required placeholder="e.g. Apex Institute of Science & Technology" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="qInstState">State / UT *</label>
+                            <input type="text" id="qInstState" class="form-input" required placeholder="e.g. Maharashtra" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="qInstCity">City / District *</label>
+                            <input type="text" id="qInstCity" class="form-input" required placeholder="e.g. Pune" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                        <div class="form-group">
+                            <label class="form-label" for="qInstType">Institution Type</label>
+                            <select id="qInstType" class="form-select" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                                <option value="ENGINEERING_AND_TECHNOLOGY">Engineering &amp; Technology</option>
+                                <option value="MANAGEMENT">Management (MBA/PGDM)</option>
+                                <option value="PHARMACY">Pharmacy</option>
+                                <option value="POLYTECHNIC">Polytechnic Diploma</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="qInstIntake">Approved Student Intake</label>
+                            <input type="number" id="qInstIntake" class="form-input" value="480" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:4px;">
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;justify-content:flex-end;">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('addInstitutionModalQuick')">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmitQuickInst">Add Institution &rarr;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/bureau-workspace.js"></script>
+</body>
+</html>
