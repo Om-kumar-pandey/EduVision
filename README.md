@@ -1,5 +1,7 @@
 # EduVision – Complaint Monitoring Portal
 
+A centralized AICTE dashboard for tracking institution-related complaints across the Regulation Bureau, PGRC, and other cells. It brings case status, ownership, action history, and reports together, while flagging potential overlaps and deadline risks to help officials coordinate effectively and resolve grievances on time.
+
 > **Transparent • Responsive • Better Education**  
 > Full-Stack Technical Education Grievance Redressal and Institutional Monitoring Portal pursuant to All India Council for Technical Education (AICTE) regulations.
 
@@ -9,7 +11,7 @@
 This implementation faithfully recreates the **EduVision Dashboard** design:
 - **Top Navigation Bar**: Deep navy header (`#0C2B4E`), EduVision logo, global search bar, notification bell with unread badge (`3`), and user profile avatar with dropdown.
 - **Left Sidebar**: Dark navy navigation (`#07172C`), active item highlighting in royal blue (`#1D4ED8`), lower section with glowing building artwork ("Your Voice Matters") and official AICTE emblem.
-- **Hero Banner**: High-resolution modern campus facade with blue gradient, quote card (`"Better Governance for Quality Technical Education" — AICTE`), and 6 audience classification tags.
+- **Hero Banner**: High-resolution modern campus facade with blue gradient, quote card (`"Better Governance for Quality Technical Education" — AICTE`), and dynamic role indicator.
 - **3 Primary Action Cards**: Soft pastel cards for *File a New Complaint* (sky blue), *Track Your Complaint* (mint green), and *View Guidelines* (lavender).
 - **5 Dynamic Metric Cards**: *Total Complaints* (3), *In Process* (1, 33%), *Resolved* (1, 33%), *Rejected* (0, 0%), and *Under Review* (1, 33%) with formatted timestamps.
 - **Recent Complaints Table**: Exact rows (`CMP-2026-000103` to `CMP-2026-000099`), formatted dates, institutions, categories, colored status badges, and action buttons.
