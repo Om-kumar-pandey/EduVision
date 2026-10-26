@@ -8,8 +8,13 @@ public class CentralKpiDto {
     private long transferredCases;
     private long overdueCases;
     private long potentialOverlaps;
+    private long unassignedCases;
+    private long pendingApprovalRequests;
+    private long pendingCoordinationRequests;
+    private long criticalEscalatedCases;
 
     public CentralKpiDto() {}
+
     public long getTotalCases() { return totalCases; }
     public void setTotalCases(long totalCases) { this.totalCases = totalCases; }
     public long getPendingCases() { return pendingCases; }
@@ -24,4 +29,12 @@ public class CentralKpiDto {
     public void setOverdueCases(long overdueCases) { this.overdueCases = overdueCases; }
     public long getPotentialOverlaps() { return potentialOverlaps; }
     public void setPotentialOverlaps(long potentialOverlaps) { this.potentialOverlaps = potentialOverlaps; }
+    public long getUnassignedCases() { return unassignedCases; }
+    public void setUnassignedCases(long unassignedCases) { this.unassignedCases = unassignedCases; }
+    public long getPendingApprovalRequests() { return pendingApprovalRequests; }
+    public void setPendingApprovalRequests(long pendingApprovalRequests) { this.pendingApprovalRequests = pendingApprovalRequests; }
+    public long getPendingCoordinationRequests() { return pendingCoordinationRequests; }
+    public void setPendingCoordinationRequests(long pendingCoordinationRequests) { this.pendingCoordinationRequests = pendingCoordinationRequests; }
+    public long getCriticalEscalatedCases() { return criticalEscalatedCases; }
+    public void setCriticalEscalatedCases(long criticalEscalatedCases) { this.criticalEscalatedCases = criticalEscalatedCases; }
 }

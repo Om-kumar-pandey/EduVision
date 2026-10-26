@@ -72,6 +72,27 @@ const Auth = (function() {
         },
 
         /**
+         * Submit Bureau / Cell Officer Registration Request
+         */
+        async requestOfficerAccess(formData) {
+            return await Api.post(CONFIG.ENDPOINTS.REQUEST_OFFICER_ACCESS, formData);
+        },
+
+        /**
+         * Activate officer account with one-time security token
+         */
+        async activateAccount(payload) {
+            const result = await Api.post(CONFIG.ENDPOINTS.ACTIVATE_ACCOUNT, payload);
+            if (result && result.token) {
+                localStorage.setItem(CONFIG.TOKEN_KEY, result.token);
+                if (result.user) {
+                    localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(result.user));
+                }
+            }
+            return result;
+        },
+
+        /**
          * Logout user and clear tokens
          */
         async logout() {

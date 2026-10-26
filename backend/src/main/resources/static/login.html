@@ -60,7 +60,7 @@
                 &larr; Return to Homepage
             </a>
             <span style="background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:3px;font-size:0.75rem;font-weight:700;">
-                SIH 2026 #26264
+                AICTE Official Portal
             </span>
         </div>
     </header>
@@ -124,54 +124,75 @@
                         </div>
                     </div>
 
-                    <!-- Complainant Sign Up -->
+                    <!-- Complainant Notice / Redirect -->
                     <div id="roleSignupComplainantContainer" style="display:none;">
-                        <form id="roleSignupComplainantForm" onsubmit="RoleAuthModal.handleComplainantSignupSubmit(event)">
+                        <div class="role-notice-box">
+                            <strong>Public Grievance Redressal:</strong> Grievance submission, supporting affidavits, and tracking for students, faculty, and stakeholders do not require officer account registration. Please access the public complaint portal directly.
+                        </div>
+                        <div style="margin-top:16px;text-align:center;">
+                            <a href="complaint-portal.html" class="role-form-btn-submit" style="display:inline-block;text-decoration:none;padding:12px 24px;">
+                                <span>📄 Go to Public Complaint Portal</span> &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Bureau / Cell Officer Registration Request -->
+                    <div id="roleSignupBureauOfficerContainer" style="display:none;">
+                        <div class="role-notice-box">
+                            <strong>Bureau / Cell Officer Registration Protocol:</strong> Official accounts for AICTE Regulation Bureau (RB) and Public Grievance Redressal Cell (PGRC) are provisioned exclusively via Super Admin review and verification. Upon approval, you will receive an official activation token to configure your credentials.
+                        </div>
+                        <form id="roleBureauOfficerForm" onsubmit="RoleAuthModal.handleOfficerRegistrationSubmit(event)">
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compFullName">Full Name *</label>
-                                    <input type="text" id="compFullName" class="role-form-input" required placeholder="e.g. Rahul Sharma">
+                                    <label class="role-form-label" for="bureauOfficerFullName">Full Name *</label>
+                                    <input type="text" id="bureauOfficerFullName" class="role-form-input" required placeholder="e.g. Er. Vikram Mehta">
                                 </div>
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compEmail">Email Address *</label>
-                                    <input type="email" id="compEmail" class="role-form-input" required placeholder="name@example.com">
+                                    <label class="role-form-label" for="bureauOfficerEmail">Government / Official Email *</label>
+                                    <input type="email" id="bureauOfficerEmail" class="role-form-input" required placeholder="officer@aicte.gov.in">
                                 </div>
                             </div>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compPhone">Mobile Number</label>
-                                    <input type="tel" id="compPhone" class="role-form-input" placeholder="+91 98765 43210">
+                                    <label class="role-form-label" for="bureauOfficerEmpId">Employee ID / Staff Code *</label>
+                                    <input type="text" id="bureauOfficerEmpId" class="role-form-input" required placeholder="e.g. EMP-RB-9021">
                                 </div>
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compType">I am a *</label>
-                                    <select id="compType" class="role-form-select" required>
-                                        <option value="Student">Student / Enrolled Scholar</option>
-                                        <option value="Faculty">Faculty / Teacher / Researcher</option>
-                                        <option value="Parent">Parent / Guardian</option>
-                                        <option value="Stakeholder">General Citizen / Stakeholder</option>
+                                    <label class="role-form-label" for="bureauOfficerBureau">Designated Bureau / Cell *</label>
+                                    <select id="bureauOfficerBureau" class="role-form-select" required>
+                                        <option value="RB">Regulation Bureau (RB) — Case Scrutiny &amp; Norms</option>
+                                        <option value="PGRC">Public Grievance Redressal Cell (PGRC) — Grievances</option>
                                     </select>
                                 </div>
                             </div>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compPassword">Password * (Min 6 chars)</label>
-                                    <input type="password" id="compPassword" class="role-form-input" required minlength="6" placeholder="••••••••">
+                                    <label class="role-form-label" for="bureauOfficerDesignation">Official Designation *</label>
+                                    <input type="text" id="bureauOfficerDesignation" class="role-form-input" required placeholder="e.g. Scrutiny Officer / Assistant Director">
                                 </div>
                                 <div class="role-form-group">
-                                    <label class="role-form-label" for="compConfirmPassword">Confirm Password *</label>
-                                    <input type="password" id="compConfirmPassword" class="role-form-input" required minlength="6" placeholder="••••••••">
+                                    <label class="role-form-label" for="bureauOfficerDept">Department / Section</label>
+                                    <input type="text" id="bureauOfficerDept" class="role-form-input" placeholder="e.g. Technical Norms Compliance">
                                 </div>
                             </div>
-                            <button type="submit" class="role-form-btn-submit" id="btnRoleSignupSubmit">
-                                <span>Register &amp; Access Complaint Portal</span> &rarr;
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="bureauOfficerPhone">Official Mobile / Intercom Phone</label>
+                                <input type="tel" id="bureauOfficerPhone" class="role-form-input" placeholder="+91 11 2958 1000">
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="bureauOfficerVerificationInfo">Official Purpose / Office Order Reference</label>
+                                <textarea id="bureauOfficerVerificationInfo" class="role-form-textarea" rows="2" placeholder="Specify your posting details, official appointment reference, or administrative remarks..."></textarea>
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnBureauOfficerSubmit">
+                                <span>Submit Officer Access Request</span> &rarr;
                             </button>
                         </form>
                     </div>
 
-                    <!-- Official Access Request -->
+                    <!-- Regional Officer Access Request -->
                     <div id="roleSignupOfficialContainer" style="display:none;">
                         <div class="role-notice-box">
-                            <strong>Government Officer Access Policy:</strong> Official accounts for Senior Authority, Regional Offices, and AICTE Bureaus/Cells are provisioned exclusively through administrative verification. You may submit an access request below, or use the pre-configured evaluator test accounts for immediate inspection.
+                            <strong>Regional Office Access Protocol:</strong> Official accounts for Regional Offices are provisioned through administrative verification by the Super Admin. You may submit an access request below.
                         </div>
                         <form id="roleOfficialAccessForm" onsubmit="RoleAuthModal.handleOfficialAccessSubmit(event)">
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
@@ -191,7 +212,7 @@
                                 </div>
                                 <div class="role-form-group">
                                     <label class="role-form-label" for="offOrgUnit">Organization / Regional Unit *</label>
-                                    <input type="text" id="offOrgUnit" class="role-form-input" required placeholder="e.g. Western Regional Office / Regulation Bureau">
+                                    <input type="text" id="offOrgUnit" class="role-form-input" required placeholder="e.g. Western Regional Office">
                                 </div>
                             </div>
                             <div class="role-form-group">
@@ -204,7 +225,7 @@
                         </form>
 
                         <div class="role-quickfill-box" style="margin-top:16px;">
-                            <div class="role-quickfill-title">For Evaluators / Hackathon Testing:</div>
+                            <div class="role-quickfill-title">For Authorized Review / Administrative Verification:</div>
                             <p style="font-size:0.8rem;color:#475569;margin-bottom:8px;">Switch to the <strong>Sign In</strong> tab to immediately test this role using verified credentials.</p>
                             <button type="button" class="role-quickfill-btn" onclick="RoleAuthModal.switchMode('login')">Switch to Sign In &rarr;</button>
                         </div>
@@ -216,7 +237,7 @@
                             <strong>Access Prohibited:</strong> Public self-registration for the <strong>Super Admin</strong> role is strictly disabled under AICTE security directives. Super Admin accounts are provisioned exclusively via secure server-level configuration.
                         </div>
                         <p style="font-size:0.85rem;color:#475569;">
-                            If you are an evaluator inspecting system administration capabilities, please switch to <strong>Sign In</strong> and use the verified administrator credentials.
+                            If you are an authorized auditor inspecting system administration capabilities, please switch to <strong>Sign In</strong> and use the verified administrator credentials.
                         </p>
                         <div style="margin-top:16px;">
                             <button type="button" class="role-form-btn-submit" onclick="RoleAuthModal.switchMode('login')">

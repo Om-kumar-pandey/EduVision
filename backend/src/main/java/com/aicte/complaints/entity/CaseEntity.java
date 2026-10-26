@@ -25,6 +25,13 @@ public class CaseEntity {
     @JoinColumn(name = "bureau_id", nullable = false)
     private Bureau bureau;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "assigned_to_user_id")
+    private User assignedTo;
+
+    @Column(name = "supporting_bureaus", length = 255)
+    private String supportingBureaus;
+
     @Column(nullable = false)
     private String title;
 
@@ -48,6 +55,21 @@ public class CaseEntity {
 
     @Column(name = "disposed_date")
     private LocalDateTime disposedDate;
+
+    @Column(name = "institution_response", columnDefinition = "TEXT")
+    private String institutionResponse;
+
+    @Column(name = "institution_response_date")
+    private LocalDateTime institutionResponseDate;
+
+    @Column(name = "internal_notes", columnDefinition = "TEXT")
+    private String internalNotes;
+
+    @Column(name = "duplicate_of_case_id")
+    private Long duplicateOfCaseId;
+
+    @Column(name = "duplicate_status", length = 30)
+    private String duplicateStatus = "NONE";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_user_id")
@@ -75,7 +97,7 @@ public class CaseEntity {
     }
 
     public boolean isOverdue() {
-        if ("DISPOSED".equalsIgnoreCase(status)) return false;
+        if ("DISPOSED".equalsIgnoreCase(status) || "RESOLVED".equalsIgnoreCase(status) || "CLOSED".equalsIgnoreCase(status)) return false;
         return expectedDisposalDate != null && expectedDisposalDate.isBefore(LocalDateTime.now());
     }
 
@@ -89,6 +111,10 @@ public class CaseEntity {
     public void setInstitution(Institution institution) { this.institution = institution; }
     public Bureau getBureau() { return bureau; }
     public void setBureau(Bureau bureau) { this.bureau = bureau; }
+    public User getAssignedTo() { return assignedTo; }
+    public void setAssignedTo(User assignedTo) { this.assignedTo = assignedTo; }
+    public String getSupportingBureaus() { return supportingBureaus; }
+    public void setSupportingBureaus(String supportingBureaus) { this.supportingBureaus = supportingBureaus; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getDescription() { return description; }
@@ -105,6 +131,16 @@ public class CaseEntity {
     public void setExpectedDisposalDate(LocalDateTime expectedDisposalDate) { this.expectedDisposalDate = expectedDisposalDate; }
     public LocalDateTime getDisposedDate() { return disposedDate; }
     public void setDisposedDate(LocalDateTime disposedDate) { this.disposedDate = disposedDate; }
+    public String getInstitutionResponse() { return institutionResponse; }
+    public void setInstitutionResponse(String institutionResponse) { this.institutionResponse = institutionResponse; }
+    public LocalDateTime getInstitutionResponseDate() { return institutionResponseDate; }
+    public void setInstitutionResponseDate(LocalDateTime institutionResponseDate) { this.institutionResponseDate = institutionResponseDate; }
+    public String getInternalNotes() { return internalNotes; }
+    public void setInternalNotes(String internalNotes) { this.internalNotes = internalNotes; }
+    public Long getDuplicateOfCaseId() { return duplicateOfCaseId; }
+    public void setDuplicateOfCaseId(Long duplicateOfCaseId) { this.duplicateOfCaseId = duplicateOfCaseId; }
+    public String getDuplicateStatus() { return duplicateStatus; }
+    public void setDuplicateStatus(String duplicateStatus) { this.duplicateStatus = duplicateStatus; }
     public User getCreatedBy() { return createdBy; }
     public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
     public LocalDateTime getCreatedAt() { return createdAt; }

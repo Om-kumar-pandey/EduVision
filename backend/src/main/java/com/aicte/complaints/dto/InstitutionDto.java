@@ -19,8 +19,10 @@ public class InstitutionDto {
     private long activeCases;
     private long disposedCases;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public InstitutionDto() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getPermanentId() { return permanentId; }
@@ -45,6 +47,8 @@ public class InstitutionDto {
     public void setContactPhone(String contactPhone) { this.contactPhone = contactPhone; }
     public Boolean getIsVerified() { return isVerified; }
     public void setIsVerified(Boolean isVerified) { this.isVerified = isVerified; }
+    public boolean isVerified() { return Boolean.TRUE.equals(this.isVerified); }
+    public void setVerified(boolean verified) { this.isVerified = verified; }
     public long getTotalCases() { return totalCases; }
     public void setTotalCases(long totalCases) { this.totalCases = totalCases; }
     public long getActiveCases() { return activeCases; }
@@ -53,4 +57,6 @@ public class InstitutionDto {
     public void setDisposedCases(long disposedCases) { this.disposedCases = disposedCases; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

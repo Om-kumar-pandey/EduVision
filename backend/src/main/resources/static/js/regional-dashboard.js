@@ -8,6 +8,29 @@ let currentRegion = 'Western';
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
+    // Demo auto-bootstrap & direct auth-token support for testing / preview
+    const urlParams = new URLSearchParams(window.location.search);
+    const authToken = urlParams.get('auth_token');
+    if (authToken) {
+        localStorage.setItem(CONFIG.TOKEN_KEY, authToken);
+        localStorage.setItem(CONFIG.USER_KEY, JSON.stringify({
+            id: 3,
+            fullName: 'Dr. Sandeep Deshmukh',
+            email: 'western_ro@aicte.gov.in',
+            role: 'REGIONAL_OFFICER',
+            region: 'Western'
+        }));
+    } else if (urlParams.get('demo') === 'true' && !Auth.isAuthenticated()) {
+        localStorage.setItem(CONFIG.TOKEN_KEY, 'demo_jwt_token_regional');
+        localStorage.setItem(CONFIG.USER_KEY, JSON.stringify({
+            id: 3,
+            fullName: 'Dr. Sandeep Deshmukh',
+            email: 'western_ro@aicte.gov.in',
+            role: 'REGIONAL_OFFICER',
+            region: 'Western'
+        }));
+    }
+
     // Route Protection: Accessible to REGIONAL_OFFICER, CENTRAL_MONITOR, SYS_ADMIN
     if (!Auth.checkPageAccess(['REGIONAL_OFFICER', 'CENTRAL_MONITOR', 'SYS_ADMIN'])) {
         return;
@@ -31,7 +54,7 @@ function updateRegionUI() {
     const sub = document.getElementById('regQueueSubtitle');
 
     if (badge) badge.textContent = `${currentRegion} Region`;
-    if (title) title.textContent = `${currentRegion} Regional Office &bull; Jurisdiction Dashboard`;
+    if (title) title.innerHTML = `${currentRegion} Regional Office &bull; Jurisdiction Dashboard`;
     if (sub) sub.textContent = `Complaints registered against technical institutions within ${currentRegion} Regional Office jurisdiction`;
 }
 

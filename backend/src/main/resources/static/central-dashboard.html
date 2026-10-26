@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Authority &amp; Central Monitoring Dashboard — EduVision AICTE</title>
+    <title>Senior Authority Supervisory Monitoring Dashboard — AICTE</title>
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/variables.css">
@@ -14,74 +14,147 @@
 </head>
 <body class="dashboard-body">
 
-    <div class="layout-container">
-        <!-- Sidebar Navigation -->
+    <div class="app-layout">
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- 1. SIDEBAR NAVIGATION -->
         <aside class="sidebar">
-            <div class="sidebar-brand">
-                <div class="aicte-logo">🎓</div>
+            <div class="sidebar-header" style="padding: 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div class="aicte-logo" style="width: 38px; height: 38px; border-radius: 50%; background: #ea580c; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; border: 2px solid #fff;">AICTE</div>
                 <div class="brand-text">
-                    <h1>EduVision</h1>
-                    <p>AICTE Monitoring &bull; SIH 2026</p>
+                    <h1 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin: 0;">AICTE National</h1>
+                    <p style="font-size: 0.68rem; color: #94a3b8; margin: 2px 0 0;">Senior Authority Console</p>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
-                <div class="nav-section-title">Navigation Desks</div>
-                <ul class="nav-list">
-                    <li class="nav-item" id="navCentral">
-                        <a href="central-dashboard.html" class="nav-link active">
+                <!-- Overview -->
+                <ul class="nav-list" style="margin-bottom: 8px;">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link active" data-tab-target="paneDashboard">
                             <span class="nav-icon">📊</span>
-                            <span>Senior Authority</span>
+                            <span>Executive Overview</span>
                         </a>
                     </li>
-                    <li class="nav-item" id="navRegional">
+                </ul>
+
+                <div class="nav-section-title">OPERATIONAL MODULES</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneAllCases">
+                            <span class="nav-icon">📑</span>
+                            <span>Case Monitoring</span>
+                            <span class="nav-badge" id="badgeAllCasesCount" style="margin-left:auto; background:rgba(255,255,255,0.15); padding:2px 7px; border-radius:10px; font-size:0.7rem;">—</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneOverlaps">
+                            <span class="nav-icon">⚡</span>
+                            <span>Overlapping Cases</span>
+                            <span class="nav-badge" id="badgeOverlapsCount" style="margin-left:auto; background:#ec4899; color:#fff; padding:2px 7px; border-radius:10px; font-size:0.7rem;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneCoordination">
+                            <span class="nav-icon">🤝</span>
+                            <span>Cross-Bureau Coordination</span>
+                            <span class="nav-badge" id="badgeCoordCount" style="margin-left:auto; background:#f97316; color:#fff; padding:2px 7px; border-radius:10px; font-size:0.7rem;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneEscalations">
+                            <span class="nav-icon">⚠️</span>
+                            <span>Escalations &amp; Overdue</span>
+                            <span class="nav-badge" id="badgeEscalationCount" style="margin-left:auto; background:#ef4444; color:#fff; padding:2px 7px; border-radius:10px; font-size:0.7rem;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneApprovals">
+                            <span class="nav-icon">⚖️</span>
+                            <span>Approval Requests</span>
+                            <span class="nav-badge" id="badgeApprovalCount" style="margin-left:auto; background:#06b6d4; color:#fff; padding:2px 7px; border-radius:10px; font-size:0.7rem;">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneInstitutions">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Institution Monitoring</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneBureauPerformance">
+                            <span class="nav-icon">📈</span>
+                            <span>Bureau Performance</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title">ANALYTICS &amp; AUDIT</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneReports">
+                            <span class="nav-icon">📥</span>
+                            <span>Reports &amp; Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneActivityHistory">
+                            <span class="nav-icon">🕒</span>
+                            <span>Activity History</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title">SYSTEM DESKS</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
                         <a href="regional-dashboard.html" class="nav-link">
                             <span class="nav-icon">🌐</span>
                             <span>Regional Office</span>
                         </a>
                     </li>
-                    <li class="nav-item" id="navBureau">
+                    <li class="nav-item">
                         <a href="bureau-workspace.html" class="nav-link">
                             <span class="nav-icon">⚖️</span>
                             <span>Bureau Workspace</span>
                         </a>
                     </li>
-                    <li class="nav-item" id="navInstitution">
-                        <a href="institution-tracking.html" class="nav-link">
-                            <span class="nav-icon">🏛️</span>
-                            <span>Institution Tracking</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="navAdmin">
+                    <li class="nav-item">
                         <a href="admin-dashboard.html" class="nav-link">
                             <span class="nav-icon">🛡️</span>
-                            <span>System Admin &amp; Import</span>
+                            <span>System Admin</span>
                         </a>
                     </li>
-                    <li class="nav-item" id="navHome">
+                    <li class="nav-item">
+                        <a href="complaint-portal.html" class="nav-link">
+                            <span class="nav-icon">📝</span>
+                            <span>Public Grievance Portal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="index.html" class="nav-link">
                             <span class="nav-icon">🏠</span>
-                            <span>EduVision Home</span>
+                            <span>AICTE Home</span>
                         </a>
                     </li>
                 </ul>
             </nav>
 
-            <div class="sidebar-footer">
-                <div>National AICTE Oversight</div>
-                <div style="font-size: 0.68rem; margin-top: 4px; opacity: 0.7;">Role: Senior Authority Desk</div>
+            <div class="sidebar-footer" style="padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.72rem; color: #94a3b8;">
+                <div style="font-weight: 700; color: #cbd5e1;">National AICTE Oversight</div>
+                <div style="font-size: 0.68rem; margin-top: 2px;">Role: Senior Authority Desk</div>
             </div>
         </aside>
 
-        <!-- Main Wrapper -->
+        <!-- 2. MAIN WRAPPER -->
         <div class="main-wrapper">
             <!-- Header -->
             <header class="top-header">
                 <div class="header-left">
-                    <button class="mobile-menu-toggle" aria-label="Toggle Navigation">☰</button>
+                    <button class="mobile-menu-toggle" id="mobileSidebarToggle" aria-label="Toggle Navigation">☰</button>
                     <div class="page-title-area">
-                        <h2>Senior Authority &amp; Central Monitoring Dashboard</h2>
-                        <p>National-Level Oversight &bull; Escalations, Overlaps &bull; Analytics</p>
+                        <h2>Senior Authority Supervisory Monitoring &amp; Governance Console</h2>
+                        <p>National-Level Oversight &bull; Inter-Bureau Coordination &bull; Regulatory Directives</p>
                     </div>
                 </div>
 
@@ -91,11 +164,24 @@
                         <span>MySQL 8.0 Live</span>
                     </div>
 
+                    <!-- Notification dropdown toggle -->
+                    <div class="notif-wrapper" style="position:relative;">
+                        <button type="button" class="btn btn-outline btn-sm" id="btnSeniorNotifToggle" title="View Recent Supervisory Alerts">
+                            🔔 <span class="badge" id="headerNotifBadge" style="background:#ef4444; color:#fff; font-size:0.65rem; border-radius:50%; padding:2px 5px;">0</span>
+                        </button>
+                        <div class="notif-dropdown" id="seniorNotifDropdown" style="display:none; position:absolute; right:0; top:36px; width:320px; background:#fff; border:1px solid #cbd5e1; border-radius:6px; box-shadow:0 8px 16px rgba(0,0,0,0.12); z-index:100; padding:12px;">
+                            <div style="font-weight:700; font-size:0.85rem; color:#04244a; border-bottom:1px solid #e2e8f0; padding-bottom:6px; margin-bottom:8px;">Supervisory Alerts &amp; Directives</div>
+                            <div id="seniorNotifList" style="font-size:0.78rem; max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;">
+                                <p style="color:#64748b; text-align:center;">No pending supervisory alerts.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="user-profile-badge">
-                        <div class="avatar" id="headerUserAvatar">M</div>
+                        <div class="avatar" id="headerUserAvatar">S</div>
                         <div class="user-details">
-                            <span class="user-name" id="headerUserName">Senior Authority</span>
-                            <span class="user-role" id="headerUserRole">Senior Authority</span>
+                            <span class="user-name" id="headerUserName">Smt. Sunita Verma</span>
+                            <span class="user-role" id="headerUserRole">Senior Authority (Director)</span>
                         </div>
                     </div>
 
@@ -107,137 +193,693 @@
 
             <!-- Main Content Area -->
             <main class="content-area">
-                <!-- Filters Bar -->
-                <div class="filter-toolbar">
-                    <div class="filter-group">
-                        <label for="filterBureau">Bureau:</label>
-                        <select id="filterBureau" class="form-select">
-                            <option value="">All Bureaus</option>
-                            <option value="1">Regulation Bureau (RB)</option>
-                            <option value="2">Public Grievance Redressal (PGRC)</option>
-                            <option value="3">Approval Bureau</option>
-                            <option value="4">Policy &amp; Planning Bureau</option>
-                        </select>
+
+                <!-- ======================================================== -->
+                <!-- PANE 1: EXECUTIVE DASHBOARD OVERVIEW                     -->
+                <!-- ======================================================== -->
+                <div class="tab-pane active" id="paneDashboard">
+                    <!-- Global Filters Bar -->
+                    <div class="filter-toolbar" style="margin-bottom: 20px;">
+                        <div class="filter-group">
+                            <label for="filterBureau">Bureau:</label>
+                            <select id="filterBureau" class="form-select">
+                                <option value="">All Bureaus</option>
+                                <option value="1">Regulation Bureau (RB)</option>
+                                <option value="2">Public Grievance Redressal (PGRC)</option>
+                                <option value="3">Approval Bureau</option>
+                                <option value="4">Policy &amp; Planning Bureau</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterStatus">Status:</label>
+                            <select id="filterStatus" class="form-select">
+                                <option value="">All Statuses</option>
+                                <option value="RECEIVED">Received</option>
+                                <option value="UNDER_PROCESS">Under Process</option>
+                                <option value="DISPOSED">Disposed</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterPriority">Priority:</label>
+                            <select id="filterPriority" class="form-select">
+                                <option value="">All Priorities</option>
+                                <option value="URGENT">Urgent</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary btn-sm" id="btnApplyFilters">Apply Filters</button>
+                        <button class="btn btn-outline btn-sm" id="btnResetFilters">Reset</button>
+                        <button class="btn btn-outline btn-sm" id="btnRefreshDashboard" style="margin-left: auto;">⟳ Refresh Live Data</button>
                     </div>
 
-                    <div class="filter-group">
-                        <label for="filterStatus">Status:</label>
-                        <select id="filterStatus" class="form-select">
-                            <option value="">All Statuses</option>
-                            <option value="RECEIVED">Received</option>
-                            <option value="UNDER_PROCESS">Under Process</option>
-                            <option value="DISPOSED">Disposed</option>
-                        </select>
-                    </div>
+                    <!-- 10 Comprehensive KPI Cards Section -->
+                    <section class="kpi-grid-10">
+                        <div class="kpi-card total" onclick="switchToTab('paneAllCases')">
+                            <div class="kpi-icon-box">📋</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiTotal">—</div>
+                                <div class="kpi-label">Total Unique Cases</div>
+                            </div>
+                        </div>
 
-                    <div class="filter-group">
-                        <label for="filterPriority">Priority:</label>
-                        <select id="filterPriority" class="form-select">
-                            <option value="">All Priorities</option>
-                            <option value="URGENT">Urgent</option>
-                            <option value="HIGH">High</option>
-                            <option value="MEDIUM">Medium</option>
-                        </select>
-                    </div>
+                        <div class="kpi-card pending" onclick="switchToTab('paneAllCases', {status: 'RECEIVED'})">
+                            <div class="kpi-icon-box">⏳</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiPending">—</div>
+                                <div class="kpi-label">Pending Scrutiny</div>
+                            </div>
+                        </div>
 
-                    <button class="btn btn-primary btn-sm" id="btnApplyFilters">Filter Analytics</button>
-                    <button class="btn btn-outline btn-sm" id="btnResetFilters">Reset</button>
-                    <button class="btn btn-outline btn-sm" id="btnRefreshDashboard" style="margin-left: auto;">⟳ Refresh Data</button>
+                        <div class="kpi-card under-process" onclick="switchToTab('paneAllCases', {status: 'UNDER_PROCESS'})">
+                            <div class="kpi-icon-box">⚙️</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiUnderProcess">—</div>
+                                <div class="kpi-label">Under Inquiries</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card disposed" onclick="switchToTab('paneAllCases', {status: 'DISPOSED'})">
+                            <div class="kpi-icon-box">✅</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiDisposed">—</div>
+                                <div class="kpi-label">Disposed / Closed</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card overdue" onclick="switchToTab('paneEscalations')">
+                            <div class="kpi-icon-box">⚠️</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiOverdue" style="color:#ef4444;">—</div>
+                                <div class="kpi-label">Overdue Cases</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card unassigned" onclick="switchToTab('paneAllCases')">
+                            <div class="kpi-icon-box">👤</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiUnassigned">—</div>
+                                <div class="kpi-label">Unassigned Cases</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card transfers" onclick="switchToTab('paneApprovals')">
+                            <div class="kpi-icon-box">🔄</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiApprovals">—</div>
+                                <div class="kpi-label">Pending Approvals</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card overlaps" onclick="switchToTab('paneOverlaps')">
+                            <div class="kpi-icon-box">⚡</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiOverlaps" style="color:#ec4899;">—</div>
+                                <div class="kpi-label">Overlapping Alerts</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card coordinations" onclick="switchToTab('paneCoordination')">
+                            <div class="kpi-icon-box">🤝</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiCoordinations">—</div>
+                                <div class="kpi-label">Coordination Req.</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card critical" onclick="switchToTab('paneEscalations')">
+                            <div class="kpi-icon-box">🚨</div>
+                            <div class="kpi-info">
+                                <div class="kpi-value" id="kpiCritical" style="color:#dc2626;">—</div>
+                                <div class="kpi-label">Critical / Escalated</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Row 1: Charts (Workload + Inflow vs Disposal) -->
+                    <section class="charts-grid-4">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Bureau Workload &amp; Disposal Distribution</h3>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">Real-time stage allocation across statutory Bureaus</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="bureauWorkloadChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Monthly Inflow vs. Disposal Trends</h3>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">6-Month National Redressal Trajectory</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="monthlyTrendsChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Row 2: Charts (Status Donut + Regional Distribution) -->
+                    <section class="charts-grid-4">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Cases by Regulatory Status</h3>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">National Grievance Pipeline Composition</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="statusDonutChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Region-Wise Complaint Distribution</h3>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">Geographical Inflow across Regional Jurisdictions</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="regionDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Row 3: Actionable Alert Queues -->
+                    <section class="alerts-grid">
+                        <!-- Overdue & Urgent Queue -->
+                        <div class="alert-panel overdue-panel">
+                            <div class="alert-panel-header">
+                                <h3>⚠️ High-Priority &amp; Overdue Complaints</h3>
+                                <span class="alert-count-badge" id="overdueCountBadge">0</span>
+                            </div>
+                            <div class="alert-list" id="overdueList">
+                                <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+
+                        <!-- Cross-Bureau Overlaps Queue -->
+                        <div class="alert-panel overlap-panel">
+                            <div class="alert-panel-header">
+                                <h3>⚡ Cross-Bureau Overlap Alerts (Action Required)</h3>
+                                <span class="alert-count-badge pink" id="overlapCountBadge">0</span>
+                            </div>
+                            <div class="alert-list" id="overlapList">
+                                <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-                <!-- 1. Seven KPI Cards Section -->
-                <section class="kpi-grid">
-                    <div class="kpi-card total">
-                        <div class="kpi-icon">📋</div>
-                        <div class="kpi-value" id="kpiTotal">—</div>
-                        <div class="kpi-label">Total Complaints</div>
-                    </div>
-                    <div class="kpi-card pending">
-                        <div class="kpi-icon">⏳</div>
-                        <div class="kpi-value" id="kpiPending">—</div>
-                        <div class="kpi-label">Pending Scrutiny</div>
-                    </div>
-                    <div class="kpi-card under-process">
-                        <div class="kpi-icon">⚙️</div>
-                        <div class="kpi-value" id="kpiUnderProcess">—</div>
-                        <div class="kpi-label">Under Investigation</div>
-                    </div>
-                    <div class="kpi-card disposed">
-                        <div class="kpi-icon">✅</div>
-                        <div class="kpi-value" id="kpiDisposed">—</div>
-                        <div class="kpi-label">Disposed / Closed</div>
-                    </div>
-                    <div class="kpi-card transferred">
-                        <div class="kpi-icon">🔄</div>
-                        <div class="kpi-value" id="kpiTransferred">—</div>
-                        <div class="kpi-label">Transferred</div>
-                    </div>
-                    <div class="kpi-card overdue">
-                        <div class="kpi-icon">⚠️</div>
-                        <div class="kpi-value" id="kpiOverdue" style="color:#ef4444;">—</div>
-                        <div class="kpi-label">Overdue Cases</div>
-                    </div>
-                    <div class="kpi-card overlaps">
-                        <div class="kpi-icon">⚡</div>
-                        <div class="kpi-value" id="kpiOverlaps" style="color:#ec4899;">—</div>
-                        <div class="kpi-label">Cross-Bureau Overlaps</div>
-                    </div>
-                </section>
+                <!-- ======================================================== -->
+                <!-- PANE 2: ALL CASES / CASE MONITORING                      -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneAllCases">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>National Case Monitoring Queue</h2>
+                                <p>Comprehensive national register of all institution complaints across bureaus</p>
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-outline btn-sm" id="btnExportAllCasesCSV">📥 Export CSV</button>
+                            </div>
+                        </div>
 
-                <!-- 2. Visual Analytics Section (Chart.js) -->
-                <section class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Bureau Workload Distribution</h3>
-                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">Real-time case stages across statutory Bureaus</span>
+                        <div class="filter-toolbar" style="margin-bottom:16px;">
+                            <div class="filter-group">
+                                <input type="text" id="caseSearchInput" class="form-input" placeholder="Search by Case ID, Institution, Title..." style="min-width:250px;">
+                            </div>
+                            <div class="filter-group">
+                                <select id="caseFilterBureau" class="form-select">
+                                    <option value="">All Bureaus</option>
+                                    <option value="1">Regulation Bureau (RB)</option>
+                                    <option value="2">Public Grievance Redressal (PGRC)</option>
+                                    <option value="3">Approval Bureau</option>
+                                    <option value="4">Policy &amp; Planning</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="caseFilterStatus" class="form-select">
+                                    <option value="">All Statuses</option>
+                                    <option value="RECEIVED">Received</option>
+                                    <option value="UNDER_PROCESS">Under Process</option>
+                                    <option value="DISPOSED">Disposed</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="caseFilterPriority" class="form-select">
+                                    <option value="">All Priorities</option>
+                                    <option value="URGENT">Urgent</option>
+                                    <option value="HIGH">High</option>
+                                    <option value="MEDIUM">Medium</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="btnApplyCaseSearch">Search</button>
+                            <button class="btn btn-outline btn-sm" id="btnResetCaseSearch">Reset</button>
                         </div>
-                        <div class="chart-container">
-                            <canvas id="bureauWorkloadChart"></canvas>
-                        </div>
-                    </div>
 
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Monthly Inflow vs. Disposal Trends</h3>
-                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">6-Month Redressal Trajectory</span>
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Title &amp; Category</th>
+                                        <th>Institution &amp; Region</th>
+                                        <th>Bureau</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Receipt Date</th>
+                                        <th>Target SLA</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allCasesTableBody">
+                                    <tr><td colspan="9" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="chart-container">
-                            <canvas id="monthlyTrendsChart"></canvas>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- 3. Alert Queues Section -->
-                <section class="alerts-grid">
-                    <!-- Overdue & Urgent Queue -->
-                    <div class="alert-panel overdue-panel">
-                        <div class="alert-panel-header">
-                            <h3>⚠️ High-Priority &amp; Overdue Complaints</h3>
-                            <span class="alert-count-badge" id="overdueCountBadge">0</span>
-                        </div>
-                        <div class="alert-list" id="overdueList">
-                            <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+                        <!-- Pagination controls -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+                            <span style="font-size:0.8rem; color:#64748b;" id="casesPaginationInfo">Showing 0 of 0</span>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-outline btn-sm" id="btnCasesPrevPage" disabled>&larr; Previous</button>
+                                <button class="btn btn-outline btn-sm" id="btnCasesNextPage" disabled>Next &rarr;</button>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Cross-Bureau Overlaps Queue -->
-                    <div class="alert-panel overlap-panel">
-                        <div class="alert-panel-header">
-                            <h3>⚡ Cross-Bureau Overlap Alerts (Action Required)</h3>
-                            <span class="alert-count-badge pink" id="overlapCountBadge">0</span>
+                <!-- ======================================================== -->
+                <!-- PANE 3: OVERLAPPING CASES                                -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneOverlaps">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>AI-Powered Cross-Bureau Overlap Detection &amp; Supervisory Review</h2>
+                                <p>Deterministic Rule Matching &bull; Semantic Similarity &bull; Non-Destructive Parallel Investigation Triage</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary btn-sm" id="btnReanalyzeOverlaps">🔄 Re-Analyze All Complaints</button>
+                            </div>
                         </div>
-                        <div class="alert-list" id="overlapList">
-                            <div style="text-align: center; padding: 20px;"><div class="spinner"></div></div>
+
+                        <div class="filter-toolbar" style="margin-bottom:16px;">
+                            <div class="filter-group">
+                                <label for="overlapFilterStatus">Alert Status:</label>
+                                <select id="overlapFilterStatus" class="form-select">
+                                    <option value="">All Alerts</option>
+                                    <option value="DETECTED">DETECTED (Awaiting Action)</option>
+                                    <option value="REVIEWED">REVIEWED</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="overlapFilterClassification">Supervisory Decision:</label>
+                                <select id="overlapFilterClassification" class="form-select">
+                                    <option value="">All Decisions</option>
+                                    <option value="RELATED">RELATED</option>
+                                    <option value="UNRELATED">UNRELATED</option>
+                                    <option value="REQUIRES_COORDINATION">REQUIRES_COORDINATION</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="btnFilterOverlaps">Filter</button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Alert #</th>
+                                        <th>Institution Campus</th>
+                                        <th>Primary Case</th>
+                                        <th>Concurrent Linked Case</th>
+                                        <th>Hybrid Score</th>
+                                        <th>Confidence Band</th>
+                                        <th>Status</th>
+                                        <th>Decision Classification</th>
+                                        <th>Supervisory Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="overlapsTableBody">
+                                    <tr><td colspan="9" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </section>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 4: CROSS-BUREAU COORDINATION                        -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneCoordination">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Cross-Bureau Coordination Requests &amp; Inquiries</h2>
+                                <p>Formal inter-bureau collaboration, joint information requests, and synchronized findings</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-sm" id="btnOpenInitiateCoordModal">+ Initiate Coordination</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request #</th>
+                                        <th>Initiating Bureau</th>
+                                        <th>Target Bureau</th>
+                                        <th>Primary Case</th>
+                                        <th>Linked Case</th>
+                                        <th>Reason &amp; Objectives</th>
+                                        <th>Target Deadline</th>
+                                        <th>Status</th>
+                                        <th>Supervisory Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coordinationTableBody">
+                                    <tr><td colspan="9" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 5: ESCALATIONS & OVERDUE CASES                      -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneEscalations">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Critical Escalations &amp; Overdue Inquiries Queue</h2>
+                                <p>Cases exceeding statutory 45-day disposal deadlines or escalated by Regional Offices</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline btn-sm" id="btnExportEscalationsCSV">📥 Export Escalations CSV</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Title &amp; Allegations</th>
+                                        <th>Institution</th>
+                                        <th>Bureau</th>
+                                        <th>Priority</th>
+                                        <th>Receipt Date</th>
+                                        <th>Disposal Deadline</th>
+                                        <th>Overdue Duration</th>
+                                        <th>Supervisory Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="escalationsTableBody">
+                                    <tr><td colspan="9" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 6: APPROVAL REQUESTS (TRANSFERS)                    -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneApprovals">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Inter-Bureau Transfer Approval Requests</h2>
+                                <p>Supervisory review and binding decisions on inter-bureau case jurisdiction transfers</p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Req ID</th>
+                                        <th>Case #</th>
+                                        <th>Case Title</th>
+                                        <th>Institution</th>
+                                        <th>Transfer Path</th>
+                                        <th>Requesting Officer</th>
+                                        <th>Reason for Reallocation</th>
+                                        <th>Request Date</th>
+                                        <th>Status</th>
+                                        <th>Supervisory Decision</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="approvalsTableBody">
+                                    <tr><td colspan="10" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 7: INSTITUTION MONITORING                           -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneInstitutions">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>National Technical Institutions Registry &amp; Risk Oversight</h2>
+                                <p>Institutional profiles, permanent AICTE IDs, historical grievance density, and active inquiries</p>
+                            </div>
+                        </div>
+
+                        <div class="filter-toolbar" style="margin-bottom:16px;">
+                            <div class="filter-group">
+                                <input type="text" id="instSearchInput" class="form-input" placeholder="Search by Institution Name, Permanent ID, City..." style="min-width:280px;">
+                            </div>
+                            <div class="filter-group">
+                                <select id="instFilterRegion" class="form-select">
+                                    <option value="">All Regions</option>
+                                    <option value="Western">Western</option>
+                                    <option value="Northern">Northern</option>
+                                    <option value="Southern">Southern</option>
+                                    <option value="Eastern">Eastern</option>
+                                    <option value="Central">Central</option>
+                                    <option value="South-Western">South-Western</option>
+                                    <option value="North-Western">North-Western</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="btnSearchInstitutions">Search Institutions</button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Permanent ID</th>
+                                        <th>Institution Name</th>
+                                        <th>Region &amp; State</th>
+                                        <th>City</th>
+                                        <th>Total Cases</th>
+                                        <th>Active Inquiries</th>
+                                        <th>Risk Band</th>
+                                        <th>Supervisory Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="institutionsTableBody">
+                                    <tr><td colspan="8" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 8: BUREAU PERFORMANCE SCORECARD                     -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneBureauPerformance">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Bureau &amp; Cell Workload &amp; Resolution Performance Scorecard</h2>
+                                <p>Comparative analysis of case turnaround, disposal rates, overdue backlogs, and SLA compliance</p>
+                            </div>
+                        </div>
+
+                        <!-- Scorecard Grid -->
+                        <div class="scorecard-grid" id="bureauScorecardsContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <h3 style="font-size:1.05rem; color:#04244a; margin:24px 0 12px; font-weight:700;">Statutory Bureau Comparative Audit Table</h3>
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bureau Code &amp; Name</th>
+                                        <th>Total Assigned</th>
+                                        <th>Under Scrutiny</th>
+                                        <th>Under Investigation</th>
+                                        <th>Disposed Cases</th>
+                                        <th>Overdue Backlog</th>
+                                        <th>Disposal Rate</th>
+                                        <th>Compliance Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bureauPerformanceTableBody">
+                                    <tr><td colspan="8" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 9: REPORTS & ANALYTICS                              -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneReports">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Statutory Supervisory Reports &amp; Data Export</h2>
+                                <p>Generate real-time national compliance audits, bureau performance reports, and downloadable CSV datasets</p>
+                            </div>
+                        </div>
+
+                        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:18px; margin-bottom:20px;">
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:14px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reportTypeSelect">Report Type <span class="required">*</span></label>
+                                    <select id="reportTypeSelect" class="form-select">
+                                        <option value="CASE_SUMMARY">National Case Summary Report</option>
+                                        <option value="BUREAU_PERFORMANCE">Bureau Workload &amp; Disposal Audit</option>
+                                        <option value="OVERDUE_ESCALATIONS">Overdue Cases &amp; Escalation Log</option>
+                                        <option value="CROSS_BUREAU_OVERLAPS">Cross-Bureau Overlaps &amp; Coordination Report</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reportDateFrom">Date From</label>
+                                    <input type="date" id="reportDateFrom" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reportDateTo">Date To</label>
+                                    <input type="date" id="reportDateTo" class="form-input">
+                                </div>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:14px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="reportBureauSelect">Filter Bureau</label>
+                                    <select id="reportBureauSelect" class="form-select">
+                                        <option value="">All Bureaus</option>
+                                        <option value="1">Regulation Bureau (RB)</option>
+                                        <option value="2">Public Grievance Redressal (PGRC)</option>
+                                        <option value="3">Approval Bureau</option>
+                                        <option value="4">Policy &amp; Planning Bureau</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reportRegionSelect">Filter Region</label>
+                                    <select id="reportRegionSelect" class="form-select">
+                                        <option value="">All Regions</option>
+                                        <option value="Western">Western Region</option>
+                                        <option value="Northern">Northern Region</option>
+                                        <option value="Southern">Southern Region</option>
+                                        <option value="Eastern">Eastern Region</option>
+                                        <option value="Central">Central Region</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="reportStatusSelect">Filter Status</label>
+                                    <select id="reportStatusSelect" class="form-select">
+                                        <option value="">All Statuses</option>
+                                        <option value="RECEIVED">Received</option>
+                                        <option value="UNDER_PROCESS">Under Process</option>
+                                        <option value="DISPOSED">Disposed</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                                <button class="btn btn-outline" id="btnGenerateReportPreview">Preview Live Report</button>
+                                <button class="btn btn-primary" id="btnDownloadCSVReport">📥 Download Real CSV Report</button>
+                            </div>
+                        </div>
+
+                        <!-- Rendered Report Container -->
+                        <div id="reportPreviewContainer">
+                            <p style="color:#64748b; font-size:0.85rem; text-align:center; padding:30px;">Select parameters above and click <strong>Preview Live Report</strong> or <strong>Download Real CSV Report</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 10: ACTIVITY & AUDIT HISTORY                        -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneActivityHistory">
+                    <div class="data-panel-card">
+                        <div class="panel-header-row">
+                            <div>
+                                <h2>Supervisory Activity &amp; Audit Trail History</h2>
+                                <p>Immutable audit trail of national supervisory actions, directives, transfer decisions, and escalation responses</p>
+                            </div>
+                        </div>
+
+                        <div class="filter-toolbar" style="margin-bottom:16px;">
+                            <div class="filter-group">
+                                <label for="auditFilterAction">Action Filter:</label>
+                                <select id="auditFilterAction" class="form-select">
+                                    <option value="">All Actions</option>
+                                    <option value="TRANSFER_APPROVED">Transfer Approved</option>
+                                    <option value="TRANSFER_REJECTED">Transfer Rejected</option>
+                                    <option value="HYBRID_OVERLAP_DETECTED">Overlap Detected</option>
+                                    <option value="SUPERVISORY_DIRECTIVE">Supervisory Directive</option>
+                                    <option value="CASE_ESCALATED">Case Escalated</option>
+                                    <option value="STATUS_CHANGE">Status Change</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="btnFilterAuditLogs">Filter Logs</button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="central-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Official / User</th>
+                                        <th>Action Type</th>
+                                        <th>Target Entity</th>
+                                        <th>Details &amp; Decision Directives</th>
+                                        <th>IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditLogsTableBody">
+                                    <tr><td colspan="6" style="text-align:center; padding:20px;"><div class="spinner"></div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
 
-    <!-- Case Inspection Modal (Subordinate View) -->
+    <!-- ======================================================== -->
+    <!-- MODAL 1: CASE INSPECT & SUPERVISORY DIRECTIVE MODAL      -->
+    <!-- ======================================================== -->
     <div class="modal-overlay" id="caseInspectModal">
-        <div class="modal-container large">
+        <div class="modal-container large" style="max-width:880px;">
             <div class="modal-header">
                 <div>
                     <h3 id="inspectCaseId">Case Details</h3>
@@ -245,10 +887,10 @@
                 </div>
                 <button class="modal-close-btn" data-close-modal="caseInspectModal">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: calc(85vh - 120px); overflow-y: auto;">
                 <div class="detail-grid">
                     <div class="detail-item">
-                        <div class="detail-label">Institution</div>
+                        <div class="detail-label">Institution Campus</div>
                         <div class="detail-val" id="inspectInstName">—</div>
                     </div>
                     <div class="detail-item">
@@ -260,7 +902,7 @@
                         <div class="detail-val" id="inspectCategory">—</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Priority</div>
+                        <div class="detail-label">Priority Band</div>
                         <div class="detail-val" id="inspectPriority">—</div>
                     </div>
                     <div class="detail-item">
@@ -268,91 +910,230 @@
                         <div class="detail-val" id="inspectStatus">—</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Expected Disposal</div>
+                        <div class="detail-label">Expected Disposal (SLA)</div>
                         <div class="detail-val" id="inspectDeadline">—</div>
                     </div>
                 </div>
 
                 <div style="margin-top: 16px;">
                     <div class="detail-label">Description of Allegations:</div>
-                    <div class="detail-text-box" id="inspectDescription">—</div>
+                    <div class="detail-text-box" id="inspectDescription" style="background:#f8fafc; padding:12px; border-radius:4px; border:1px solid #e2e8f0; font-size:0.85rem; line-height:1.5;">—</div>
                 </div>
 
+                <!-- Chronological Action Timeline -->
                 <div style="margin-top: 20px;">
-                    <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Chronological Action History (Append-Only)</h4>
+                    <h4 style="font-size: 0.95rem; margin-bottom: 8px; color:#04244a;">Chronological Action History (Append-Only)</h4>
                     <div class="history-timeline" id="inspectActionHistory">
                         <div style="text-align: center; padding: 12px;"><div class="spinner"></div></div>
                     </div>
                 </div>
+
+                <!-- Supervisory Directive / Request Explanation Form -->
+                <div style="margin-top: 24px; padding: 16px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px;">
+                    <h4 style="font-size: 0.95rem; color: #1e3a8a; margin: 0 0 8px;">Issue Senior Authority Supervisory Directive / Demand Action Plan</h4>
+                    <p style="font-size: 0.78rem; color: #3b82f6; margin-bottom: 12px;">This directive will be officially recorded in the immutable case timeline and transmitted to the concerned Bureau Officer.</p>
+
+                    <form id="supervisoryDirectiveForm">
+                        <input type="hidden" id="directiveCaseId">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                            <div class="form-group">
+                                <label class="form-label" for="directiveActionType">Directive Type <span class="required">*</span></label>
+                                <select id="directiveActionType" class="form-select" required>
+                                    <option value="SUPERVISORY_DIRECTIVE">SUPERVISORY DIRECTIVE: Binding instruction from Senior Authority</option>
+                                    <option value="EXPLANATION_REQUESTED">EXPLANATION REQUESTED: Mandatory officer explanation &amp; status clarification</option>
+                                    <option value="EXPEDITE_INQUIRY">EXPEDITE INQUIRY: Fast-track resolution directive</option>
+                                    <option value="SPECIAL_AUDIT_RECOMMENDED">SPECIAL AUDIT: Recommend surprise campus inspection</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="directiveDueDate">Compliance Due Date</label>
+                                <input type="date" id="directiveDueDate" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label class="form-label" for="directiveRemarks">Supervisory Directives &amp; Action Item Details <span class="required">*</span></label>
+                            <textarea id="directiveRemarks" class="form-textarea" rows="3" required placeholder="Specify binding instructions, required documentation, or compliance directives for the Bureau Officer..."></textarea>
+                        </div>
+
+                        <div style="display:flex; justify-content:flex-end;">
+                            <button type="submit" class="btn btn-primary btn-sm" id="btnSubmitDirective">Transmit Official Directive &rarr;</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <span style="font-size: 0.75rem; color: var(--color-text-muted); margin-right: auto;">
-                    ℹ Read-only National Central Monitoring View
+                    ℹ Senior Authority Governance Console &bull; Official AICTE Oversight
                 </span>
                 <button class="btn btn-outline" data-close-modal="caseInspectModal">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- Overlap Review Modal (Subordinate View) -->
+    <!-- ======================================================== -->
+    <!-- MODAL 2: OVERLAP SUPERVISORY REVIEW MODAL                -->
+    <!-- ======================================================== -->
     <div class="modal-overlay" id="overlapReviewModal">
-        <div class="modal-container medium">
+        <div class="modal-container large" style="max-width:850px;">
             <div class="modal-header">
                 <div>
-                    <h3>Cross-Bureau Overlap Supervisory Review</h3>
-                    <p style="font-size: 0.8rem; color: var(--color-text-muted);">Coordinate parallel inquiries on the same technical campus</p>
+                    <h3 id="reviewOverlapTitle">Cross-Bureau Overlap Supervisory Review</h3>
+                    <p style="font-size: 0.8rem; color: var(--color-text-muted);">Non-destructive coordination of concurrent inquiries on the same campus</p>
                 </div>
                 <button class="modal-close-btn" data-close-modal="overlapReviewModal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="overlap-inst-card" style="margin-bottom: 16px; padding: 12px; background: #fdf2f8; border-radius: 4px; border: 1px solid #fbcfe8;">
-                    <div style="font-weight: 700; color: #9d174d;" id="overlapInstName">—</div>
-                    <div style="font-size: 0.78rem; color: #831843;">Permanent ID: <span id="overlapInstId">—</span></div>
+                    <div style="font-weight: 700; color: #9d174d; font-size:1rem;" id="overlapInstName">—</div>
+                    <div style="font-size: 0.78rem; color: #831843;">AICTE Permanent ID: <span id="overlapInstId" style="font-family:var(--font-family-mono); font-weight:700;">—</span></div>
                 </div>
 
-                <div class="overlap-comparison-grid">
-                    <div class="case-card-mini">
-                        <div class="case-card-bureau" id="overlapCase1Bureau">—</div>
-                        <h4 id="overlapCase1Number">—</h4>
-                        <p id="overlapCase1Title">—</p>
-                        <div class="case-meta-row">
-                            <span id="overlapCase1Status">—</span>
-                            <span id="overlapCase1Priority">—</span>
-                        </div>
+                <div class="overlap-comparison-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                    <div class="case-card-mini" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px;">
+                        <div class="case-card-bureau" id="overlapCase1Bureau" style="font-weight:800; color:#1d4ed8; font-size:0.8rem;">—</div>
+                        <h4 id="overlapCase1Number" style="font-family:var(--font-family-mono); color:#04244a; margin:4px 0;">—</h4>
+                        <p id="overlapCase1Title" style="font-size:0.82rem; color:#334155; margin-bottom:8px;">—</p>
+                        <div class="case-meta-row" id="overlapCase1Meta" style="font-size:0.75rem; color:#64748b;">—</div>
                     </div>
 
-                    <div class="case-card-mini">
-                        <div class="case-card-bureau" id="overlapCase2Bureau">—</div>
-                        <h4 id="overlapCase2Number">—</h4>
-                        <p id="overlapCase2Title">—</p>
-                        <div class="case-meta-row">
-                            <span id="overlapCase2Status">—</span>
-                            <span id="overlapCase2Priority">—</span>
-                        </div>
+                    <div class="case-card-mini" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px;">
+                        <div class="case-card-bureau" id="overlapCase2Bureau" style="font-weight:800; color:#10b981; font-size:0.8rem;">—</div>
+                        <h4 id="overlapCase2Number" style="font-family:var(--font-family-mono); color:#04244a; margin:4px 0;">—</h4>
+                        <p id="overlapCase2Title" style="font-size:0.82rem; color:#334155; margin-bottom:8px;">—</p>
+                        <div class="case-meta-row" id="overlapCase2Meta" style="font-size:0.75rem; color:#64748b;">—</div>
                     </div>
                 </div>
 
-                <form id="overlapReviewForm" style="margin-top: 18px;">
+                <form id="overlapReviewForm">
                     <input type="hidden" id="overlapAlertId">
 
-                    <div class="form-group">
-                        <label class="form-label" for="overlapClassification">Supervisory Classification <span class="required">*</span></label>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="overlapClassification">Supervisory Decision Classification <span class="required">*</span></label>
                         <select id="overlapClassification" class="form-select" required>
                             <option value="">-- Select Decision Classification --</option>
                             <option value="RELATED">RELATED: Distinct inquiries arising from same institutional misconduct</option>
                             <option value="UNRELATED">UNRELATED: Disparate complaints proceeding autonomously</option>
-                            <option value="REQUIRES_COORDINATION">REQUIRES_COORDINATION: Joint Standing Appellate Committee Scrutiny</option>
+                            <option value="REQUIRES_COORDINATION">REQUIRES_COORDINATION: Joint Standing Committee Coordination required</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="overlapRemarks">Official Supervisory Remarks &amp; Directives <span class="required">*</span></label>
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label class="form-label" for="overlapRemarks">Official Supervisory Remarks &amp; Instructions <span class="required">*</span></label>
                         <textarea id="overlapRemarks" class="form-textarea" rows="3" placeholder="Enter instructions for concerned Bureau Officers and Regional Office..." required></textarea>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 8px;">
                         <button type="button" class="btn btn-outline" data-close-modal="overlapReviewModal">Cancel</button>
                         <button type="submit" class="btn btn-primary" id="btnSaveOverlapReview">Save Supervisory Directives</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 3: TRANSFER APPROVAL / REJECTION DECISION MODAL    -->
+    <!-- ======================================================== -->
+    <div class="modal-overlay" id="transferDecisionModal">
+        <div class="modal-container medium" style="max-width:600px;">
+            <div class="modal-header">
+                <div>
+                    <h3>Supervisory Transfer Approval</h3>
+                    <p style="font-size: 0.8rem; color: var(--color-text-muted);">Decide on inter-bureau jurisdiction reassignment request</p>
+                </div>
+                <button class="modal-close-btn" data-close-modal="transferDecisionModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modalTransferId">
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px; margin-bottom:16px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="font-size:0.75rem; color:#64748b;">Case Number:</span>
+                        <span style="font-family:var(--font-family-mono); font-weight:700; color:#04244a;" id="transferModalCaseNumber">—</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="font-size:0.75rem; color:#64748b;">Institution:</span>
+                        <span style="font-weight:600;" id="transferModalInstName">—</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="font-size:0.75rem; color:#64748b;">Reassignment Path:</span>
+                        <span style="font-weight:700; color:#1d4ed8;" id="transferModalPath">—</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="font-size:0.75rem; color:#64748b;">Requested By:</span>
+                        <span id="transferModalRequestedBy">—</span>
+                    </div>
+                    <div style="margin-top:8px; border-top:1px dashed #cbd5e1; padding-top:8px;">
+                        <span style="font-size:0.75rem; color:#64748b; font-weight:700;">Officer Justification:</span>
+                        <p style="font-size:0.82rem; color:#334155; margin:4px 0 0;" id="transferModalReason">—</p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label" for="transferDecisionRemarks">Supervisory Decision Remarks <span class="required">*</span></label>
+                    <textarea id="transferDecisionRemarks" class="form-textarea" rows="3" placeholder="Enter reason for approval or rejection..." required></textarea>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                    <button type="button" class="btn btn-outline" data-close-modal="transferDecisionModal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="btnRejectTransfer">Reject Transfer Request</button>
+                    <button type="button" class="btn btn-primary" id="btnApproveTransfer">Approve &amp; Reassign Bureau</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 4: INITIATE CROSS-BUREAU COORDINATION MODAL        -->
+    <!-- ======================================================== -->
+    <div class="modal-overlay" id="initiateCoordModal">
+        <div class="modal-container medium" style="max-width:620px;">
+            <div class="modal-header">
+                <div>
+                    <h3>Initiate Cross-Bureau Coordination</h3>
+                    <p style="font-size: 0.8rem; color: var(--color-text-muted);">Formalize joint inquiry between concerned AICTE Bureaus</p>
+                </div>
+                <button class="modal-close-btn" data-close-modal="initiateCoordModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="initiateCoordForm">
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="coordPrimaryCaseSelect">Primary Active Case <span class="required">*</span></label>
+                        <select id="coordPrimaryCaseSelect" class="form-select" required>
+                            <option value="">-- Select Primary Case --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="coordLinkedCaseSelect">Linked / Related Active Case <span class="required">*</span></label>
+                        <select id="coordLinkedCaseSelect" class="form-select" required>
+                            <option value="">-- Select Linked Case --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="coordTargetBureauSelect">Target Collaborating Bureau <span class="required">*</span></label>
+                        <select id="coordTargetBureauSelect" class="form-select" required>
+                            <option value="1">Regulation Bureau (RB)</option>
+                            <option value="2">Public Grievance Redressal (PGRC)</option>
+                            <option value="3">Approval Bureau</option>
+                            <option value="4">Policy &amp; Planning Bureau</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label class="form-label" for="coordDeadline">Coordination Response Deadline <span class="required">*</span></label>
+                        <input type="date" id="coordDeadline" class="form-input" required>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label class="form-label" for="coordReason">Coordination Directives &amp; Scope <span class="required">*</span></label>
+                        <textarea id="coordReason" class="form-textarea" rows="3" placeholder="Specify instructions for joint investigation, document sharing, or synchronized hearings..." required></textarea>
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end; gap:8px;">
+                        <button type="button" class="btn btn-outline" data-close-modal="initiateCoordModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitInitiateCoord">Submit Coordination Directive</button>
                     </div>
                 </form>
             </div>

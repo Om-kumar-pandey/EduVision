@@ -63,6 +63,7 @@ public class SecurityConfig {
                     "/bureau-workspace.html",
                     "/institution-tracking.html",
                     "/admin-dashboard.html",
+                    "/activate-account.html",
                     "/css/**",
                     "/js/**",
                     "/assets/**",
@@ -73,20 +74,25 @@ public class SecurityConfig {
                     "/api/v1/auth/logout",
                     "/api/v1/auth/register-complainant",
                     "/api/v1/auth/request-official-access",
+                    "/api/v1/auth/request-officer-access",
+                    "/api/v1/auth/verify-activation-token",
+                    "/api/v1/auth/activate-account",
                     "/api/v1/complaints/track/**"
                 ).permitAll()
                 .requestMatchers("/api/v1/complainant/**").authenticated()
                 .requestMatchers("/api/v1/regional/**").hasAnyRole("REGIONAL_OFFICER", "CENTRAL_MONITOR", "SYS_ADMIN")
-                .requestMatchers("/api/v1/dashboard/**").hasAnyRole("CENTRAL_MONITOR", "SYS_ADMIN")
+                .requestMatchers("/api/v1/dashboard/**").hasAnyRole("CENTRAL_MONITOR", "SYS_ADMIN", "BUREAU_OFFICER", "REGIONAL_OFFICER")
                 .requestMatchers("/api/v1/admin/**").hasRole("SYS_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/cases/queue").hasAnyRole("BUREAU_OFFICER", "CENTRAL_MONITOR", "SYS_ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/v1/cases").hasAnyRole("BUREAU_OFFICER", "SYS_ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/api/v1/cases/*/status").hasAnyRole("BUREAU_OFFICER", "SYS_ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/cases/*/actions").hasAnyRole("BUREAU_OFFICER", "SYS_ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/cases/*/actions").hasAnyRole("BUREAU_OFFICER", "CENTRAL_MONITOR", "SYS_ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/v1/cases/*/transfer-requests").hasAnyRole("BUREAU_OFFICER", "SYS_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/cases/**").authenticated()
                 .requestMatchers("/api/v1/institutions/**").authenticated()
                 .requestMatchers("/api/v1/overlaps/**").authenticated()
+                .requestMatchers("/api/v1/coordination-requests/**").authenticated()
+                .requestMatchers("/api/v1/transfer-requests/**").hasAnyRole("CENTRAL_MONITOR", "SYS_ADMIN", "BUREAU_OFFICER")
                 .requestMatchers("/api/v1/auth/me").authenticated()
                 .anyRequest().denyAll()
             );

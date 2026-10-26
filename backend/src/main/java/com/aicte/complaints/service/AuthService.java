@@ -134,10 +134,16 @@ public class AuthService {
             dto.setBureauCode(user.getBureau().getCode());
             dto.setBureauName(user.getBureau().getName());
         }
+        if (user.getInstitution() != null) {
+            dto.setInstitutionId(user.getInstitution().getId());
+            dto.setInstitutionName(user.getInstitution().getName());
+            dto.setInstitutionPermanentId(user.getInstitution().getPermanentId());
+        }
         dto.setRegion(user.getRegion());
         dto.setDesignation(user.getDesignation());
         dto.setPhone(user.getPhone());
         dto.setIsActive(user.getIsActive());
+        dto.setLastLogin(user.getLastLogin());
         dto.setCreatedAt(user.getCreatedAt());
         return dto;
     }

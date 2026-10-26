@@ -14,6 +14,8 @@ public class CreateUserRequest {
     @NotBlank(message = "Role is required")
     private String role;
     private Long bureauId;
+    private Long institutionId;
+    private String region;
     private String designation;
     private String phone;
 
@@ -28,6 +30,10 @@ public class CreateUserRequest {
     public void setRole(String role) { this.role = role; }
     public Long getBureauId() { return bureauId; }
     public void setBureauId(Long bureauId) { this.bureauId = bureauId; }
+    public Long getInstitutionId() { return institutionId; }
+    public void setInstitutionId(Long institutionId) { this.institutionId = institutionId; }
+    public String getRegion() { return region; }
+    public void setRegion(String region) { this.region = region; }
     public String getDesignation() { return designation; }
     public void setDesignation(String designation) { this.designation = designation; }
     public String getPhone() { return phone; }

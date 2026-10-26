@@ -1,7 +1,6 @@
 -- ==============================================================================
 -- AICTE Integrated Institution Complaint Monitoring & Status Dashboard
--- Smart India Hackathon 2026 (Problem Statement ID: 26264)
--- Initial Seed Data: Normalized reference data, demo institutions, users, cases,
+-- Initial Seed Data: Normalized reference data, institutions, users, cases,
 -- append-only action histories, overlap alerts, transfers, and audit logs.
 -- ==============================================================================
 

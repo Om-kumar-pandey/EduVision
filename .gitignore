@@ -80,3 +80,7 @@ desktop.ini
 # File uploads runtime dir
 backend/uploads/
 uploads/
+
+# Scratch & temporary test scripts
+scratch/
+

@@ -4,6 +4,7 @@ import com.aicte.complaints.dto.*;
 import com.aicte.complaints.entity.Bureau;
 import com.aicte.complaints.entity.CaseEntity;
 import com.aicte.complaints.entity.OverlapAlert;
+import com.aicte.complaints.entity.Region;
 import com.aicte.complaints.repository.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,23 @@ public class DashboardService {
     private final BureauRepository bureauRepository;
     private final OverlapAlertRepository overlapAlertRepository;
     private final TransferRequestRepository transferRequestRepository;
+    private final CoordinationRequestRepository coordinationRequestRepository;
+    private final RegionRepository regionRepository;
     private final OverlapService overlapService;
 
     public DashboardService(CaseRepository caseRepository,
                             BureauRepository bureauRepository,
                             OverlapAlertRepository overlapAlertRepository,
                             TransferRequestRepository transferRequestRepository,
+                            CoordinationRequestRepository coordinationRequestRepository,
+                            RegionRepository regionRepository,
                             OverlapService overlapService) {
         this.caseRepository = caseRepository;
         this.bureauRepository = bureauRepository;
         this.overlapAlertRepository = overlapAlertRepository;
         this.transferRequestRepository = transferRequestRepository;
+        this.coordinationRequestRepository = coordinationRequestRepository;
+        this.regionRepository = regionRepository;
         this.overlapService = overlapService;
     }
 
@@ -45,9 +52,13 @@ public class DashboardService {
         kpi.setPendingCases(caseRepository.countByStatus("RECEIVED"));
         kpi.setUnderProcessCases(caseRepository.countByStatus("UNDER_PROCESS"));
         kpi.setDisposedCases(caseRepository.countByStatus("DISPOSED"));
-        kpi.setTransferredCases(transferRequestRepository.countByStatus("PENDING") + transferRequestRepository.countByStatus("APPROVED"));
+        kpi.setTransferredCases(transferRequestRepository.countByStatus("APPROVED"));
         kpi.setOverdueCases(caseRepository.countOverdueCases(now));
         kpi.setPotentialOverlaps(overlapAlertRepository.countByStatus("DETECTED"));
+        kpi.setUnassignedCases(caseRepository.countUnassignedCases());
+        kpi.setPendingApprovalRequests(transferRequestRepository.countByStatus("PENDING"));
+        kpi.setPendingCoordinationRequests(coordinationRequestRepository.countByStatus("PENDING"));
+        kpi.setCriticalEscalatedCases(caseRepository.countByPriorityAndStatusNot("URGENT", "DISPOSED"));
 
         return kpi;
     }
@@ -110,6 +121,28 @@ public class DashboardService {
         }
 
         return new MonthlyTrendDto(labels, inflowList, disposalList);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getRegionDistribution() {
+        List<Region> regions = regionRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (Region r : regions) {
+            long total = caseRepository.countByInstitutionRegion(r.getName());
+            long active = caseRepository.countActiveByInstitutionRegion(r.getName());
+            long overdue = caseRepository.countOverdueByInstitutionRegion(r.getName(), now);
+            long disposed = caseRepository.countDisposedByInstitutionRegion(r.getName());
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("regionName", r.getName());
+            map.put("regionCode", r.getCode());
+            map.put("totalCases", total);
+            map.put("activeCases", active);
+            map.put("overdueCases", overdue);
+            map.put("disposedCases", disposed);
+            list.add(map);
+        }
+        return list;
     }
 
     @Transactional(readOnly = true)

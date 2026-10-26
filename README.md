@@ -1,15 +1,12 @@
-# AICTE Integrated Institution Complaint Monitoring & Status Dashboard
+# EduVision — AICTE Integrated Institution Complaint Monitoring & Status Dashboard
 
-[![SIH 2026](https://img.shields.io/badge/SIH-2026-orange.svg)](https://www.sih.gov.in/)
-[![Problem Statement ID](https://img.shields.io/badge/Problem%20Statement-26264-blue.svg)](https://www.sih.gov.in/)
-[![Domain](https://img.shields.io/badge/Domain-Smart%20Automation-green.svg)](https://www.sih.gov.in/)
+[![Domain](https://img.shields.io/badge/Domain-Smart%20Automation-green.svg)](#)
 [![Tech Stack](https://img.shields.io/badge/Stack-Spring%20Boot%203%20%7C%20MySQL%208%20%7C%20Vanilla%20JS-critical.svg)](#technology-stack)
 [![Security](https://img.shields.io/badge/Security-Spring%20Security%20%7C%20JWT%20%7C%20BCrypt%2012-blueviolet.svg)](#security-architecture)
 
-> **Smart India Hackathon 2026 (SIH 2026)**  
-> **Problem Statement ID:** 26264  
-> **Category:** Software Edition | **Domain:** Smart Automation  
-> **Target Audience:** All India Council for Technical Education (AICTE) Headquarters, Regional Offices, Central Monitoring Officials, Bureau Officers (`RB`, `PGRC`, `APPROVAL`, `POLICY`), and System Administrators.
+> **EduVision:** A centralized AICTE dashboard for tracking institution-related complaints across the Regulation Bureau, PGRC, and other cells. It brings case status, ownership, action history, and reports together, while flagging potential overlaps and deadline risks to help officials coordinate effectively and resolve grievances on time.  
+> **System Architecture:** Unified National Grievance Monitoring Platform  
+> **Target Audience:** All India Council for Technical Education (AICTE) Headquarters, Regional Offices, Senior Authority / Central Monitoring Officials, Bureau Officers (`RB`, `PGRC`, `APPROVAL`, `POLICY`), and System Administrators.
 
 ---
 
@@ -22,16 +19,16 @@
 6. [Security & Role-Based Access Control (RBAC)](#security--role-based-access-control-rbac)
 7. [Getting Started & Installation Guide](#getting-started--installation-guide)
 8. [Demo Credentials](#demo-credentials)
-9. [SIH 2026 Live Demo Script (5-7 Minute Pitch)](#sih-2026-live-demo-script-5-7-minute-pitch)
-10. [Judge Counter-Questions & Technical Defenses](#judge-counter-questions--technical-defenses)
+9. [National System Walkthrough Guide](#national-system-walkthrough-guide)
+10. [Technical Specifications & Architecture Details](#technical-specifications--architecture-details)
 11. [REST API Documentation Catalog](#rest-api-documentation-catalog)
 12. [Project Directory Layout](#project-directory-layout)
 
 ---
 
-## Executive Summary & Problem Statement
+## Executive Summary & System Objectives
 
-### The Problem (Problem Statement ID: 26264)
+### The Background & Operational Need
 Technical institutions across India receive thousands of complaints spanning varied jurisdictions — from infrastructural violations and faculty cadre shortages handled by the **Regulation Bureau (RB)** to capitation fee extortions and degree retention investigated by the **Public Grievance Redressal Cell (PGRC)**. 
 
 Historically, AICTE bureaus have operated in organizational silos. This fragmented ecosystem leads to:
@@ -118,7 +115,7 @@ flowchart TD
 
 ## Technology Stack
 
-Strictly compliant with hackathon constraints: **Zero external JavaScript frameworks, zero CSS component libraries, and pure Java Spring Boot backend.**
+Built with enterprise-grade standards: **Zero external JavaScript runtime frameworks, zero bloated CSS component libraries, and pure Java Spring Boot backend.**
 
 | Layer | Technology | Specification / Purpose |
 | :--- | :--- | :--- |
@@ -284,15 +281,14 @@ All test accounts are pre-configured with **BCrypt strength 12** hashed credenti
 
 ---
 
-## SIH 2026 Live Demo Script (5-7 Minute Pitch)
+## National System Walkthrough Guide
 
-Use this step-by-step sequence to deliver an impactful, flaw-free hackathon evaluation demonstration.
+Use this step-by-step sequence to verify the integrated complaint monitoring platform workflow.
 
-### Minute 0:00 – 1:00: The Problem Statement & Login Portal
+### Stage 1: The Authentication & Access Portal
 1. Open `http://localhost:8080/login.html`.
-2. **Narration:** *"Respected evaluators, under SIH 2026 Problem Statement 26264, AICTE Bureaus previously operated in computational isolation. When an institution faced simultaneous regulatory and grievance complaints, neither bureau had visibility into the other. Here is our secure, 3-tier, government-standard AICTE Integrated Monitoring Platform."*
-3. Point out the official AICTE branding, security alerts, and the **Evaluator Quick-Fill Buttons**.
-4. Click **Central Monitor** quick-fill and click **Sign In**.
+2. Official AICTE branding, security notices, and role-based access tabs are displayed.
+3. Select **Senior Authority** and authenticate.
 
 ### Minute 1:00 – 2:15: Dashboard 1 — Central Oversight & Overlap Detection
 1. The user is redirected to `central-dashboard.html`.
@@ -469,6 +465,6 @@ d:/KARAN/Project/AICTE/
 ---
 
 <p align="center">
-  <b>Smart India Hackathon 2026 &bull; Problem Statement ID 26264 &bull; Domain: Smart Automation</b><br/>
-  <i>Engineered for the All India Council for Technical Education (AICTE)</i>
+  <b>All India Council for Technical Education (AICTE) &bull; Integrated Institution Complaint Monitoring System</b><br/>
+  <i>Statutory Body under the Department of Higher Education, Ministry of Education, Government of India</i>
 </p>

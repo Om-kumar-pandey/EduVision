@@ -184,3 +184,38 @@
     font-size: 0.78rem;
     color: var(--color-text-muted);
 }
+
+/* Responsive Viewport Optimizations */
+@media (max-width: 768px) {
+    .inst-search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .inst-search-input,
+    .inst-search-form .form-select,
+    .inst-search-form .btn {
+        width: 100%;
+        min-width: 0;
+    }
+    .inst-profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .inst-summary-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .inst-summary-metrics {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .overlap-warning-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .overlap-warning-banner button {
+        width: 100%;
+    }
+}

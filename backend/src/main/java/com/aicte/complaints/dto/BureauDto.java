@@ -9,9 +9,13 @@ public class BureauDto {
     private String description;
     private String contactEmail;
     private Boolean isActive;
+    private Long totalCases;
+    private Long pendingCases;
+    private Long overdueCases;
     private LocalDateTime createdAt;
 
     public BureauDto() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getCode() { return code; }
@@ -24,6 +28,12 @@ public class BureauDto {
     public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public Long getTotalCases() { return totalCases; }
+    public void setTotalCases(Long totalCases) { this.totalCases = totalCases; }
+    public Long getPendingCases() { return pendingCases; }
+    public void setPendingCases(Long pendingCases) { this.pendingCases = pendingCases; }
+    public Long getOverdueCases() { return overdueCases; }
+    public void setOverdueCases(Long overdueCases) { this.overdueCases = overdueCases; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

@@ -38,8 +38,11 @@
 
                 <!-- Right Action Buttons -->
                 <div class="edu-nav-actions">
+                    <a href="complaint-portal.html" class="btn-complaint-nav" style="background:#d97706;color:#ffffff;padding:8px 16px;border-radius:4px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;box-shadow:0 2px 6px rgba(217,119,6,0.25);">
+                        <span>📄</span> File a Complaint
+                    </a>
                     <button type="button" class="btn-officer-login" onclick="RoleAuthModal.open('login')">
-                        <span>🛡️</span> Officer Login
+                        <span>🛡️</span> Officer Sign In
                     </button>
                     <button type="button" class="btn-track-nav" onclick="openQuickTrackerModal()">
                         <span>🔍</span> Track Your Complaint
@@ -62,9 +65,9 @@
                         A unified platform for students, faculty, stakeholders and AICTE officials to file, track and monitor institution-related complaints and grievances across all Bureaus/Cells — ensuring transparency, coordination and timely redressal.
                     </p>
                     <div class="edu-hero-ctas">
-                        <button type="button" class="btn-cta-primary" onclick="RoleAuthModal.open('signup', 'COMPLAINANT')">
+                        <a href="complaint-portal.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
                             <span>📄</span> File a Complaint &rarr;
-                        </button>
+                        </a>
                         <button type="button" class="btn-cta-secondary" onclick="openQuickTrackerModal()">
                             <span>🔍</span> Track Your Complaint &rarr;
                         </button>
@@ -73,19 +76,7 @@
 
                 <!-- Hero Right: Campus Visual with Badge -->
                 <div class="edu-hero-visual">
-                    <img src="assets/eduvision-hero-ref.jpg" alt="AICTE Headquarters" class="edu-hero-img" onerror="this.src='https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=800&q=80'">
-                    
-                    <div class="edu-aicte-emblem-badge" title="All India Council for Technical Education">
-                        AICTE
-                    </div>
-
-                    <div class="edu-hero-quote-card">
-                        <div style="font-size:1.6rem;margin-right:12px;color:#d97706;line-height:1;">“</div>
-                        <div style="flex:1;">
-                            <div class="edu-hero-quote-text">Better Governance for Quality Technical Education</div>
-                        </div>
-                        <div class="edu-hero-quote-author">— AICTE ”</div>
-                    </div>
+                    <img src="assets/aicte-hq-card.jpg" alt="AICTE Headquarters - Better Governance for Quality Technical Education" class="edu-hero-img">
                 </div>
             </div>
         </div>
@@ -102,7 +93,7 @@
                         <h3 class="edu-shortcut-title">File a Complaint</h3>
                         <p class="edu-shortcut-desc">Submit your complaint or grievance related to a technical education institution.</p>
                     </div>
-                    <a href="javascript:void(0)" class="edu-shortcut-link link-blue" onclick="RoleAuthModal.open('signup', 'COMPLAINANT')">
+                    <a href="complaint-portal.html" class="edu-shortcut-link link-blue">
                         Go to Complaint Portal &rarr;
                     </a>
                 </div>
@@ -164,7 +155,7 @@
             <div class="edu-about-grid">
                 <!-- Left: About EduVision -->
                 <div class="edu-about-left">
-                    <h2>About EduVision</h2>
+                    <h2>About <span style="color:var(--edu-blue);">EduVision</span></h2>
                     <div class="edu-about-tagline">One Platform. Complete Transparency.</div>
                     <p>
                         EduVision is an integrated solution by AICTE to monitor and manage institution-related complaints and regulatory actions. It brings together all Bureaus/Cells, enables real-time tracking, detects overlapping cases and ensures better coordination, faster disposal and data-driven decisions.

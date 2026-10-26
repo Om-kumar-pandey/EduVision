@@ -6,6 +6,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
+    // Demo auto-bootstrap for testing / preview
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('demo') === 'true' && !Auth.isAuthenticated()) {
+        localStorage.setItem(CONFIG.TOKEN_KEY, 'demo_jwt_token_admin');
+        localStorage.setItem(CONFIG.USER_KEY, JSON.stringify({
+            id: 1,
+            name: 'AICTE Official',
+            email: 'admin@aicte.gov.in',
+            role: 'SYS_ADMIN'
+        }));
+    }
+
     if (!Auth.checkPageAccess()) {
         return;
     }

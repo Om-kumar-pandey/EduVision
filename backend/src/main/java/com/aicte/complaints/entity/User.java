@@ -27,6 +27,10 @@ public class User {
     @JoinColumn(name = "bureau_id")
     private Bureau bureau;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
+
     @Column(length = 50)
     private String region;
 
@@ -38,6 +42,9 @@ public class User {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
+
+    @Column(name = "last_login")
+    private LocalDateTime lastLogin;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -70,6 +77,8 @@ public class User {
     public void setRole(String role) { this.role = role; }
     public Bureau getBureau() { return bureau; }
     public void setBureau(Bureau bureau) { this.bureau = bureau; }
+    public Institution getInstitution() { return institution; }
+    public void setInstitution(Institution institution) { this.institution = institution; }
     public String getRegion() { return region; }
     public void setRegion(String region) { this.region = region; }
     public String getDesignation() { return designation; }
@@ -78,6 +87,8 @@ public class User {
     public void setPhone(String phone) { this.phone = phone; }
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public LocalDateTime getLastLogin() { return lastLogin; }
+    public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

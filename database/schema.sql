@@ -1,7 +1,6 @@
 -- ==============================================================================
 -- AICTE Integrated Institution Complaint Monitoring & Status Dashboard
--- Smart India Hackathon 2026 (Problem Statement ID: 26264)
--- Domain: Smart Automation | Target: Production-Ready Relational Schema (3NF)
+-- Production-Ready Relational Schema (3NF)
 -- Database Engine: MySQL 8.0+ | Character Set: utf8mb4 | Collation: utf8mb4_unicode_ci
 -- ==============================================================================
 

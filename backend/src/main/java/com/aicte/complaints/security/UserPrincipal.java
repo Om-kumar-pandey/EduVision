@@ -34,6 +34,10 @@ public class UserPrincipal implements UserDetails {
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
 
+    public static UserPrincipal create(User user) {
+        return new UserPrincipal(user);
+    }
+
     public Long getId() { return id; }
     public String getEmail() { return email; }
     public String getFullName() { return fullName; }

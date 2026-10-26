@@ -15,6 +15,9 @@ public class CaseDto {
     private Long bureauId;
     private String bureauCode;
     private String bureauName;
+    private Long assignedToUserId;
+    private String assignedToUserName;
+    private String supportingBureaus;
     private String title;
     private String description;
     private String category;
@@ -23,11 +26,17 @@ public class CaseDto {
     private LocalDateTime receiptDate;
     private LocalDateTime expectedDisposalDate;
     private LocalDateTime disposedDate;
+    private String institutionResponse;
+    private LocalDateTime institutionResponseDate;
+    private String internalNotes;
+    private Long duplicateOfCaseId;
+    private String duplicateStatus;
     private boolean overdue;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public CaseDto() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getCaseNumber() { return caseNumber; }
@@ -52,6 +61,12 @@ public class CaseDto {
     public void setBureauCode(String bureauCode) { this.bureauCode = bureauCode; }
     public String getBureauName() { return bureauName; }
     public void setBureauName(String bureauName) { this.bureauName = bureauName; }
+    public Long getAssignedToUserId() { return assignedToUserId; }
+    public void setAssignedToUserId(Long assignedToUserId) { this.assignedToUserId = assignedToUserId; }
+    public String getAssignedToUserName() { return assignedToUserName; }
+    public void setAssignedToUserName(String assignedToUserName) { this.assignedToUserName = assignedToUserName; }
+    public String getSupportingBureaus() { return supportingBureaus; }
+    public void setSupportingBureaus(String supportingBureaus) { this.supportingBureaus = supportingBureaus; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getDescription() { return description; }
@@ -68,6 +83,16 @@ public class CaseDto {
     public void setExpectedDisposalDate(LocalDateTime expectedDisposalDate) { this.expectedDisposalDate = expectedDisposalDate; }
     public LocalDateTime getDisposedDate() { return disposedDate; }
     public void setDisposedDate(LocalDateTime disposedDate) { this.disposedDate = disposedDate; }
+    public String getInstitutionResponse() { return institutionResponse; }
+    public void setInstitutionResponse(String institutionResponse) { this.institutionResponse = institutionResponse; }
+    public LocalDateTime getInstitutionResponseDate() { return institutionResponseDate; }
+    public void setInstitutionResponseDate(LocalDateTime institutionResponseDate) { this.institutionResponseDate = institutionResponseDate; }
+    public String getInternalNotes() { return internalNotes; }
+    public void setInternalNotes(String internalNotes) { this.internalNotes = internalNotes; }
+    public Long getDuplicateOfCaseId() { return duplicateOfCaseId; }
+    public void setDuplicateOfCaseId(Long duplicateOfCaseId) { this.duplicateOfCaseId = duplicateOfCaseId; }
+    public String getDuplicateStatus() { return duplicateStatus; }
+    public void setDuplicateStatus(String duplicateStatus) { this.duplicateStatus = duplicateStatus; }
     public boolean isOverdue() { return overdue; }
     public void setOverdue(boolean overdue) { this.overdue = overdue; }
     public LocalDateTime getCreatedAt() { return createdAt; }

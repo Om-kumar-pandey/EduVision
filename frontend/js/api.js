@@ -69,10 +69,12 @@ const Api = (function() {
         if (!response.ok) {
             // Handle HTTP 401 Unauthorized
             if (response.status === 401) {
-                localStorage.removeItem(CONFIG.TOKEN_KEY);
-                localStorage.removeItem(CONFIG.USER_KEY);
-                if (!window.location.pathname.endsWith('login.html')) {
-                    window.location.href = 'login.html?expired=true';
+                if (!window.location.search.includes('demo=true')) {
+                    localStorage.removeItem(CONFIG.TOKEN_KEY);
+                    localStorage.removeItem(CONFIG.USER_KEY);
+                    if (!window.location.pathname.endsWith('login.html')) {
+                        window.location.href = 'login.html?expired=true';
+                    }
                 }
             }
 

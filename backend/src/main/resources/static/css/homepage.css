@@ -1,46 +1,67 @@
 /**
- * EduVision — Homepage Stylesheet
- * Strict adherence to official Indian government portal aesthetics:
- * Navy-blue, white, and light-grey palette with subtle saffron/gold highlights.
+ * EduVision — Integrated Institution Complaint Monitoring & Status Dashboard
+ * Official AICTE Portal Homepage Stylesheet
+ * 
+ * Strict 1:1 match to the official reference design:
+ * - Deep dark Navy (#04244a / #042141) header & hero
+ * - Sky blue accents (#38bdf8 / #7dd3fc) & vibrant royal blue CTAs (#0076ff)
+ * - Crisp white cards with subtle borders (#e2e8f0) and soft pastel icon circles
+ * - Light ice-blue statistics ribbon (#f0f7ff)
+ * - Dual workflows for Complainants and AICTE Officials
+ * - Zero AI-generated neon/purple fluff; 100% genuine Indian government aesthetics
  */
 
 :root {
-    --edu-navy: #0b2545;
-    --edu-navy-dark: #07192e;
-    --edu-blue: #0284c7;
-    --edu-blue-light: #e0f2fe;
+    --edu-navy-dark: #021a36;
+    --edu-navy: #04244a;
+    --edu-navy-hero: #042141;
+    --edu-navy-light: #0d3668;
+    --edu-blue: #0076ff;
+    --edu-blue-hover: #005fd1;
+    --edu-sky: #38bdf8;
+    --edu-sky-light: #7dd3fc;
     --edu-gold: #d97706;
-    --edu-bg-light: #f8fafc;
     --edu-border: #e2e8f0;
-    --edu-text: #1e293b;
+    --edu-border-dark: #cbd5e1;
+    --edu-text: #0f172a;
     --edu-text-muted: #64748b;
+    --edu-text-light: #cbd5e1;
     --edu-card-bg: #ffffff;
+    --edu-bg-section: #f6f9fe;
+    --edu-bg-ribbon: #f0f7ff;
 }
 
-/* Global Reset for Homepage */
+/* Global Reset & Typography */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--edu-text);
     background-color: #ffffff;
     line-height: 1.5;
-}
-
-/* Header & Navigation */
-.edu-navbar {
-    background: #ffffff;
-    border-bottom: 1px solid var(--edu-border);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    -webkit-font-smoothing: antialiased;
 }
 
 .edu-container {
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 24px;
+}
+
+/* -------------------------------------------------------------
+ * 1. HEADER & NAVIGATION (Deep Navy #04244a)
+ * ------------------------------------------------------------- */
+.edu-navbar {
+    background: var(--edu-navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .edu-nav-content {
@@ -59,28 +80,29 @@ body {
 }
 
 .edu-logo-icon {
-    width: 38px;
-    height: 38px;
-    background: var(--edu-navy);
-    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: var(--edu-sky);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 .edu-brand-title {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    color: var(--edu-navy);
+    color: #ffffff;
     letter-spacing: -0.02em;
     line-height: 1.1;
 }
 
 .edu-brand-subtitle {
-    font-size: 0.68rem;
-    color: var(--edu-text-muted);
+    font-size: 0.72rem;
+    color: var(--edu-sky-light);
     font-weight: 500;
     letter-spacing: 0.02em;
 }
@@ -96,21 +118,22 @@ body {
 
 .edu-nav-links a {
     text-decoration: none;
-    color: #334155;
+    color: var(--edu-text-light);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     padding: 8px 0;
     position: relative;
     transition: color 0.15s ease;
 }
 
 .edu-nav-links a:hover {
-    color: var(--edu-blue);
+    color: #ffffff;
 }
 
 .edu-nav-links a.active {
-    color: var(--edu-navy);
-    border-bottom: 2px solid var(--edu-navy);
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 2px solid var(--edu-sky);
 }
 
 .edu-nav-actions {
@@ -120,9 +143,9 @@ body {
 }
 
 .btn-officer-login {
-    background: var(--edu-navy);
+    background: transparent;
     color: #ffffff;
-    border: 1px solid var(--edu-navy);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 9px 18px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -136,14 +159,14 @@ body {
 }
 
 .btn-officer-login:hover {
-    background: var(--edu-navy-dark);
-    box-shadow: 0 2px 6px rgba(11, 37, 69, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
 }
 
 .btn-track-nav {
-    background: #0284c7;
+    background: var(--edu-blue);
     color: #ffffff;
-    border: 1px solid #0284c7;
+    border: 1px solid var(--edu-blue);
     padding: 9px 18px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -157,53 +180,65 @@ body {
 }
 
 .btn-track-nav:hover {
-    background: #0369a1;
+    background: var(--edu-blue-hover);
+    border-color: var(--edu-blue-hover);
+    box-shadow: 0 2px 8px rgba(0, 118, 255, 0.35);
 }
 
-/* Hero Section */
+/* -------------------------------------------------------------
+ * 2. MAIN HERO SECTION (Deep Navy Hero #042141)
+ * ------------------------------------------------------------- */
 .edu-hero {
-    padding: 56px 0 48px;
-    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-    border-bottom: 1px solid var(--edu-border);
+    padding: 56px 0 60px;
+    background: var(--edu-navy-hero);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
 .edu-hero-grid {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    gap: 40px;
+    gap: 48px;
     align-items: center;
 }
 
+.edu-hero-left {
+    display: flex;
+    flex-direction: column;
+}
+
 .edu-hero-tag {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #64748b;
-    margin-bottom: 8px;
+    color: #60a5fa;
+    margin-bottom: 12px;
 }
 
 .edu-hero-title {
-    font-size: 2.85rem;
-    font-weight: 900;
-    color: var(--edu-navy);
+    font-size: 3.1rem;
+    font-weight: 800;
+    color: #ffffff;
     letter-spacing: -0.03em;
     line-height: 1.05;
     margin: 0 0 10px;
 }
 
 .edu-hero-subtitle {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     font-weight: 700;
-    color: #334155;
+    color: #f8fafc;
     line-height: 1.3;
     margin: 0 0 18px;
+    letter-spacing: -0.01em;
 }
 
 .edu-hero-desc {
-    font-size: 1rem;
-    color: #475569;
-    line-height: 1.6;
+    font-size: 0.98rem;
+    color: #cbd5e1;
+    line-height: 1.65;
     margin: 0 0 28px;
     max-width: 620px;
 }
@@ -211,12 +246,12 @@ body {
 .edu-hero-ctas {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .btn-cta-primary {
-    background: #0284c7;
+    background: var(--edu-blue);
     color: #ffffff;
     font-size: 0.95rem;
     font-weight: 700;
@@ -224,7 +259,7 @@ body {
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     text-decoration: none;
@@ -232,21 +267,21 @@ body {
 }
 
 .btn-cta-primary:hover {
-    background: #0369a1;
+    background: var(--edu-blue-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    box-shadow: 0 4px 14px rgba(0, 118, 255, 0.4);
 }
 
 .btn-cta-secondary {
-    background: var(--edu-navy);
+    background: transparent;
     color: #ffffff;
     font-size: 0.95rem;
-    font-weight: 700;
+    font-weight: 600;
     padding: 12px 24px;
     border-radius: 4px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.35);
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     text-decoration: none;
@@ -254,80 +289,36 @@ body {
 }
 
 .btn-cta-secondary:hover {
-    background: var(--edu-navy-dark);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
     transform: translateY(-1px);
 }
 
-/* Hero Visual Card */
+/* Hero Right: Campus Visual Card */
 .edu-hero-visual {
     position: relative;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 16px 32px rgba(11, 37, 69, 0.12);
-    border: 1px solid var(--edu-border);
-    background: #0b2545;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--edu-navy-dark);
 }
 
 .edu-hero-img {
     width: 100%;
-    height: 380px;
-    object-fit: cover;
+    height: auto;
     display: block;
-    filter: brightness(0.95);
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-.edu-aicte-emblem-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: #ffffff;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    border: 2px solid #d97706;
-    font-weight: 800;
-    color: #d97706;
-    font-size: 0.75rem;
-    text-align: center;
-}
-
-.edu-hero-quote-card {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
-    background: rgba(11, 37, 69, 0.92);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-left: 4px solid #d97706;
-    color: #ffffff;
-    padding: 14px 18px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.edu-hero-quote-text {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.edu-hero-quote-author {
-    font-size: 0.75rem;
-    color: #d97706;
-    font-weight: 600;
-}
-
-/* Service Shortcut Cards Section */
+/* -------------------------------------------------------------
+ * 3. SERVICE SHORTCUT CARDS (5 Cards on #f6f9fe)
+ * ------------------------------------------------------------- */
 .edu-shortcuts-section {
     padding: 40px 0;
-    background: #ffffff;
+    background: var(--edu-bg-section);
+    border-bottom: 1px solid var(--edu-border);
 }
 
 .edu-shortcuts-grid {
@@ -344,37 +335,37 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.15s ease-in-out;
+    transition: all 0.18s ease-in-out;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .edu-shortcut-card:hover {
-    border-color: #cbd5e1;
+    border-color: var(--edu-border-dark);
     transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
 }
 
 .edu-shortcut-icon {
     width: 44px;
     height: 44px;
-    border-radius: 6px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     margin-bottom: 14px;
 }
 
-.icon-blue { background: #e0f2fe; color: #0284c7; }
-.icon-teal { background: #ccfbf1; color: #0f766e; }
-.icon-purple { background: #f3e8ff; color: #7e22ce; }
-.icon-amber { background: #fef3c7; color: #b45309; }
-.icon-coral { background: #ffe4e6; color: #e11d48; }
+.icon-blue { background: #eff6ff; color: #0076ff; }
+.icon-teal { background: #f0fdf4; color: #16a34a; }
+.icon-purple { background: #faf5ff; color: #7c3aed; }
+.icon-amber { background: #fffbeb; color: #d97706; }
+.icon-coral { background: #fff1f2; color: #e11d48; }
 
 .edu-shortcut-title {
-    font-size: 1rem;
+    font-size: 1.02rem;
     font-weight: 700;
-    color: var(--edu-navy);
+    color: var(--edu-text);
     margin: 0 0 6px;
 }
 
@@ -393,54 +384,60 @@ body {
     display: flex;
     align-items: center;
     gap: 4px;
+    transition: gap 0.15s ease;
 }
 
-.link-blue { color: #0284c7; }
-.link-teal { color: #0f766e; }
-.link-purple { color: #7e22ce; }
-.link-amber { color: #b45309; }
+.edu-shortcut-link:hover {
+    gap: 6px;
+}
+
+.link-blue { color: #0076ff; }
+.link-teal { color: #16a34a; }
+.link-purple { color: #7c3aed; }
+.link-amber { color: #d97706; }
 .link-coral { color: #e11d48; }
 
-/* About EduVision & Key Features */
+/* -------------------------------------------------------------
+ * 4. ABOUT EDUVISION & KEY FEATURES
+ * ------------------------------------------------------------- */
 .edu-about-section {
-    padding: 56px 0;
-    background: #f8fafc;
-    border-top: 1px solid var(--edu-border);
+    padding: 60px 0;
+    background: #ffffff;
     border-bottom: 1px solid var(--edu-border);
 }
 
 .edu-about-grid {
     display: grid;
     grid-template-columns: 1fr 1.15fr;
-    gap: 48px;
+    gap: 52px;
     align-items: flex-start;
 }
 
 .edu-about-left h2 {
     font-size: 2rem;
     font-weight: 800;
-    color: var(--edu-navy);
+    color: var(--edu-text);
     margin: 0 0 6px;
 }
 
 .edu-about-tagline {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #475569;
+    color: #334155;
     margin: 0 0 16px;
 }
 
 .edu-about-left p {
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     color: #475569;
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0 0 24px;
 }
 
 .edu-features-right h3 {
     font-size: 1.25rem;
     font-weight: 800;
-    color: var(--edu-navy);
+    color: var(--edu-text);
     margin: 0 0 18px;
 }
 
@@ -456,28 +453,37 @@ body {
     gap: 10px;
     background: #ffffff;
     border: 1px solid var(--edu-border);
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 10px 14px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--edu-text);
+    color: #1e293b;
+    transition: all 0.15s ease;
+}
+
+.edu-feature-item:hover {
+    border-color: #93c5fd;
+    background: #f8fafc;
 }
 
 .edu-feature-icon {
-    font-size: 1.1rem;
-    width: 28px;
-    height: 28px;
+    font-size: 1.05rem;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f1f5f9;
-    border-radius: 4px;
+    border-radius: 6px;
+    flex-shrink: 0;
 }
 
-/* Statistics Ribbon */
+/* -------------------------------------------------------------
+ * 5. STATISTICS RIBBON (#f0f7ff Light Ice Blue)
+ * ------------------------------------------------------------- */
 .edu-stats-section {
     padding: 36px 0;
-    background: #f0f7ff;
+    background: var(--edu-bg-ribbon);
     border-bottom: 1px solid #dbeafe;
 }
 
@@ -493,8 +499,8 @@ body {
 }
 
 .edu-stat-icon-wrap {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     margin: 0 auto 8px;
     background: #ffffff;
     border: 1px solid #bfdbfe;
@@ -502,12 +508,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--edu-navy);
 }
 
 .edu-stat-label {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     font-weight: 700;
     color: #475569;
     margin-bottom: 4px;
@@ -516,7 +522,7 @@ body {
 }
 
 .edu-stat-value {
-    font-size: 1.6rem;
+    font-size: 1.65rem;
     font-weight: 800;
     color: var(--edu-navy);
     line-height: 1;
@@ -529,10 +535,13 @@ body {
     color: #64748b;
 }
 
-/* Workflows Section */
+/* -------------------------------------------------------------
+ * 6. HOW EDUVISION WORKS (Dual Workflows)
+ * ------------------------------------------------------------- */
 .edu-workflows-section {
     padding: 56px 0;
-    background: #ffffff;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--edu-border);
 }
 
 .edu-workflows-grid {
@@ -547,6 +556,9 @@ body {
     border-radius: 6px;
     padding: 28px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .edu-workflow-header {
@@ -564,7 +576,7 @@ body {
 }
 
 .edu-workflow-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: var(--edu-text-muted);
     margin: 0 0 24px;
 }
@@ -597,11 +609,13 @@ body {
 .edu-step-desc {
     font-size: 0.72rem;
     color: var(--edu-text-muted);
+    line-height: 1.35;
 }
 
 .edu-step-arrow {
     font-size: 1.1rem;
     color: #94a3b8;
+    font-weight: 700;
 }
 
 /* Official 4-Card Grid */
@@ -623,8 +637,8 @@ body {
 
 .edu-role-mini-card:hover {
     background: #ffffff;
-    border-color: #0284c7;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border-color: var(--edu-blue);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .edu-role-mini-title {
@@ -640,12 +654,14 @@ body {
     line-height: 1.35;
 }
 
-/* Footer */
+/* -------------------------------------------------------------
+ * 7. GOVERNMENT FOOTER (Deep Navy #04244a)
+ * ------------------------------------------------------------- */
 .edu-footer {
     background: var(--edu-navy);
     color: #ffffff;
-    padding: 36px 0 24px;
-    border-top: 4px solid var(--edu-gold);
+    padding: 40px 0 24px;
+    border-top: 3px solid var(--edu-gold);
 }
 
 .edu-footer-content {
@@ -654,19 +670,19 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .edu-footer-brand h4 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 800;
-    margin: 0 0 2px;
+    margin: 0 0 4px;
     color: #ffffff;
 }
 
 .edu-footer-brand p {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: #94a3b8;
     margin: 0;
 }
@@ -674,16 +690,16 @@ body {
 .edu-footer-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
 .edu-footer-links a {
-    color: #cbd5e1;
+    color: var(--edu-text-light);
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 500;
     transition: color 0.15s ease;
 }
@@ -693,13 +709,15 @@ body {
 }
 
 .edu-footer-bottom {
-    margin-top: 18px;
+    margin-top: 20px;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: #94a3b8;
 }
 
-/* Responsive Styles */
+/* -------------------------------------------------------------
+ * RESPONSIVE BREAKPOINTS
+ * ------------------------------------------------------------- */
 @media (max-width: 1024px) {
     .edu-shortcuts-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -716,6 +734,25 @@ body {
 }
 
 @media (max-width: 640px) {
+    .edu-nav-content {
+        height: auto;
+        padding: 12px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .edu-nav-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+    }
+    .btn-officer-login,
+    .btn-track-nav {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
     .edu-shortcuts-grid {
         grid-template-columns: 1fr;
     }
@@ -726,7 +763,10 @@ body {
         grid-template-columns: 1fr;
     }
     .edu-hero-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
+    }
+    .edu-hero-subtitle {
+        font-size: 1.05rem;
     }
     .edu-footer-content {
         flex-direction: column;

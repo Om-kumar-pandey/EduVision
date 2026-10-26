@@ -17,6 +17,12 @@ public interface InstitutionRepository extends JpaRepository<Institution, Long> 
 
     boolean existsByPermanentId(String permanentId);
 
+    long countByRegion(String region);
+
+    long countByApprovalStatus(String approvalStatus);
+
+    long countByIsVerified(boolean isVerified);
+
     @Query("SELECT i FROM Institution i WHERE " +
            "(:query IS NULL OR :query = '' OR " +
            "LOWER(i.permanentId) LIKE LOWER(CONCAT('%', :query, '%')) OR " +

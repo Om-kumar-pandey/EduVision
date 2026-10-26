@@ -6,12 +6,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    // Route Protection: Accessible to COMPLAINANT and SYS_ADMIN
-    if (!Auth.checkPageAccess(['COMPLAINANT', 'SYS_ADMIN'])) {
-        return;
-    }
+    const user = Auth.getUser();
+    const avatarEl = document.getElementById('headerUserAvatar');
+    const nameEl = document.getElementById('headerUserName');
+    const roleEl = document.getElementById('headerUserRole');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-    loadMyComplaints();
+    if (user && user.role === 'COMPLAINANT') {
+        if (avatarEl) avatarEl.textContent = (user.fullName || 'C').charAt(0).toUpperCase();
+        if (nameEl) nameEl.textContent = user.fullName || 'Complainant';
+        if (roleEl) roleEl.textContent = 'Registered Complainant';
+        if (logoutBtn) {
+            logoutBtn.style.display = 'inline-block';
+            logoutBtn.addEventListener('click', () => Auth.logout());
+        }
+        loadMyComplaints();
+    } else {
+        if (avatarEl) avatarEl.textContent = 'P';
+        if (nameEl) nameEl.textContent = 'Public Complainant';
+        if (roleEl) roleEl.textContent = 'Student / Citizen Grievance Portal';
+        if (logoutBtn) {
+            logoutBtn.textContent = 'Officer Login';
+            logoutBtn.addEventListener('click', () => { window.location.href = 'login.html'; });
+        }
+        // Default to file grievance tab for public users
+        switchPortalTab('file-complaint');
+    }
 });
 
 function switchPortalTab(tabName) {

@@ -515,6 +515,16 @@ public class CaseService {
             dto.setBureauCode(c.getBureau().getCode());
             dto.setBureauName(c.getBureau().getName());
         }
+        if (c.getAssignedTo() != null) {
+            dto.setAssignedToUserId(c.getAssignedTo().getId());
+            dto.setAssignedToUserName(c.getAssignedTo().getFullName());
+        }
+        dto.setSupportingBureaus(c.getSupportingBureaus());
+        dto.setInstitutionResponse(c.getInstitutionResponse());
+        dto.setInstitutionResponseDate(c.getInstitutionResponseDate());
+        dto.setInternalNotes(c.getInternalNotes());
+        dto.setDuplicateOfCaseId(c.getDuplicateOfCaseId());
+        dto.setDuplicateStatus(c.getDuplicateStatus());
         dto.setTitle(c.getTitle());
         dto.setDescription(c.getDescription());
         dto.setCategory(c.getCategory());

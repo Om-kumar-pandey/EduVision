@@ -10,13 +10,18 @@ public class UserDto {
     private Long bureauId;
     private String bureauCode;
     private String bureauName;
+    private Long institutionId;
+    private String institutionName;
+    private String institutionPermanentId;
     private String region;
     private String designation;
     private String phone;
     private Boolean isActive;
+    private LocalDateTime lastLogin;
     private LocalDateTime createdAt;
 
     public UserDto() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getEmail() { return email; }
@@ -31,6 +36,12 @@ public class UserDto {
     public void setBureauCode(String bureauCode) { this.bureauCode = bureauCode; }
     public String getBureauName() { return bureauName; }
     public void setBureauName(String bureauName) { this.bureauName = bureauName; }
+    public Long getInstitutionId() { return institutionId; }
+    public void setInstitutionId(Long institutionId) { this.institutionId = institutionId; }
+    public String getInstitutionName() { return institutionName; }
+    public void setInstitutionName(String institutionName) { this.institutionName = institutionName; }
+    public String getInstitutionPermanentId() { return institutionPermanentId; }
+    public void setInstitutionPermanentId(String institutionPermanentId) { this.institutionPermanentId = institutionPermanentId; }
     public String getRegion() { return region; }
     public void setRegion(String region) { this.region = region; }
     public String getDesignation() { return designation; }
@@ -39,6 +50,8 @@ public class UserDto {
     public void setPhone(String phone) { this.phone = phone; }
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public LocalDateTime getLastLogin() { return lastLogin; }
+    public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

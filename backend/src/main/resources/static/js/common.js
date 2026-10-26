@@ -217,14 +217,50 @@ const Common = (function() {
         },
 
         /**
-         * Setup Mobile Sidebar Toggle
+         * Setup Mobile Sidebar Toggle & Off-Canvas Drawer Navigation
          */
         initMobileNav() {
-            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            const toggleBtns = document.querySelectorAll('.mobile-menu-toggle, #mobileSidebarToggle');
             const sidebar = document.querySelector('.sidebar');
-            if (toggleBtn && sidebar) {
-                toggleBtn.addEventListener('click', () => {
-                    sidebar.classList.toggle('open');
+            let backdrop = document.querySelector('.sidebar-backdrop, #sidebarBackdrop');
+
+            if (sidebar && !backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.className = 'sidebar-backdrop';
+                backdrop.id = 'sidebarBackdrop';
+                sidebar.parentNode.insertBefore(backdrop, sidebar.nextSibling);
+            }
+
+            const closeSidebar = () => {
+                if (sidebar) sidebar.classList.remove('open', 'active');
+                if (backdrop) backdrop.classList.remove('active', 'show');
+                document.body.style.overflow = '';
+            };
+
+            const toggleSidebar = (e) => {
+                if (e) e.stopPropagation();
+                if (!sidebar) return;
+                const isOpen = sidebar.classList.contains('open') || sidebar.classList.contains('active');
+                if (isOpen) {
+                    closeSidebar();
+                } else {
+                    sidebar.classList.add('open', 'active');
+                    if (backdrop) backdrop.classList.add('active', 'show');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', toggleSidebar);
+            });
+
+            if (backdrop) {
+                backdrop.addEventListener('click', closeSidebar);
+            }
+
+            if (sidebar) {
+                sidebar.querySelectorAll('.nav-link, .nav-item a').forEach(link => {
+                    link.addEventListener('click', closeSidebar);
                 });
             }
         }

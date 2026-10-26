@@ -68,7 +68,7 @@ public class CaseController {
     }
 
     @PostMapping("/{id}/actions")
-    @PreAuthorize("hasAnyRole('BUREAU_OFFICER', 'SYS_ADMIN')")
+    @PreAuthorize("hasAnyRole('BUREAU_OFFICER', 'CENTRAL_MONITOR', 'SYS_ADMIN')")
     public ResponseEntity<ApiResponse<CaseActionDto>> addAction(
             @PathVariable Long id,
             @Valid @RequestBody AddActionRequest request,

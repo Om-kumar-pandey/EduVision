@@ -1,6 +1,6 @@
 # AICTE Integrated Institution Complaint Monitoring & Status Dashboard
 ## RESTful API Documentation & Endpoint Specification
-**Smart India Hackathon 2026 | Problem Statement ID: 26264**
+**AICTE Integrated Institution Complaint Monitoring & Tracking System**
 **Base URL:** `http://localhost:8080/api/v1`
 
 ---

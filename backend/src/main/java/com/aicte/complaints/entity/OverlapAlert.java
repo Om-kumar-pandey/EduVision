@@ -41,6 +41,39 @@ public class OverlapAlert {
     @Column(name = "reviewed_at")
     private LocalDateTime reviewedAt;
 
+    @Column(name = "similarity_score")
+    private Double similarityScore = 0.0;
+
+    @Column(name = "rule_score")
+    private Double ruleScore = 0.0;
+
+    @Column(name = "semantic_score")
+    private Double semanticScore = 0.0;
+
+    @Column(name = "review_band", length = 30)
+    private String reviewBand = "INCONCLUSIVE";
+
+    @Column(name = "decision_status", length = 50)
+    private String decisionStatus = "AWAITING_REVIEW";
+
+    @Column(name = "explanation_json", columnDefinition = "LONGTEXT")
+    private String explanationJson;
+
+    @Column(name = "matching_version", length = 50)
+    private String matchingVersion = "HYBRID-V2.1-TFIDF-COSINE";
+
+    @Column(name = "analysis_timestamp")
+    private LocalDateTime analysisTimestamp;
+
+    @Column(name = "coordination_status", length = 30)
+    private String coordinationStatus = "NONE";
+
+    @Column(name = "primary_case_id")
+    private Long primaryCaseId;
+
+    @Column(name = "reversal_history", columnDefinition = "LONGTEXT")
+    private String reversalHistory;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -54,6 +87,7 @@ public class OverlapAlert {
         this.case1 = case1;
         this.case2 = case2;
         this.status = "DETECTED";
+        this.decisionStatus = "AWAITING_REVIEW";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -61,6 +95,7 @@ public class OverlapAlert {
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) createdAt = LocalDateTime.now();
+        if (analysisTimestamp == null) analysisTimestamp = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
@@ -87,6 +122,28 @@ public class OverlapAlert {
     public void setReviewedBy(User reviewedBy) { this.reviewedBy = reviewedBy; }
     public LocalDateTime getReviewedAt() { return reviewedAt; }
     public void setReviewedAt(LocalDateTime reviewedAt) { this.reviewedAt = reviewedAt; }
+    public Double getSimilarityScore() { return similarityScore; }
+    public void setSimilarityScore(Double similarityScore) { this.similarityScore = similarityScore; }
+    public Double getRuleScore() { return ruleScore; }
+    public void setRuleScore(Double ruleScore) { this.ruleScore = ruleScore; }
+    public Double getSemanticScore() { return semanticScore; }
+    public void setSemanticScore(Double semanticScore) { this.semanticScore = semanticScore; }
+    public String getReviewBand() { return reviewBand; }
+    public void setReviewBand(String reviewBand) { this.reviewBand = reviewBand; }
+    public String getDecisionStatus() { return decisionStatus; }
+    public void setDecisionStatus(String decisionStatus) { this.decisionStatus = decisionStatus; }
+    public String getExplanationJson() { return explanationJson; }
+    public void setExplanationJson(String explanationJson) { this.explanationJson = explanationJson; }
+    public String getMatchingVersion() { return matchingVersion; }
+    public void setMatchingVersion(String matchingVersion) { this.matchingVersion = matchingVersion; }
+    public LocalDateTime getAnalysisTimestamp() { return analysisTimestamp; }
+    public void setAnalysisTimestamp(LocalDateTime analysisTimestamp) { this.analysisTimestamp = analysisTimestamp; }
+    public String getCoordinationStatus() { return coordinationStatus; }
+    public void setCoordinationStatus(String coordinationStatus) { this.coordinationStatus = coordinationStatus; }
+    public Long getPrimaryCaseId() { return primaryCaseId; }
+    public void setPrimaryCaseId(Long primaryCaseId) { this.primaryCaseId = primaryCaseId; }
+    public String getReversalHistory() { return reversalHistory; }
+    public void setReversalHistory(String reversalHistory) { this.reversalHistory = reversalHistory; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
