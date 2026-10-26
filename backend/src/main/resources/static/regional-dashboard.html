@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regional Office Dashboard — EduVision AICTE</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Top Government Header Strip -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="index.html" class="app-logo" style="text-decoration:none;color:#ffffff;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.4rem;">🎓</span>
+                <span class="app-title">EduVision &bull; Regional Office Operations Desk</span>
+            </a>
+            <span class="gov-badge" id="currentRegionBadge" style="background:#fef3c7;color:#92400e;">Western Region</span>
+        </div>
+        <div class="header-right">
+            <nav class="header-nav">
+                <a href="central-dashboard.html" class="nav-item" id="navCentral">Senior Authority</a>
+                <a href="bureau-workspace.html" class="nav-item" id="navBureau">Bureau Queue</a>
+                <a href="institution-tracking.html" class="nav-item" id="navInstitution">Institutions</a>
+                <a href="admin-dashboard.html" class="nav-item" id="navAdmin">Administration</a>
+            </nav>
+            <div class="user-profile-badge">
+                <div class="avatar" id="headerUserAvatar">R</div>
+                <div class="user-details">
+                    <span class="user-name" id="headerUserName">Regional Officer</span>
+                    <span class="user-role" id="headerUserRole">Regional Officer</span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" style="color:#ffffff;border-color:rgba(255,255,255,0.4);">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="app-container" style="max-width:1600px;width:100%;margin:24px auto;padding:0 24px;">
+        
+        <!-- Regional Scope Switcher & Summary Card -->
+        <div class="card" style="margin-bottom:20px;padding:18px 24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+                <div>
+                    <h2 style="font-size:1.3rem;font-weight:800;color:var(--color-primary-navy);margin:0 0 4px;" id="regionalOfficeTitle">
+                        Regional Office Jurisdiction Dashboard
+                    </h2>
+                    <p style="font-size:0.85rem;color:var(--color-text-muted);margin:0;">
+                        Regional monitoring of technical institutions, pending investigations, and coordination with Central Bureaus.
+                    </p>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <label for="regionSelect" style="font-size:0.85rem;font-weight:700;color:var(--color-primary-navy);">Jurisdiction:</label>
+                    <select id="regionSelect" class="form-select" style="min-width:160px;" onchange="changeRegion()">
+                        <option value="Western" selected>Western Region</option>
+                        <option value="Northern">Northern Region</option>
+                        <option value="Southern">Southern Region</option>
+                        <option value="Eastern">Eastern Region</option>
+                        <option value="Central">Central Region</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Regional KPI Metric Cards -->
+        <div class="kpi-grid regional-kpis">
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background:#e0f2fe;color:#0284c7;">🏛️</div>
+                <div class="kpi-info">
+                    <span class="kpi-label">Total Regional Cases</span>
+                    <h3 class="kpi-value" id="regTotalCases">-</h3>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background:#fef3c7;color:#d97706;">⚡</div>
+                <div class="kpi-info">
+                    <span class="kpi-label">Active Investigations</span>
+                    <h3 class="kpi-value" id="regActiveCases">-</h3>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background:#fee2e2;color:#ef4444;">⚠️</div>
+                <div class="kpi-info">
+                    <span class="kpi-label">Overdue Regional Cases</span>
+                    <h3 class="kpi-value" id="regOverdueCases">-</h3>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background:#dcfce7;color:#166534;">✓</div>
+                <div class="kpi-info">
+                    <span class="kpi-label">Disposed / Resolved</span>
+                    <h3 class="kpi-value" id="regDisposedCases">-</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="filter-toolbar">
+            <div class="filter-group" style="flex:1;">
+                <input type="text" id="regSearchInput" class="form-input" placeholder="Search by Case ID, Institution, or Subject..." style="width:100%;">
+            </div>
+            <div class="filter-group">
+                <select id="regStatusFilter" class="form-select">
+                    <option value="">All Statuses</option>
+                    <option value="RECEIVED">Received</option>
+                    <option value="UNDER_PROCESS">Under Process</option>
+                    <option value="DISPOSED">Disposed</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select id="regPriorityFilter" class="form-select">
+                    <option value="">All Priorities</option>
+                    <option value="URGENT">Urgent</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                </select>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="applyRegionalFilters()">Apply Filters</button>
+            <button class="btn btn-outline btn-sm" onclick="resetRegionalFilters()">Reset</button>
+        </div>
+
+        <!-- Regional Cases Table -->
+        <div class="card">
+            <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                    <h3 class="card-title">Regional Complaint Queue</h3>
+                    <p class="card-subtitle" id="regQueueSubtitle">Complaints registered against accredited institutions within the selected region</p>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="loadRegionalCases()">Refresh Queue</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Case ID</th>
+                                <th>Institution</th>
+                                <th>Subject &amp; Category</th>
+                                <th>Priority</th>
+                                <th>Bureau</th>
+                                <th>Receipt Date</th>
+                                <th>Expected Disposal</th>
+                                <th>Status</th>
+                                <th>Regional Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="regionalTableBody">
+                            <tr>
+                                <td colspan="9" style="text-align:center;padding:24px;">
+                                    <div class="spinner"></div>
+                                    <p style="margin-top:8px;">Loading regional cases...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Inspection Modal -->
+    <div id="regCaseDetailModal" class="modal-overlay">
+        <div class="modal-container" style="max-width:760px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title" id="regModalCaseTitle">Case Details</h3>
+                    <div style="font-size:0.8rem;color:#cbd5e1;" id="regModalCaseSub">Complete Institutional Dossier</div>
+                </div>
+                <button class="modal-close" onclick="closeRegDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="regModalCaseBody">
+                <div class="spinner"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeRegDetailModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Regional Escalation Modal -->
+    <div id="escalateModal" class="modal-overlay">
+        <div class="modal-container" style="max-width:540px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title">Escalate to Senior Authority</h3>
+                    <div style="font-size:0.8rem;color:#cbd5e1;">Forward for national supervisory directive</div>
+                </div>
+                <button class="modal-close" onclick="closeEscalateModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="escalateCaseId">
+                <div class="form-group">
+                    <label class="form-label" for="escalateReason">Escalation Reason &amp; Regional Findings *</label>
+                    <textarea id="escalateReason" class="form-textarea" rows="4" required placeholder="Detail specific regulatory deadlocks, physical committee findings, or reason why senior authority intervention is requested..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeEscalateModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmEscalate" onclick="submitEscalation()">
+                    Confirm Escalation &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/regional-dashboard.js"></script>
+</body>
+</html>

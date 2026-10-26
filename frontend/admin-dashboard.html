@@ -236,5 +236,1629 @@
   <script src="js/main.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/admin.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Dashboard — EduVision AICTE Complaint Monitoring</title>
+    <!-- Government Design Tokens & Reusable Styles -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- 1. SIDEBAR NAVIGATION (Dark Navy #04244a) -->
+        <aside class="sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="aicte-logo">AICTE</div>
+                <div class="brand-text">
+                    <h1>EduVision</h1>
+                    <p>Super Admin Console &bull; National Portal</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">ADMINISTRATION MENU</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link active" data-tab-target="paneDashboard">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneUsers">
+                            <span class="nav-icon">👥</span>
+                            <span>Users &amp; Roles</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneOfficerRequests" id="navOfficerRequests">
+                            <span class="nav-icon">🛡️</span>
+                            <span>Officer Requests</span>
+                            <span class="badge" id="badgePendingOfficerRequests" style="margin-left:auto;background:#d97706;color:#ffffff;font-size:0.7rem;padding:2px 7px;border-radius:10px;font-weight:700;">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneInstitutions">
+                            <span class="nav-icon">🏛️</span>
+                            <span>Institutions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneBureaus">
+                            <span class="nav-icon">⚖️</span>
+                            <span>Bureaus &amp; Cells</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneRegions">
+                            <span class="nav-icon">🌐</span>
+                            <span>Regions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneCases">
+                            <span class="nav-icon">📋</span>
+                            <span>Cases</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneReports">
+                            <span class="nav-icon">📈</span>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneSettings">
+                            <span class="nav-icon">⚙️</span>
+                            <span>System Settings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneAudit">
+                            <span class="nav-icon">🛡️</span>
+                            <span>Audit Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneImport">
+                            <span class="nav-icon">📥</span>
+                            <span>Data Import</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneSupport">
+                            <span class="nav-icon">❓</span>
+                            <span>Help &amp; Support</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title" style="margin-top:20px;">QUICK LINKS</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneAudit">
+                            <span class="nav-icon">🛡️</span>
+                            <span>Audit Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneImport">
+                            <span class="nav-icon">📥</span>
+                            <span>Data Import</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" data-tab-target="paneSupport">
+                            <span class="nav-icon">❓</span>
+                            <span>Help &amp; Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span>EduVision Public Home</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div>AICTE Administrative Authority</div>
+                <div style="font-size: 0.68rem; margin-top: 4px; opacity: 0.7;">Role: SUPER_ADMIN &bull; Secure Session</div>
+            </div>
+        </aside>
+
+        <!-- Sidebar mobile backdrop -->
+        <div class="sidebar-backdrop" id="adminSidebarBackdrop"></div>
+
+        <!-- 2. MAIN CONTENT WRAPPER -->
+        <div class="main-wrapper">
+            <!-- Top Navigation Bar -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation">☰</button>
+                    <div class="page-title-area">
+                        <h2 id="currentPaneTitle">Super Admin Dashboard</h2>
+                        <p id="currentPaneSubtitle">Comprehensive System Overview &bull; Real-time AICTE National Registry</p>
+                    </div>
+                </div>
+
+                <!-- Global Search Input & Dropdown -->
+                <div class="global-search-wrap">
+                    <span class="global-search-icon">🔍</span>
+                    <input type="text" id="globalSearchInput" class="global-search-input" placeholder="Search Case ID, Institution, Officer..." autocomplete="off">
+                    <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+                </div>
+
+                <!-- Right Actions: Notifications & Profile -->
+                <div class="header-right">
+                    <!-- Notifications -->
+                    <div class="notification-btn-wrap">
+                        <button class="btn-notifications" id="notificationBtn" title="System Notifications">
+                            🔔
+                            <span class="notification-badge" id="notificationBadge" style="display:none;">0</span>
+                        </button>
+                        <div class="notifications-dropdown" id="notificationsDropdown">
+                            <div class="notifications-header">
+                                <h4>Notifications &amp; Alerts</h4>
+                                <span style="font-size:0.7rem;opacity:0.8;">Live System Feed</span>
+                            </div>
+                            <div class="notifications-list" id="notificationsList">
+                                <div style="padding:16px;text-align:center;color:#64748b;font-size:0.8rem;">No pending alerts.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Administrator Profile Badge -->
+                    <div class="user-badge" id="userMenuBtn">
+                        <div class="user-avatar" id="headerUserAvatar">A</div>
+                        <div class="user-details">
+                            <span class="user-name" id="headerUserName">Super Admin</span>
+                            <div class="user-meta">
+                                <span class="role-pill" id="headerUserRole" style="background:#fef2f2;color:#991b1b;">SUPER ADMIN</span>
+                            </div>
+                        </div>
+
+                        <!-- User Profile Dropdown Menu -->
+                        <div class="user-menu-dropdown" id="userMenuDropdown">
+                            <div class="user-menu-item" onclick="openMyProfileModal()">
+                                <span>👤</span> My Profile
+                            </div>
+                            <div class="user-menu-item" onclick="switchAdminTab('paneSettings')">
+                                <span>⚙️</span> System Settings
+                            </div>
+                            <div class="user-menu-divider"></div>
+                            <div class="user-menu-item" id="logoutActionBtn" style="color:#dc2626;">
+                                <span>🚪</span> Sign Out
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 3. CONTENT BODY & TAB PANES -->
+            <main class="content-body">
+
+                <!-- ==========================================
+                     TAB 1: DASHBOARD
+                     ========================================== -->
+                <div class="admin-pane active" id="paneDashboard">
+                    <!-- 6 Summary Cards -->
+                    <div class="summary-cards-grid">
+                        <div class="summary-card card-inst" onclick="switchAdminTab('paneInstitutions')">
+                            <div class="summary-label">Total Institutions</div>
+                            <div class="summary-value" id="kpiTotalInstitutions">-</div>
+                            <div class="summary-footer"><span>🏛️</span> Active Registry &rarr;</div>
+                        </div>
+                        <div class="summary-card card-total" onclick="switchAdminTab('paneCases')">
+                            <div class="summary-label">Total Cases</div>
+                            <div class="summary-value" id="kpiTotalCases">-</div>
+                            <div class="summary-footer"><span>📋</span> All Unique Complaints &rarr;</div>
+                        </div>
+                        <div class="summary-card card-pending" onclick="switchAdminTab('paneCases', {status: 'IN_PROGRESS'})">
+                            <div class="summary-label">Pending Cases</div>
+                            <div class="summary-value" id="kpiPendingCases">-</div>
+                            <div class="summary-footer"><span>⏱️</span> In-Progress Lifecycle &rarr;</div>
+                        </div>
+                        <div class="summary-card card-overdue" onclick="switchAdminTab('paneCases', {overdueOnly: true})">
+                            <div class="summary-label">Overdue Cases</div>
+                            <div class="summary-value" id="kpiOverdueCases">-</div>
+                            <div class="summary-footer"><span>⚠️</span> Breached SLA Due Dates &rarr;</div>
+                        </div>
+                        <div class="summary-card card-unassigned" onclick="switchAdminTab('paneCases', {unassignedOnly: true})">
+                            <div class="summary-label">Unassigned Cases</div>
+                            <div class="summary-value" id="kpiUnassignedCases">-</div>
+                            <div class="summary-footer"><span>👤</span> Awaiting Officer Allocation &rarr;</div>
+                        </div>
+                        <div class="summary-card card-duplicate" onclick="switchAdminTab('paneCases', {duplicateOnly: true})">
+                            <div class="summary-label">Potential Duplicates</div>
+                            <div class="summary-value" id="kpiPotentialDuplicates">-</div>
+                            <div class="summary-footer"><span>⚡</span> Cross-Bureau Overlaps &rarr;</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Row -->
+                    <div class="quick-actions-bar">
+                        <div class="quick-actions-left">
+                            <span style="font-size:1.1rem;color:#0076ff;">⚡</span>
+                            <span class="quick-actions-title">Super Admin Quick Actions:</span>
+                        </div>
+                        <div class="quick-actions-btns">
+                            <button class="btn btn-primary btn-sm" onclick="openAddInstitutionModal()">
+                                <span>➕</span> Add Institution
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="openAddUserModal()">
+                                <span>➕</span> Add User
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneCases')">
+                                <span>📋</span> Assign Case
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneReports')">
+                                <span>📈</span> Generate Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="charts-grid-two">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Cases by Bureau / Cell</h3>
+                                <span style="font-size:0.75rem;color:#64748b;">Distribution across regulatory divisions</span>
+                            </div>
+                            <div class="card-body">
+                                <div style="height:260px;position:relative;">
+                                    <canvas id="chartCasesByBureau"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Cases by Workflow Status</h3>
+                                <span style="font-size:0.75rem;color:#64748b;">Resolution pipeline breakdown</span>
+                            </div>
+                            <div class="card-body">
+                                <div style="height:260px;position:relative;">
+                                    <canvas id="chartCasesByStatus"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tables Grid: Region Summary & Bureau Workload -->
+                    <div class="details-two-col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Region-wise Jurisdiction Summary</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneRegions')">View All &rarr;</button>
+                            </div>
+                            <div class="card-body" style="padding:0;">
+                                <div class="table-responsive" style="border:none;">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Region</th>
+                                                <th>Code</th>
+                                                <th>Institutions</th>
+                                                <th>Total Cases</th>
+                                                <th>Pending</th>
+                                                <th>Overdue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashRegionSummaryTableBody">
+                                            <tr><td colspan="6" style="text-align:center;padding:16px;"><div class="spinner"></div></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Bureau / Cell Workload Summary</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneBureaus')">View All &rarr;</button>
+                            </div>
+                            <div class="card-body" style="padding:0;">
+                                <div class="table-responsive" style="border:none;">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Bureau Name</th>
+                                                <th>Active Cases</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashBureauWorkloadTableBody">
+                                            <tr><td colspan="4" style="text-align:center;padding:16px;"><div class="spinner"></div></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Cases Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Complaints &amp; Regulatory Cases</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneCases')">View All Cases &rarr;</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Case ID</th>
+                                            <th>Institution</th>
+                                            <th>Category</th>
+                                            <th>Primary Bureau</th>
+                                            <th>Assigned Officer</th>
+                                            <th>Region</th>
+                                            <th>Status</th>
+                                            <th>Due Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashRecentCasesTableBody">
+                                        <tr><td colspan="9" style="text-align:center;padding:20px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Administrative Activities Stream -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Administrative Activities &amp; System Events</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('paneAudit')">Full Audit Trail &rarr;</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Acting Official</th>
+                                            <th>Event Action</th>
+                                            <th>Target Entity</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashRecentActivitiesTableBody">
+                                        <tr><td colspan="5" style="text-align:center;padding:16px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 2: USERS & ROLES
+                     ========================================== -->
+                <div class="admin-pane" id="paneUsers">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Users &amp; Role-Based Access Control</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddUserModal()">
+                                <span>➕</span> Create User Account
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filter Bar -->
+                            <div class="filter-bar">
+                                <select id="filterUserRole" class="filter-input" onchange="loadUsersData()">
+                                    <option value="">All Roles</option>
+                                    <option value="SYS_ADMIN">Super Admin (SYS_ADMIN)</option>
+                                    <option value="CENTRAL_MONITOR">Senior Authority (CENTRAL_MONITOR)</option>
+                                    <option value="REGIONAL_OFFICER">Regional Officer (REGIONAL_OFFICER)</option>
+                                    <option value="BUREAU_OFFICER">Bureau Officer (BUREAU_OFFICER)</option>
+                                    <option value="COMPLAINANT">Complainant (Public Stakeholder)</option>
+                                    <option value="INSTITUTION_REPRESENTATIVE">Institution Representative</option>
+                                </select>
+                                <select id="filterUserBureau" class="filter-input" onchange="loadUsersData()">
+                                    <option value="">All Bureaus</option>
+                                    <option value="1">Regulation Bureau (RB)</option>
+                                    <option value="2">Public Grievance Redressal (PGRC)</option>
+                                    <option value="3">Approval Bureau (APPROVAL)</option>
+                                    <option value="4">Policy &amp; Planning (POLICY)</option>
+                                </select>
+                                <select id="filterUserStatus" class="filter-input" onchange="loadUsersData()">
+                                    <option value="">All Statuses</option>
+                                    <option value="true">Active Only</option>
+                                    <option value="false">Inactive Only</option>
+                                </select>
+                                <input type="text" id="filterUserQuery" class="filter-input" style="flex:1;min-width:180px;" placeholder="Search by name, email, designation..." onkeyup="debounce(loadUsersData, 300)()">
+                                <button class="btn btn-secondary btn-sm" onclick="resetUserFilters()">Reset</button>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Full Name</th>
+                                            <th>Official Email</th>
+                                            <th>Designation</th>
+                                            <th>Assigned Role</th>
+                                            <th>Bureau / Region</th>
+                                            <th>Status</th>
+                                            <th>Created Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usersTableBody">
+                                        <tr><td colspan="9" style="text-align:center;padding:24px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB: OFFICER ACCESS REQUESTS
+                     ========================================== -->
+                <div class="admin-pane" id="paneOfficerRequests">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 style="margin:0 0 4px;">Bureau / Cell Officer Registration Requests</h3>
+                                <p style="margin:0;font-size:0.82rem;color:var(--color-text-muted);">Review, approve or reject official credential requests for Regulation Bureau (RB) and Public Grievance Redressal Cell (PGRC)</p>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="loadOfficerRequestsData()">
+                                <span>🔄</span> Refresh Queue
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filter Bar -->
+                            <div class="filter-bar">
+                                <select id="filterOfficerReqStatus" class="filter-input" onchange="loadOfficerRequestsData()">
+                                    <option value="">All Statuses</option>
+                                    <option value="PENDING_APPROVAL" selected>Pending Approval</option>
+                                    <option value="APPROVED">Approved &amp; Activated</option>
+                                    <option value="REJECTED">Rejected</option>
+                                </select>
+                                <select id="filterOfficerReqBureau" class="filter-input" onchange="loadOfficerRequestsData()">
+                                    <option value="">All Bureaus</option>
+                                    <option value="RB">Regulation Bureau (RB)</option>
+                                    <option value="PGRC">Public Grievance Redressal Cell (PGRC)</option>
+                                </select>
+                                <input type="text" id="filterOfficerReqQuery" class="filter-input" style="flex:1;min-width:180px;" placeholder="Search by request ID, name, email, employee ID..." onkeyup="debounce(loadOfficerRequestsData, 300)()">
+                                <button class="btn btn-secondary btn-sm" onclick="resetOfficerReqFilters()">Reset</button>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Officer Name</th>
+                                            <th>Official Email</th>
+                                            <th>Bureau &amp; Role</th>
+                                            <th>Designation / Staff ID</th>
+                                            <th>Submission Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="officerRequestsTableBody">
+                                        <tr><td colspan="8" style="text-align:center;padding:24px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-pane" id="paneInstitutions">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>National Technical Institution Registry</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddInstitutionModal()">
+                                <span>➕</span> Register Institution
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filter Bar -->
+                            <div class="filter-bar">
+                                <select id="filterInstRegion" class="filter-input" onchange="loadInstitutionsData()">
+                                    <option value="">All Regions</option>
+                                    <option value="Western">Western Region</option>
+                                    <option value="Northern">Northern Region</option>
+                                    <option value="Southern">Southern Region</option>
+                                    <option value="Eastern">Eastern Region</option>
+                                    <option value="Central">Central Region</option>
+                                    <option value="South-Western">South-Western Region</option>
+                                    <option value="North-Western">North-Western Region</option>
+                                </select>
+                                <input type="text" id="filterInstQuery" class="filter-input" style="flex:1;min-width:200px;" placeholder="Search by Permanent ID (1-xxxx), name, city, state..." onkeyup="debounce(loadInstitutionsData, 300)()">
+                                <button class="btn btn-secondary btn-sm" onclick="resetInstFilters()">Reset</button>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Permanent ID</th>
+                                            <th>Institution Name</th>
+                                            <th>Region</th>
+                                            <th>State &amp; City</th>
+                                            <th>Discipline / Type</th>
+                                            <th>Approval Status</th>
+                                            <th>Verification</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="institutionsTableBody">
+                                        <tr><td colspan="8" style="text-align:center;padding:24px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 4: BUREAUS & CELLS
+                     ========================================== -->
+                <div class="admin-pane" id="paneBureaus">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>AICTE Bureaus &amp; Regulatory Cells</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddBureauModal()">
+                                <span>➕</span> Add Bureau / Cell
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size:0.82rem;color:#475569;margin-bottom:16px;">
+                                Bureaus and Cells represent autonomous regulatory divisions within AICTE (Regulation Bureau, Public Grievance Redressal Cell, Approval Bureau, Policy &amp; Planning). Complaints maintain one canonical Case ID, with primary ownership and optional supporting units.
+                            </p>
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Short Code</th>
+                                            <th>Official Bureau Name</th>
+                                            <th>Contact Email</th>
+                                            <th>Active Cases</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bureausTableBody">
+                                        <tr><td colspan="7" style="text-align:center;padding:20px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RB-PGRC Inter-Bureau Case Transfers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Inter-Bureau Case Transfer Requests &amp; Coordination</h3>
+                            <span style="font-size:0.75rem;color:#64748b;">Supervisory decision required before changing primary ownership</span>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Case Number</th>
+                                            <th>Institution</th>
+                                            <th>Transfer Path</th>
+                                            <th>Status</th>
+                                            <th>Justification Reason</th>
+                                            <th>Decision Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transfersTableBody">
+                                        <tr><td colspan="7" style="text-align:center;padding:20px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 5: REGIONS
+                     ========================================== -->
+                <div class="admin-pane" id="paneRegions">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>AICTE Regional Jurisdictions</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddRegionModal()">
+                                <span>➕</span> Add Regional Office
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Region Name</th>
+                                            <th>Jurisdiction States</th>
+                                            <th>Regional Coordinator</th>
+                                            <th>Institutions</th>
+                                            <th>Total Cases</th>
+                                            <th>Overdue</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="regionsTableBody">
+                                        <tr><td colspan="9" style="text-align:center;padding:20px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 6: CASES & WORKFLOW
+                     ========================================== -->
+                <div class="admin-pane" id="paneCases">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>National Case Master Queue &amp; Lifecycle Management</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="loadCasesData()">
+                                <span>🔄</span> Refresh Queue
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filters -->
+                            <div class="filter-bar">
+                                <select id="filterCaseBureau" class="filter-input" onchange="loadCasesData()">
+                                    <option value="">All Bureaus</option>
+                                    <option value="1">RB - Regulation Bureau</option>
+                                    <option value="2">PGRC - Public Grievance Redressal</option>
+                                    <option value="3">APPROVAL - Approval Bureau</option>
+                                    <option value="4">POLICY - Policy &amp; Planning</option>
+                                </select>
+                                <select id="filterCaseStatus" class="filter-input" onchange="loadCasesData()">
+                                    <option value="">All Statuses</option>
+                                    <option value="RECEIVED">RECEIVED</option>
+                                    <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+                                    <option value="PENDING_ASSIGNMENT">PENDING_ASSIGNMENT</option>
+                                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                                    <option value="AWAITING_INSTITUTION_RESPONSE">AWAITING_INSTITUTION_RESPONSE</option>
+                                    <option value="AWAITING_INTERNAL_REVIEW">AWAITING_INTERNAL_REVIEW</option>
+                                    <option value="RESOLVED">RESOLVED</option>
+                                    <option value="DISPOSED">DISPOSED</option>
+                                    <option value="CLOSED">CLOSED</option>
+                                </select>
+                                <select id="filterCasePriority" class="filter-input" onchange="loadCasesData()">
+                                    <option value="">All Priorities</option>
+                                    <option value="CRITICAL">CRITICAL</option>
+                                    <option value="HIGH">HIGH</option>
+                                    <option value="MEDIUM">MEDIUM</option>
+                                    <option value="LOW">LOW</option>
+                                </select>
+                                <input type="text" id="filterCaseQuery" class="filter-input" style="flex:1;min-width:200px;" placeholder="Search Case ID, institution, title..." onkeyup="debounce(loadCasesData, 300)()">
+                                <button class="btn btn-secondary btn-sm" onclick="resetCaseFilters()">Reset</button>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Case ID</th>
+                                            <th>Institution</th>
+                                            <th>Category</th>
+                                            <th>Primary Bureau</th>
+                                            <th>Assigned Officer</th>
+                                            <th>Status</th>
+                                            <th>Due Date</th>
+                                            <th>Overdue?</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="casesTableBody">
+                                        <tr><td colspan="9" style="text-align:center;padding:24px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 7: REPORTS & ANALYTICS
+                     ========================================== -->
+                <div class="admin-pane" id="paneReports">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Administrative Reporting &amp; Aggregations</h3>
+                            <div style="display:flex;gap:10px;">
+                                <button class="btn btn-secondary btn-sm" onclick="exportReportToCsv()">
+                                    <span>📥</span> Export CSV
+                                </button>
+                                <button class="btn btn-secondary btn-sm" onclick="window.print()">
+                                    <span>🖨️</span> Print Report
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="filter-bar">
+                                <select id="reportTypeSelect" class="filter-input" onchange="generateReportData()">
+                                    <option value="CASE_SUMMARY">Case Summary Report</option>
+                                    <option value="BUREAU_WORKLOAD">Bureau / Cell Workload Report</option>
+                                    <option value="REGION_SUMMARY">Region-wise Summary Report</option>
+                                    <option value="OVERDUE_BREACH">Overdue / SLA Breach Report</option>
+                                    <option value="DUPLICATE_REVIEW">Duplicate &amp; Overlap Audit Report</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="generateReportData()">Generate Report</button>
+                            </div>
+
+                            <!-- Report Output Preview Area -->
+                            <div id="reportOutputContainer" style="margin-top:20px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 8: SYSTEM SETTINGS
+                     ========================================== -->
+                <div class="admin-pane" id="paneSettings">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>System Configuration &amp; Governance Rules</h3>
+                            <button class="btn btn-primary btn-sm" onclick="saveSystemSettings()">
+                                <span>💾</span> Save All Settings
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <form id="settingsForm" onsubmit="return false;">
+                                <h4 style="font-size:0.95rem;color:#04244a;margin-bottom:12px;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">
+                                    General Platform Configuration
+                                </h4>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingPlatformName">Platform Display Name</label>
+                                        <input type="text" id="settingPlatformName" class="form-input" value="EduVision — Integrated Institution Complaint Monitoring &amp; Status Dashboard">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingPlatformCode">System Platform Code</label>
+                                        <input type="text" id="settingPlatformCode" class="form-input" value="AICTE-CMS-PROD" readonly style="background:#f1f5f9;">
+                                    </div>
+                                </div>
+
+                                <h4 style="font-size:0.95rem;color:#04244a;margin:20px 0 12px;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">
+                                    Workflow &amp; SLA Rules
+                                </h4>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingDefaultDisposalDays">Standard Resolution SLA (Days)</label>
+                                        <input type="number" id="settingDefaultDisposalDays" class="form-input" value="45">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingSimilarityThreshold">Duplicate Detection Threshold (0.0 - 1.0)</label>
+                                        <input type="number" step="0.05" id="settingSimilarityThreshold" class="form-input" value="0.75">
+                                    </div>
+                                </div>
+
+                                <h4 style="font-size:0.95rem;color:#04244a;margin:20px 0 12px;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">
+                                    Security &amp; Audit Governance
+                                </h4>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingPasswordMinLength">Minimum Password Length</label>
+                                        <input type="number" id="settingPasswordMinLength" class="form-input" value="8">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="settingSessionTimeout">Session Timeout (Minutes)</label>
+                                        <input type="number" id="settingSessionTimeout" class="form-input" value="1440">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 9: AUDIT LOGS
+                     ========================================== -->
+                <div class="admin-pane" id="paneAudit">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Immutable System Audit Log</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="loadAuditLogsData()">
+                                <span>🔄</span> Refresh Log
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Filter Bar -->
+                            <div class="filter-bar">
+                                <select id="filterAuditAction" class="filter-input" onchange="loadAuditLogsData()">
+                                    <option value="">All Action Types</option>
+                                    <option value="USER_CREATE">USER_CREATE</option>
+                                    <option value="USER_UPDATE">USER_UPDATE</option>
+                                    <option value="CASE_ASSIGNED">CASE_ASSIGNED</option>
+                                    <option value="STATUS_UPDATED">STATUS_UPDATED</option>
+                                    <option value="TRANSFER_APPROVED">TRANSFER_APPROVED</option>
+                                    <option value="INSTITUTION_VERIFIED">INSTITUTION_VERIFIED</option>
+                                    <option value="CSV_IMPORT">CSV_IMPORT</option>
+                                </select>
+                                <input type="text" id="filterAuditEntity" class="filter-input" placeholder="Filter by Entity (USER, CASE, INSTITUTION)..." onkeyup="debounce(loadAuditLogsData, 300)()">
+                                <button class="btn btn-secondary btn-sm" onclick="resetAuditFilters()">Reset</button>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Log ID</th>
+                                            <th>Timestamp</th>
+                                            <th>Acting Official</th>
+                                            <th>Action Type</th>
+                                            <th>Target Entity</th>
+                                            <th>Details / Context</th>
+                                            <th>IP Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="auditTableBody">
+                                        <tr><td colspan="7" style="text-align:center;padding:24px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 10: DATA IMPORT
+                     ========================================== -->
+                <div class="admin-pane" id="paneImport">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Validated Bulk CSV Complaint Ingestion</h3>
+                            <button class="btn btn-secondary btn-sm" id="btnDownloadSampleCsv">
+                                <span>📄</span> Download Demo CSV Template
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Drag & Drop Zone -->
+                            <div class="csv-dropzone" id="csvDropzone">
+                                <div class="csv-icon">📁</div>
+                                <h4>Drag &amp; Drop CSV File or Click to Select</h4>
+                                <p>Mandatory columns: permanent_id, bureau_code, title, category, priority, description</p>
+                                <p style="font-size: 0.72rem; color: #0076ff; margin-top: 4px;">
+                                    Automated permanent ID verification, bureau validation, and duplicate detection applied.
+                                </p>
+                                <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                            </div>
+
+                            <!-- Pre-Import Preview & Confirmation Area -->
+                            <div id="csvPreviewArea" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Historical Batches -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Historical CSV Import Batches</h3>
+                            <span style="font-size: 0.75rem; color: #64748b;">Audit history of all executed bulk ingestions</span>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <div class="table-responsive" style="border: none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Batch ID</th>
+                                            <th>Uploaded Filename</th>
+                                            <th>Total Rows</th>
+                                            <th>Imported</th>
+                                            <th>Failed</th>
+                                            <th>Status</th>
+                                            <th>Error Report</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="batchesTableBody">
+                                        <tr><td colspan="7" style="text-align:center;padding:20px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     TAB 11: HELP & SUPPORT
+                     ========================================== -->
+                <div class="admin-pane" id="paneSupport">
+                    <!-- Guidance & FAQs -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Super Admin Operational Guide &amp; FAQs</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom:20px;">
+                                <h4 style="font-size:0.95rem;color:#04244a;margin-bottom:6px;">1. RB &amp; PGRC Coordination Policy</h4>
+                                <p style="font-size:0.84rem;color:#475569;line-height:1.6;">
+                                    A complaint has exactly ONE canonical Case ID. When both Regulation Bureau (RB) and Grievance Cell (PGRC) need to coordinate, assign one unit as Primary Owner and the other as Supporting Unit. Do not create duplicate complaint records for multi-bureau cases.
+                                </p>
+                            </div>
+                            <div style="margin-bottom:20px;">
+                                <h4 style="font-size:0.95rem;color:#04244a;margin-bottom:6px;">2. Sequential Workflow Lifecycle</h4>
+                                <p style="font-size:0.84rem;color:#475569;line-height:1.6;">
+                                    Permitted transitions: <code>RECEIVED &rarr; UNDER_REVIEW &rarr; PENDING_ASSIGNMENT &rarr; IN_PROGRESS &rarr; AWAITING_INSTITUTION_RESPONSE &rarr; AWAITING_INTERNAL_REVIEW &rarr; RESOLVED &rarr; CLOSED</code>. Overdue is an SLA calculation metric based on 45 days, not a replacement status.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="font-size:0.95rem;color:#04244a;margin-bottom:6px;">3. Bulk Data Import Idempotency</h4>
+                                <p style="font-size:0.84rem;color:#475569;line-height:1.6;">
+                                    CSV imports validate institution permanent IDs and duplicate source IDs. Ingestion batches record row-level errors without silently failing or discarding records.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Support Ticket Submission -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Submit Technical Support Ticket</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="supportTicketForm" onsubmit="handleSupportTicketSubmit(event)">
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="ticketTitle">Ticket Subject <span class="required">*</span></label>
+                                        <input type="text" id="ticketTitle" class="form-input" required placeholder="e.g. NIC Gateway Latency or Institution ID Sync Issue">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="ticketCategory">Category</label>
+                                        <select id="ticketCategory" class="form-select">
+                                            <option value="SYSTEM_BUG">System Bug / Anomaly</option>
+                                            <option value="DATABASE_SYNC">Database Synchronization</option>
+                                            <option value="USER_ACCESS">User Access / Permission Issue</option>
+                                            <option value="FEATURE_REQUEST">Feature Enhancement Request</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="ticketDesc">Description &amp; Reproduction Steps <span class="required">*</span></label>
+                                    <textarea id="ticketDesc" class="form-textarea" rows="3" required placeholder="Detailed information regarding the technical issue..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btnSubmitTicket">Submit Support Ticket &rarr;</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Support Tickets List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Technical Support Log</h3>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive" style="border:none;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ticket #</th>
+                                            <th>Subject</th>
+                                            <th>Category</th>
+                                            <th>Priority</th>
+                                            <th>Created By</th>
+                                            <th>Status</th>
+                                            <th>Created Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="supportTicketsTableBody">
+                                        <tr><td colspan="7" style="text-align:center;padding:16px;"><div class="spinner"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- =============================================================
+         SUBORDINATE MODALS (Subordinate Views of Dashboard)
+         ============================================================= -->
+
+    <!-- Modal 1: Add User -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Create Authorized User Account</h3>
+                <button class="modal-close-btn" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm" onsubmit="handleCreateUserSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="newUserFullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="newUserFullName" class="form-input" required placeholder="Dr. / Shri / Smt.">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newUserEmail">Official Email <span class="required">*</span></label>
+                            <input type="email" id="newUserEmail" class="form-input" required placeholder="officer@aicte.gov.in">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newUserPassword">Temporary Password <span class="required">*</span></label>
+                            <input type="password" id="newUserPassword" class="form-input" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newUserRole">System Role <span class="required">*</span></label>
+                            <select id="newUserRole" class="form-select">
+                                <option value="BUREAU_OFFICER">BUREAU_OFFICER (Bureau Scoped)</option>
+                                <option value="CENTRAL_MONITOR">CENTRAL_MONITOR (Senior Authority)</option>
+                                <option value="REGIONAL_OFFICER">REGIONAL_OFFICER (Regional Office)</option>
+                                <option value="SYS_ADMIN">SYS_ADMIN (Super Admin)</option>
+                                <option value="INSTITUTION_REPRESENTATIVE">INSTITUTION_REPRESENTATIVE</option>
+                                <option value="COMPLAINANT">COMPLAINANT (Public Stakeholder)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newUserBureau">Bureau Affiliation</label>
+                            <select id="newUserBureau" class="form-select">
+                                <option value="">None / Not Applicable</option>
+                                <option value="1">RB - Regulation Bureau</option>
+                                <option value="2">PGRC - Grievance Redressal</option>
+                                <option value="3">APPROVAL - Approval Bureau</option>
+                                <option value="4">POLICY - Policy &amp; Planning</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newUserRegion">Regional Jurisdiction</label>
+                            <select id="newUserRegion" class="form-select">
+                                <option value="">National / Central</option>
+                                <option value="Western">Western Region</option>
+                                <option value="Northern">Northern Region</option>
+                                <option value="Southern">Southern Region</option>
+                                <option value="Eastern">Eastern Region</option>
+                                <option value="Central">Central Region</option>
+                                <option value="South-Western">South-Western Region</option>
+                                <option value="North-Western">North-Western Region</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newUserPhone">Contact Phone</label>
+                            <input type="text" id="newUserPhone" class="form-input" placeholder="+91 11 2958 xxxx">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newUserDesignation">Official Designation</label>
+                        <input type="text" id="newUserDesignation" class="form-input" placeholder="e.g. Senior Grievance Redressal Officer">
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addUserModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNewUser">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Edit User -->
+    <div class="modal-overlay" id="editUserModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Edit User Account</h3>
+                <button class="modal-close-btn" onclick="closeModal('editUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" onsubmit="handleEditUserSubmit(event)">
+                    <input type="hidden" id="editUserId">
+                    <div class="form-group">
+                        <label class="form-label" for="editUserFullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="editUserFullName" class="form-input" required>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="editUserRole">System Role</label>
+                            <select id="editUserRole" class="form-select">
+                                <option value="BUREAU_OFFICER">BUREAU_OFFICER</option>
+                                <option value="CENTRAL_MONITOR">CENTRAL_MONITOR</option>
+                                <option value="REGIONAL_OFFICER">REGIONAL_OFFICER</option>
+                                <option value="SYS_ADMIN">SYS_ADMIN</option>
+                                <option value="INSTITUTION_REPRESENTATIVE">INSTITUTION_REPRESENTATIVE</option>
+                                <option value="COMPLAINANT">COMPLAINANT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editUserBureau">Bureau Affiliation</label>
+                            <select id="editUserBureau" class="form-select">
+                                <option value="">None</option>
+                                <option value="1">RB - Regulation Bureau</option>
+                                <option value="2">PGRC - Grievance Redressal</option>
+                                <option value="3">APPROVAL - Approval Bureau</option>
+                                <option value="4">POLICY - Policy &amp; Planning</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="editUserDesignation">Designation</label>
+                        <input type="text" id="editUserDesignation" class="form-input">
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('editUserModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitEditUser">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Reset Password -->
+    <div class="modal-overlay" id="resetPasswordModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Admin Password Reset</h3>
+                <button class="modal-close-btn" onclick="closeModal('resetPasswordModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="resetPasswordForm" onsubmit="handleResetPasswordSubmit(event)">
+                    <input type="hidden" id="resetPasswordUserId">
+                    <p id="resetPasswordUserEmail" style="font-weight:700;color:#04244a;margin-bottom:12px;"></p>
+                    <div class="form-group">
+                        <label class="form-label" for="resetPasswordNew">New Password <span class="required">*</span></label>
+                        <input type="password" id="resetPasswordNew" class="form-input" required minlength="6" placeholder="Enter new password (min 6 characters)">
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('resetPasswordModal')">Cancel</button>
+                        <button type="submit" class="btn btn-danger" id="btnSubmitResetPassword">Set New Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Add Institution -->
+    <div class="modal-overlay" id="addInstitutionModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Register AICTE Institution</h3>
+                <button class="modal-close-btn" onclick="closeModal('addInstitutionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addInstitutionForm" onsubmit="handleAddInstitutionSubmit(event)">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newInstPermId">AICTE Permanent ID <span class="required">*</span></label>
+                            <input type="text" id="newInstPermId" class="form-input" required placeholder="e.g. 1-4321987654">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newInstRegion">Region <span class="required">*</span></label>
+                            <select id="newInstRegion" class="form-select">
+                                <option value="Western">Western Region</option>
+                                <option value="Northern">Northern Region</option>
+                                <option value="Southern">Southern Region</option>
+                                <option value="Eastern">Eastern Region</option>
+                                <option value="Central">Central Region</option>
+                                <option value="South-Western">South-Western Region</option>
+                                <option value="North-Western">North-Western Region</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newInstName">Institution Official Name <span class="required">*</span></label>
+                        <input type="text" id="newInstName" class="form-input" required placeholder="College / Institute Name">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newInstState">State <span class="required">*</span></label>
+                            <input type="text" id="newInstState" class="form-input" required placeholder="e.g. Maharashtra">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newInstCity">City <span class="required">*</span></label>
+                            <input type="text" id="newInstCity" class="form-input" required placeholder="e.g. Pune">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newInstType">Discipline Type</label>
+                        <input type="text" id="newInstType" class="form-input" value="Engineering &amp; Technology">
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addInstitutionModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNewInst">Register Institution</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Add Bureau -->
+    <div class="modal-overlay" id="addBureauModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Add Bureau / Cell</h3>
+                <button class="modal-close-btn" onclick="closeModal('addBureauModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addBureauForm" onsubmit="handleAddBureauSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="newBureauCode">Bureau Code <span class="required">*</span></label>
+                        <input type="text" id="newBureauCode" class="form-input" required placeholder="e.g. POLICY or EXAM">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newBureauName">Official Bureau Name <span class="required">*</span></label>
+                        <input type="text" id="newBureauName" class="form-input" required placeholder="e.g. Policy &amp; Planning Bureau">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newBureauEmail">Contact Email</label>
+                        <input type="email" id="newBureauEmail" class="form-input" placeholder="bureau@aicte.gov.in">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newBureauDesc">Description</label>
+                        <textarea id="newBureauDesc" class="form-textarea" rows="2" placeholder="Brief mandate and scope..."></textarea>
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addBureauModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNewBureau">Create Bureau</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Add Region -->
+    <div class="modal-overlay" id="addRegionModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Add Regional Office Jurisdiction</h3>
+                <button class="modal-close-btn" onclick="closeModal('addRegionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addRegionForm" onsubmit="handleAddRegionSubmit(event)">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newRegionName">Region Name <span class="required">*</span></label>
+                            <input type="text" id="newRegionName" class="form-input" required placeholder="e.g. Eastern Region">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newRegionCode">Region Code <span class="required">*</span></label>
+                            <input type="text" id="newRegionCode" class="form-input" required placeholder="e.g. ERO">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newRegionStates">Jurisdiction States</label>
+                        <input type="text" id="newRegionStates" class="form-input" placeholder="e.g. West Bengal, Odisha, Bihar">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="newRegionCoordName">Coordinator Name</label>
+                            <input type="text" id="newRegionCoordName" class="form-input" placeholder="Dr. / Shri">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newRegionCoordEmail">Coordinator Email</label>
+                            <input type="email" id="newRegionCoordEmail" class="form-input" placeholder="ro@aicte.gov.in">
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addRegionModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNewRegion">Save Jurisdiction</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 7: 12-Section Case Details Modal -->
+    <div class="modal-overlay" id="caseDetailsModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <div>
+                    <h3 id="caseDetailsModalTitle">Case Details — CASE-2026-000001</h3>
+                    <p id="caseDetailsModalSub" style="margin:2px 0 0;font-size:0.75rem;color:#cbd5e1;"></p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('caseDetailsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 12-Section Tab Navigation -->
+                <div class="case-details-tabs">
+                    <button class="case-tab-btn active" data-case-section="csecOverview">1. Overview</button>
+                    <button class="case-tab-btn" data-case-section="csecDetails">2. Details</button>
+                    <button class="case-tab-btn" data-case-section="csecInstitution">3. Institution</button>
+                    <button class="case-tab-btn" data-case-section="csecAssignments">4. Assignments</button>
+                    <button class="case-tab-btn" data-case-section="csecSupporting">5. Supporting Units</button>
+                    <button class="case-tab-btn" data-case-section="csecTimeline">6. Timeline</button>
+                    <button class="case-tab-btn" data-case-section="csecInstResponse">7. Inst Response</button>
+                    <button class="case-tab-btn" data-case-section="csecInternalNotes">8. Internal Notes</button>
+                    <button class="case-tab-btn" data-case-section="csecDuplicates">9. Duplicates</button>
+                </div>
+
+                <!-- Section Panes -->
+                <div class="case-section-pane active" id="csecOverview">
+                    <div id="csecOverviewContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecDetails">
+                    <div id="csecDetailsContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecInstitution">
+                    <div id="csecInstitutionContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecAssignments">
+                    <div id="csecAssignmentsContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecSupporting">
+                    <div id="csecSupportingContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecTimeline">
+                    <div id="csecTimelineContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecInstResponse">
+                    <div id="csecInstResponseContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecInternalNotes">
+                    <div id="csecInternalNotesContent"></div>
+                </div>
+                <div class="case-section-pane" id="csecDuplicates">
+                    <div id="csecDuplicatesContent"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="openAssignCaseModal()">Assign / Transfer &rarr;</button>
+                <button class="btn btn-secondary" onclick="openCaseStatusModal()">Update Status &rarr;</button>
+                <button class="btn btn-secondary" onclick="openInternalNoteModal()">Add Internal Note &rarr;</button>
+                <button class="btn btn-secondary" onclick="closeModal('caseDetailsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 8: Assign Case Modal -->
+    <div class="modal-overlay" id="assignCaseModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Assign Case Ownership &amp; Supporting Units</h3>
+                <button class="modal-close-btn" onclick="closeModal('assignCaseModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="assignCaseForm" onsubmit="handleAssignCaseSubmit(event)">
+                    <input type="hidden" id="assignCaseId">
+                    <div class="form-group">
+                        <label class="form-label" for="assignPrimaryBureau">Primary Owning Bureau / Cell <span class="required">*</span></label>
+                        <select id="assignPrimaryBureau" class="form-select">
+                            <option value="1">RB - Regulation Bureau</option>
+                            <option value="2">PGRC - Grievance Redressal Cell</option>
+                            <option value="3">APPROVAL - Approval Bureau</option>
+                            <option value="4">POLICY - Policy &amp; Planning</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="assignOfficerSelect">Assigned Officer</label>
+                        <select id="assignOfficerSelect" class="form-select">
+                            <option value="">Bureau General Pool (Unassigned)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="assignSupportingBureaus">Supporting Bureaus / Units (RB-PGRC Coordination)</label>
+                        <input type="text" id="assignSupportingBureaus" class="form-input" placeholder="e.g. PGRC, APPROVAL">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="assignReason">Allocation Justification / Reason</label>
+                        <textarea id="assignReason" class="form-textarea" rows="2" placeholder="Administrative remarks..."></textarea>
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('assignCaseModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitAssign">Save Assignment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 9: Case Status Change Modal -->
+    <div class="modal-overlay" id="caseStatusModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Sequential Workflow Status Transition</h3>
+                <button class="modal-close-btn" onclick="closeModal('caseStatusModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="caseStatusForm" onsubmit="handleCaseStatusSubmit(event)">
+                    <input type="hidden" id="statusCaseId">
+                    <div class="form-group">
+                        <label class="form-label" for="newCaseStatus">Target Workflow State <span class="required">*</span></label>
+                        <select id="newCaseStatus" class="form-select">
+                            <option value="RECEIVED">RECEIVED</option>
+                            <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+                            <option value="PENDING_ASSIGNMENT">PENDING_ASSIGNMENT</option>
+                            <option value="IN_PROGRESS">IN_PROGRESS</option>
+                            <option value="AWAITING_INSTITUTION_RESPONSE">AWAITING_INSTITUTION_RESPONSE</option>
+                            <option value="AWAITING_INTERNAL_REVIEW">AWAITING_INTERNAL_REVIEW</option>
+                            <option value="RESOLVED">RESOLVED</option>
+                            <option value="DISPOSED">DISPOSED</option>
+                            <option value="CLOSED">CLOSED</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="statusChangeRemarks">Action Remarks <span class="required">*</span></label>
+                        <textarea id="statusChangeRemarks" class="form-textarea" rows="3" required placeholder="Mandatory official justification for status transition..."></textarea>
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('caseStatusModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitStatusChange">Update Status</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 10: Add Internal Note Modal -->
+    <div class="modal-overlay" id="internalNoteModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Record Internal Administrative Note</h3>
+                <button class="modal-close-btn" onclick="closeModal('internalNoteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="internalNoteForm" onsubmit="handleInternalNoteSubmit(event)">
+                    <input type="hidden" id="noteCaseId">
+                    <div class="form-group">
+                        <label class="form-label" for="internalNoteText">Note Content (Restricted Internal Access) <span class="required">*</span></label>
+                        <textarea id="internalNoteText" class="form-textarea" rows="4" required placeholder="Confidential officer observation, legal consultation note, or inspection directive..."></textarea>
+                    </div>
+                    <div class="modal-footer" style="padding:16px 0 0;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('internalNoteModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNote">Record Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 11: Transfer Decision Modal -->
+    <div class="modal-overlay" id="transferDecisionModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Inter-Bureau Transfer Supervisory Decision</h3>
+                <button class="modal-close-btn" onclick="closeModal('transferDecisionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="decisionCaseInfo" style="font-weight: 700; color: #04244a; margin-bottom: 12px;"></p>
+                <div class="form-group">
+                    <label class="form-label" for="transferDecisionRemarks">Supervisory Decision Remarks</label>
+                    <textarea id="transferDecisionRemarks" class="form-textarea" rows="3" placeholder="Optional administrative remarks explaining the approval or rejection..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('transferDecisionModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="submitTransferDecision(false)">Reject Transfer</button>
+                <button class="btn btn-success" onclick="submitTransferDecision(true)">Approve Transfer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 12: Batch Error Details Modal -->
+    <div class="modal-overlay" id="batchErrorModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <h3 id="batchErrorTitle">CSV Ingestion Row-Level Error Report</h3>
+                <button class="modal-close-btn" onclick="closeModal('batchErrorModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="batchErrorList"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('batchErrorModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 13: My Profile Modal -->
+    <div class="modal-overlay" id="myProfileModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Super Admin Profile</h3>
+                <button class="modal-close-btn" onclick="closeModal('myProfileModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="myProfileContent"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('myProfileModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 14: Officer Request Dossier Modal -->
+    <div class="modal-overlay" id="officerRequestDetailModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <div>
+                    <h3 id="ordModalTitle">Officer Registration Request Dossier</h3>
+                    <p style="font-size:0.8rem;color:#cbd5e1;margin:2px 0 0;" id="ordModalSubtitle">Verification &amp; Administrative Review</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('officerRequestDetailModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="officerRequestDetailBody">
+                <div class="spinner"></div>
+            </div>
+            <div class="modal-footer" id="officerRequestDetailFooter">
+                <button class="btn btn-secondary" onclick="closeModal('officerRequestDetailModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 15: Approve Officer Request Modal -->
+    <div class="modal-overlay" id="approveOfficerRequestModal">
+        <div class="modal-container">
+            <div class="modal-header" style="background:#166534;color:#ffffff;">
+                <div>
+                    <h3 style="color:#ffffff;">Approve Officer Access Request</h3>
+                    <p style="font-size:0.8rem;color:#bbf7d0;margin:2px 0 0;">Provisioning Official AICTE Credentials</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('approveOfficerRequestModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="approveOfficerNotice" style="background:#f0fdf4;border:1px solid #86efac;border-radius:4px;padding:12px;margin-bottom:16px;font-size:0.85rem;color:#166534;">
+                    Approval will generate a secure 64-character one-time activation token (valid 48h) and dispatch account setup instructions to the officer's email.
+                </div>
+                <input type="hidden" id="approveOfficerRequestId">
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label class="form-label" for="approveOfficerRemarks">Administrative Approval Remarks / Notes (Optional)</label>
+                    <textarea id="approveOfficerRemarks" class="form-control" rows="3" placeholder="e.g. Verified against Department of Technical Education appointment order. Authorized for Regulation Bureau portal."></textarea>
+                </div>
+                <div id="approveResultBox" style="display:none;background:#f8fafc;border:1px solid #cbd5e1;border-radius:4px;padding:12px;font-size:0.82rem;">
+                    <strong>Activation URL Generated:</strong>
+                    <input type="text" id="approveActivationUrl" class="form-control" readonly style="margin-top:6px;font-family:monospace;font-size:0.75rem;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('approveOfficerRequestModal')">Cancel</button>
+                <button class="btn btn-primary" id="btnConfirmApproveOfficer" style="background:#16a34a;border-color:#16a34a;" onclick="confirmApproveOfficerRequest()">
+                    Confirm Approval &amp; Issue Token &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 16: Reject Officer Request Modal -->
+    <div class="modal-overlay" id="rejectOfficerRequestModal">
+        <div class="modal-container">
+            <div class="modal-header" style="background:#991b1b;color:#ffffff;">
+                <div>
+                    <h3 style="color:#ffffff;">Reject Officer Access Request</h3>
+                    <p style="font-size:0.8rem;color:#fecaca;margin:2px 0 0;">Formal Administrative Rejection</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal('rejectOfficerRequestModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="rejectOfficerRequestId">
+                <div style="background:#fef2f2;border:1px solid #f87171;border-radius:4px;padding:12px;margin-bottom:16px;font-size:0.85rem;color:#991b1b;">
+                    Please provide a clear and specific reason for rejecting this access request. The reason will be permanently recorded in the audit trail.
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="rejectOfficerReason">Rejection Reason * <span style="color:#ef4444;">(Mandatory)</span></label>
+                    <textarea id="rejectOfficerReason" class="form-control" rows="3" required placeholder="e.g. Employee ID not found in AICTE staff directory; please submit through official institutional channel."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('rejectOfficerRequestModal')">Cancel</button>
+                <button class="btn btn-danger" id="btnConfirmRejectOfficer" onclick="confirmRejectOfficerRequest()">
+                    Confirm Rejection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+    <script src="js/csv-import.js"></script>
 </body>
 </html>

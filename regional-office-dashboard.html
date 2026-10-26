@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduVision — Regional Officer Dashboard | Integrated Complaint Monitoring System</title>
+  <meta name="description" content="EduVision Integrated Institution Complaint Monitoring and Status Dashboard for authorized Regional Officers.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="regional-office-dashboard.css">
+
+  <!-- External JavaScript loaded with defer -->
+  <script src="regional-office-dashboard.js" defer></script>
+</head>
+<body>
+
+  <!-- Application Shell Layout -->
+  <div class="app-container">
+
+    <!-- ==========================================================================
+         SIDEBAR NAVIGATION
+         ========================================================================== -->
+    <aside class="sidebar" id="appSidebar" aria-label="Main Navigation">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-header">
+        <img src="eduvision-logo.svg" alt="EduVision Logo" class="sidebar-logo">
+        <div class="sidebar-brand-text">
+          <span class="sidebar-brand-title">EduVision</span>
+          <span class="sidebar-brand-subtitle">Integrated Institution Complaint Monitoring System</span>
+        </div>
+      </div>
+
+      <!-- Scrollable Navigation Area -->
+      <div class="sidebar-nav-container">
+        <!-- Main Menu Section -->
+        <nav class="nav-section" aria-label="Main Menu">
+          <div class="nav-section-title">Main Menu</div>
+          
+          <a href="#" class="nav-item active" id="navDashboard" aria-current="page">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span class="nav-text">Dashboard</span>
+          </a>
+
+          <a href="#institutionsSection" class="nav-item" id="navInstitutions">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
+            </svg>
+            <span class="nav-text">Regional Institutions</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+
+          <a href="#monitoringTableSection" class="nav-item" id="navTracking">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            <span class="nav-text">Regional Case Tracking</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+
+          <a href="#monitoringTableSection" class="nav-item" id="navPending">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+            <span class="nav-text">Pending &amp; Overdue Cases</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+
+          <a href="#overlapAlertSection" class="nav-item" id="navOverlap">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+            </svg>
+            <span class="nav-text">Overlap Alerts</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+
+          <a href="#reportsSection" class="nav-item" id="navReports">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M5 9.2h3V19H5zM10.6 5h2.8v14.2h-2.8zm5.6 8H19v6.2h-2.8z"/>
+            </svg>
+            <span class="nav-text">Regional Reports</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </nav>
+
+        <!-- Quick Links Section -->
+        <nav class="nav-section" aria-label="Quick Links">
+          <div class="nav-section-title">Quick Links</div>
+
+          <a href="#activitiesSection" class="nav-item" id="navActivities">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+            </svg>
+            <span class="nav-text">Recent Activities</span>
+          </a>
+
+          <a href="#" class="nav-item" id="navNotifications" onclick="showToast('You have 5 unread regional notifications')">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+            </svg>
+            <span class="nav-text">Notifications</span>
+            <span class="nav-badge">5</span>
+          </a>
+
+          <a href="#" class="nav-item" id="navHelp" onclick="showToast('EduVision Regional Officer Portal Helpdesk: Available 24/7')">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+            </svg>
+            <span class="nav-text">Help &amp; Support</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Lower Sidebar with Real Visual Campus Photo & Quote -->
+      <div class="sidebar-bottom-banner" aria-label="Educational Governance Motto">
+        <p class="sidebar-banner-quote">
+          Better Regulation for a Stronger Technical Education System
+        </p>
+        <!-- Cyan Decorative Wave -->
+        <svg class="sidebar-cyan-wave" viewBox="0 0 256 24" preserveAspectRatio="none">
+          <path d="M0 20 C60 5, 140 24, 256 8 L256 24 L0 24 Z" fill="rgba(6, 182, 212, 0.45)"/>
+          <path d="M0 23 C80 12, 180 23, 256 16 L256 24 L0 24 Z" fill="rgba(14, 165, 233, 0.6)"/>
+        </svg>
+      </div>
+    </aside>
+
+    <!-- Mobile Backdrop for Sidebar -->
+    <div class="modal-overlay" id="sidebarBackdrop" style="z-index: 95;"></div>
+
+    <!-- ==========================================================================
+         MAIN CONTENT WRAPPER
+         ========================================================================== -->
+    <div class="main-wrapper">
+
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-header" role="banner">
+        <div class="header-left">
+          <!-- Hamburger Sidebar Toggle Button -->
+          <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle navigation sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+
+          <!-- Global Search Input -->
+          <div class="header-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input 
+              type="text" 
+              class="search-input" 
+              id="globalSearchInput" 
+              placeholder="Search Case ID, Institution, or Complaint..." 
+              aria-label="Global search across regional cases and institutions"
+            >
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell Button -->
+          <button class="notification-btn" aria-label="View notifications" onclick="showToast('5 active grievance updates in your region')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-badge">5</span>
+          </button>
+
+          <!-- Regional Officer Profile Info -->
+          <div class="officer-profile-card">
+            <img src="officer-avatar.png" alt="Ananya Sharma" class="officer-avatar">
+            <div class="officer-info">
+              <span class="officer-name">Ananya Sharma</span>
+              <span class="officer-designation">Regional Officer</span>
+            </div>
+          </div>
+
+          <!-- Region Selector Dropdown -->
+          <div class="region-selector" id="regionSelector">
+            <button class="region-btn" id="regionSelectorBtn" aria-haspopup="true" aria-expanded="false">
+              <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+              </svg>
+              <span id="currentRegionLabel">North Region</span>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="region-dropdown-menu" role="menu">
+              <div class="region-dropdown-item active" data-region="North Region" role="menuitem">
+                <span>North Region</span>
+                <span>&#10003;</span>
+              </div>
+              <div class="region-dropdown-item" data-region="South Region" role="menuitem">
+                <span>South Region</span>
+              </div>
+              <div class="region-dropdown-item" data-region="East Region" role="menuitem">
+                <span>East Region</span>
+              </div>
+              <div class="region-dropdown-item" data-region="West Region" role="menuitem">
+                <span>West Region</span>
+              </div>
+              <div class="region-dropdown-item" data-region="Central Region" role="menuitem">
+                <span>Central Region</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN DASHBOARD CONTENT -->
+      <main class="dashboard-content" role="main">
+
+        <!-- ======================================================================
+             SECTION: TOP GRID (LEFT CONTENT + RIGHT ACTIVITIES)
+             ====================================================================== -->
+        <section class="dashboard-top-section" aria-label="Dashboard Overview">
+
+          <!-- Left Column (Welcome Banner + 4 Summary Cards + 2 Charts) -->
+          <div class="top-left-column">
+
+            <!-- 1. WELCOME BANNER -->
+            <div class="welcome-banner">
+              <div class="welcome-banner-content">
+                <img src="eduvision-logo.svg" alt="EduVision Emblem" class="banner-seal-logo">
+                <div class="banner-text-details">
+                  <div class="banner-greeting-row">
+                    <h1 class="banner-title">Welcome, Ananya Sharma!</h1>
+                    <span class="banner-region-badge" id="bannerRegionBadge">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                      </svg>
+                      North Region
+                    </span>
+                  </div>
+                  <p class="banner-subtitle">
+                    Monitor institution-related complaints and case progress across your assigned region.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Banner Date & Time Badge -->
+              <div class="banner-timestamp-card">
+                <div class="timestamp-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                </div>
+                <div class="timestamp-text-col">
+                  <span class="timestamp-date">24 Oct 2026</span>
+                  <span class="timestamp-time">10:42 AM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. FOUR SUMMARY CARDS -->
+            <div class="summary-cards-grid" aria-label="Summary Statistics">
+              <!-- Card 1: Total Institutions -->
+              <div class="summary-card" id="cardTotalInstitutions">
+                <div class="card-icon-container blue">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <span class="card-title">Total Institutions</span>
+                  <span class="card-number">124</span>
+                  <span class="card-description">Institutions mapped to your region</span>
+                  <span class="card-trend up-positive">&uarr; +6 this month</span>
+                </div>
+              </div>
+
+              <!-- Card 2: Total Cases -->
+              <div class="summary-card" id="cardTotalCases">
+                <div class="card-icon-container purple">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <span class="card-title">Total Cases</span>
+                  <span class="card-number">386</span>
+                  <span class="card-description">Cases linked to regional institutions</span>
+                  <span class="card-trend up-positive">&uarr; +18 this month</span>
+                </div>
+              </div>
+
+              <!-- Card 3: Pending Cases -->
+              <div class="summary-card" id="cardPendingCases">
+                <div class="card-icon-container orange">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <span class="card-title">Pending Cases</span>
+                  <span class="card-number">142</span>
+                  <span class="card-description">Awaiting further action</span>
+                  <span class="card-trend up-positive">&uarr; +12 this month</span>
+                </div>
+              </div>
+
+              <!-- Card 4: Overdue Cases -->
+              <div class="summary-card" id="cardOverdueCases">
+                <div class="card-icon-container red">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <span class="card-title">Overdue Cases</span>
+                  <span class="card-number">28</span>
+                  <span class="card-description">Require urgent attention</span>
+                  <span class="card-trend up-urgent">&uarr; +5 this month</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. CHARTS ROW (Doughnut Chart + Bar Chart) -->
+            <div class="charts-row-grid">
+              
+              <!-- Chart 1: Regional Case Status Overview (Doughnut) -->
+              <div class="chart-panel-card" id="caseStatusOverviewPanel">
+                <div class="panel-header">
+                  <div class="panel-title-wrap">
+                    <div class="panel-title-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                      </svg>
+                    </div>
+                    <h2 class="panel-title">Regional Case Status Overview</h2>
+                  </div>
+                </div>
+
+                <div class="doughnut-layout">
+                  <!-- Doughnut SVG Container -->
+                  <div class="doughnut-svg-container">
+                    <svg viewBox="0 0 120 120" class="doughnut-svg" id="caseStatusDoughnut" aria-label="Regional case status doughnut breakdown"></svg>
+                    <!-- Center Metric -->
+                    <div class="doughnut-center-label">
+                      <div class="doughnut-center-number">386</div>
+                      <div class="doughnut-center-subtext">Total Cases</div>
+                    </div>
+                  </div>
+
+                  <!-- Legend List -->
+                  <div class="doughnut-legend" role="list">
+                    <div class="legend-item" role="listitem">
+                      <span class="legend-dot blue"></span>
+                      <span class="legend-label">Pending</span>
+                      <span class="legend-count">142</span>
+                      <span class="legend-percent">36.8%</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                      <span class="legend-dot orange"></span>
+                      <span class="legend-label">In Progress</span>
+                      <span class="legend-count">118</span>
+                      <span class="legend-percent">30.6%</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                      <span class="legend-dot green"></span>
+                      <span class="legend-label">Resolved</span>
+                      <span class="legend-count">98</span>
+                      <span class="legend-percent">25.4%</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                      <span class="legend-dot red"></span>
+                      <span class="legend-label">Overdue</span>
+                      <span class="legend-count">28</span>
+                      <span class="legend-percent">7.3%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chart 2: Bureau/Cell Case Distribution (Bar Chart) -->
+              <div class="chart-panel-card" id="bureauDistributionPanel">
+                <div class="panel-header">
+                  <div class="panel-title-wrap">
+                    <div class="panel-title-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                      </svg>
+                    </div>
+                    <h2 class="panel-title">Bureau/Cell Case Distribution</h2>
+                  </div>
+                </div>
+
+                <div class="barchart-container">
+                  <div class="barchart-canvas-wrapper" id="bureauBarChart">
+                    <!-- SVG Bar Chart Rendered Reactively via JS -->
+                  </div>
+                  <p class="chart-caption">Cases associated with institutions in your region</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Right Column: Recent Activities Panel -->
+          <aside class="recent-activities-card" id="activitiesSection" aria-label="Recent Activities">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.6-6.2 4.6 2.3-7.1-6.1-4.5h7.6z"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Recent Activities</h2>
+              </div>
+              <a href="#" class="panel-action-link" onclick="showToast('Loading full regional activity stream...')">View All &rarr;</a>
+            </div>
+
+            <!-- List of 5 Recent Activities -->
+            <div class="activities-list">
+              <!-- Item 1 -->
+              <div class="activity-item">
+                <div class="activity-icon-bubble blue">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
+                  </svg>
+                </div>
+                <div class="activity-info">
+                  <span class="activity-title">Institution profile updated</span>
+                  <span class="activity-subtitle">ABES Engineering College</span>
+                  <span class="activity-time">2 hours ago</span>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="activity-item">
+                <div class="activity-icon-bubble cyan">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                  </svg>
+                </div>
+                <div class="activity-info">
+                  <span class="activity-title">Case status changed</span>
+                  <span class="activity-subtitle">CASE-2026-0143 &rarr; In Progress</span>
+                  <span class="activity-time">3 hours ago</span>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="activity-item">
+                <div class="activity-icon-bubble red">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+                <div class="activity-info">
+                  <span class="activity-title">Overlap alert raised</span>
+                  <span class="activity-subtitle">ABC Institute of Technology</span>
+                  <span class="activity-time">4 hours ago</span>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="activity-item">
+                <div class="activity-icon-bubble teal">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                </div>
+                <div class="activity-info">
+                  <span class="activity-title">Bureau assignment updated</span>
+                  <span class="activity-subtitle">CASE-2026-0078 &rarr; RB</span>
+                  <span class="activity-time">5 hours ago</span>
+                </div>
+              </div>
+
+              <!-- Item 5 -->
+              <div class="activity-item">
+                <div class="activity-icon-bubble indigo">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                  </svg>
+                </div>
+                <div class="activity-info">
+                  <span class="activity-title">Regional report generated</span>
+                  <span class="activity-subtitle">North Region - Monthly Report</span>
+                  <span class="activity-time">6 hours ago</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+        </section>
+
+        <!-- ======================================================================
+             SECTION: TWO TABLES (CASES MONITORING + REGIONAL INSTITUTIONS)
+             ====================================================================== -->
+        <section class="dashboard-tables-section" aria-label="Case Monitoring and Institutions">
+
+          <!-- Left Large Table: Regional Cases Requiring Monitoring -->
+          <div class="table-card" id="monitoringTableSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Regional Cases Requiring Monitoring</h2>
+              </div>
+              <a href="#" class="panel-action-link" onclick="showToast('Displaying all regional monitoring cases')">View All Cases &rarr;</a>
+            </div>
+
+            <!-- Table Responsive Wrapper -->
+            <div class="table-responsive">
+              <table class="data-table" id="casesMonitoringTable">
+                <thead>
+                  <tr>
+                    <th>Case ID</th>
+                    <th>Institution Name</th>
+                    <th>AICTE ID</th>
+                    <th>Bureau / Cell</th>
+                    <th>Complaint Category</th>
+                    <th>Assigned Officer / Bureau</th>
+                    <th>Status</th>
+                    <th>Expected Disposal Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="monitoringTableBody">
+                  <!-- Rendered dynamically from DASHBOARD_DATA.monitoringCases -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right Compact Table: Institutions in Your Region -->
+          <div class="table-card" id="institutionsSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21h18"/>
+                    <path d="M5 21V7l8-4v18"/>
+                    <path d="M19 21V11l-6-4"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Institutions in Your Region</h2>
+              </div>
+              <a href="#" class="panel-action-link" onclick="showToast('Opening full institutions directory...')">View All &rarr;</a>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="table-filter-bar">
+              <div class="filter-search-box">
+                <svg class="filter-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input 
+                  type="text" 
+                  class="filter-search-input" 
+                  id="instSearchInput" 
+                  placeholder="Search institution..."
+                  aria-label="Filter institutions"
+                >
+              </div>
+
+              <select class="filter-select" id="instDistrictSelect" aria-label="Filter by district">
+                <option value="All">All Districts</option>
+                <option value="Noida">Noida</option>
+                <option value="Ghaziabad">Ghaziabad</option>
+                <option value="Lucknow">Lucknow</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Kanpur">Kanpur</option>
+              </select>
+
+              <select class="filter-select" id="instStatusSelect" aria-label="Filter by case status">
+                <option value="All">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Pending Cases">Pending Cases</option>
+                <option value="Overdue Cases">Overdue Cases</option>
+              </select>
+            </div>
+
+            <!-- Table Responsive Wrapper -->
+            <div class="table-responsive">
+              <table class="data-table" id="institutionsTable">
+                <thead>
+                  <tr>
+                    <th>Institution Name</th>
+                    <th>AICTE ID</th>
+                    <th>District / City</th>
+                    <th>Total Cases</th>
+                    <th>Pending</th>
+                    <th>Overdue</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="institutionsTableBody">
+                  <!-- Rendered dynamically from DASHBOARD_DATA.institutions -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ======================================================================
+             SECTION: FOUR BOTTOM PANELS (OVERLAP, AGEING, ACTIONS, REPORTS)
+             ====================================================================== -->
+        <section class="dashboard-bottom-section" aria-label="Regional Coordination and Analytics">
+
+          <!-- Panel 1: Potential Overlapping Cases -->
+          <div class="bottom-panel-card" id="overlapAlertSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon overlap-header-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title" style="color: #b91c1c;">Potential Overlapping Cases &mdash; Coordination Required</h2>
+              </div>
+            </div>
+
+            <!-- Overlap Meta Row -->
+            <div class="overlap-info-grid">
+              <!-- Institution Detail -->
+              <div class="overlap-inst-box">
+                <div class="overlap-inst-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
+                  </svg>
+                </div>
+                <div class="overlap-inst-details">
+                  <span class="overlap-inst-name">ABC Institute of Technology</span>
+                  <span class="overlap-inst-meta">INST-001 &bull; North Region</span>
+                </div>
+              </div>
+
+              <!-- Associated Cases Side-by-Side -->
+              <div class="overlap-cases-box">
+                <span class="overlap-cases-label">Associated Cases</span>
+                <div class="overlap-case-line">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                  <span class="overlap-case-id">CASE-2026-001</span>
+                  <span class="overlap-case-bureau">Regulation Bureau (RB)</span>
+                </div>
+                <div class="overlap-case-line">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                  <span class="overlap-case-id">CASE-2026-014</span>
+                  <span class="overlap-case-bureau">Public Grievance Redressal Cell (PGRC)</span>
+                </div>
+              </div>
+
+              <!-- Alert Date -->
+              <div class="overlap-meta-box">
+                <span class="overlap-meta-label">Alert Date</span>
+                <span class="overlap-meta-val">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  22 Oct 2026
+                </span>
+              </div>
+
+              <!-- Coordination Status -->
+              <div class="overlap-meta-box">
+                <span class="overlap-meta-label">Coordination Status</span>
+                <span class="status-badge in-progress" style="font-size: 0.7rem;">In Review</span>
+              </div>
+            </div>
+
+            <!-- Warning Notice & Action Button -->
+            <div class="overlap-alert-banner">
+              <div class="overlap-alert-msg">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <span>Potential overlapping cases detected for the same institution. Review the case relationship and coordinate with the concerned Bureaus/Cells.</span>
+              </div>
+              <button class="btn-review-cases" onclick="openOverlapReviewModal()" aria-label="Review overlapping cases">
+                Review Cases
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel 2: Regional Case Ageing -->
+          <div class="bottom-panel-card" id="ageingSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Regional Case Ageing</h2>
+              </div>
+            </div>
+
+            <div class="ageing-rows-list">
+              <!-- Up to 7 days -->
+              <div class="ageing-row">
+                <div class="ageing-row-header">
+                  <span class="ageing-label">Up to 7 days</span>
+                  <div class="ageing-stats">
+                    <span class="ageing-count">68</span>
+                    <span class="ageing-pct">47.9%</span>
+                  </div>
+                </div>
+                <div class="ageing-progress-bg">
+                  <div class="ageing-progress-bar green" style="width: 47.9%;"></div>
+                </div>
+              </div>
+
+              <!-- 8 - 15 days -->
+              <div class="ageing-row">
+                <div class="ageing-row-header">
+                  <span class="ageing-label">8 &ndash; 15 days</span>
+                  <div class="ageing-stats">
+                    <span class="ageing-count">42</span>
+                    <span class="ageing-pct">29.6%</span>
+                  </div>
+                </div>
+                <div class="ageing-progress-bg">
+                  <div class="ageing-progress-bar cyan" style="width: 29.6%;"></div>
+                </div>
+              </div>
+
+              <!-- 16 - 30 days -->
+              <div class="ageing-row">
+                <div class="ageing-row-header">
+                  <span class="ageing-label">16 &ndash; 30 days</span>
+                  <div class="ageing-stats">
+                    <span class="ageing-count">22</span>
+                    <span class="ageing-pct">15.5%</span>
+                  </div>
+                </div>
+                <div class="ageing-progress-bg">
+                  <div class="ageing-progress-bar orange" style="width: 15.5%;"></div>
+                </div>
+              </div>
+
+              <!-- More than 30 days -->
+              <div class="ageing-row">
+                <div class="ageing-row-header">
+                  <span class="ageing-label">More than 30 days</span>
+                  <div class="ageing-stats">
+                    <span class="ageing-count">10</span>
+                    <span class="ageing-pct">7.0%</span>
+                  </div>
+                </div>
+                <div class="ageing-progress-bg">
+                  <div class="ageing-progress-bar red" style="width: 7.0%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Quick Actions -->
+          <div class="bottom-panel-card" id="quickActionsSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Quick Actions</h2>
+              </div>
+            </div>
+
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" data-action="viewInstitutions" aria-label="View Regional Institutions">
+                <div class="quick-action-icon-circle blue">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
+                  </svg>
+                </div>
+                <span class="quick-action-title">View Regional Institutions</span>
+              </button>
+
+              <button class="quick-action-btn" data-action="viewPending" aria-label="View Pending Cases">
+                <div class="quick-action-icon-circle blue">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                  </svg>
+                </div>
+                <span class="quick-action-title">View Pending Cases</span>
+              </button>
+
+              <button class="quick-action-btn" data-action="reviewOverlap" aria-label="Review Overlap Alerts">
+                <div class="quick-action-icon-circle red">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+                <span class="quick-action-title">Review Overlap Alerts</span>
+              </button>
+
+              <button class="quick-action-btn" data-action="generateReport" aria-label="Generate Regional Report">
+                <div class="quick-action-icon-circle blue">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/>
+                  </svg>
+                </div>
+                <span class="quick-action-title">Generate Regional Report</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel 4: Regional Reports -->
+          <div class="bottom-panel-card" id="reportsSection">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                  </svg>
+                </div>
+                <h2 class="panel-title">Regional Reports</h2>
+              </div>
+            </div>
+
+            <div class="reports-list">
+              <a href="#" class="report-item-link" onclick="showToast('Loading Institution-wise Case Summary')">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <span>Institution-wise Case Summary</span>
+              </a>
+
+              <a href="#" class="report-item-link" onclick="showToast('Loading Bureau/Cell-wise Distribution')">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14.2h-2.8zm5.6 8H19v6.2h-2.8z"/></svg>
+                <span>Bureau/Cell-wise Distribution</span>
+              </a>
+
+              <a href="#" class="report-item-link" onclick="showToast('Loading Pending &amp; Overdue Case Report')">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                <span>Pending &amp; Overdue Case Report</span>
+              </a>
+
+              <a href="#" class="report-item-link" onclick="showToast('Loading Monthly Disposal Trend')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span>Monthly Disposal Trend</span>
+              </a>
+
+              <a href="#" class="report-item-link" onclick="showToast('Loading Overlap Alert Report')">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                <span>Overlap Alert Report</span>
+              </a>
+            </div>
+
+            <button class="btn-view-reports-full" onclick="openReportsModal()" aria-label="Open regional reports catalog">
+              View Reports
+            </button>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- ======================================================================
+           FOOTER
+           ====================================================================== -->
+      <footer class="app-footer" role="contentinfo">
+        <div class="footer-left">
+          <strong>EduVision</strong>
+          <span>|</span>
+          <span>Integrated Institution Complaint Monitoring and Status Dashboard</span>
+        </div>
+        <div class="footer-right">
+          <span>Version 1.0.0</span>
+          <span>|</span>
+          <span>Developed for Better Governance</span>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DIALOG DIALOG CONTAINER
+       ========================================================================== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Modal Title</h3>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-action-outline" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+</body>
+</html>

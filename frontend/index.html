@@ -516,5 +516,488 @@
   <script src="js/main.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/dashboard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVision — Integrated Institution Complaint Monitoring &amp; Status Dashboard</title>
+    <!-- Government Design Tokens & Reusable Styles -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="css/role-auth-modal.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="edu-navbar">
+        <div class="edu-container">
+            <div class="edu-nav-content">
+                <!-- Brand / Logo -->
+                <a href="index.html" class="edu-brand">
+                    <div class="edu-logo-icon">🎓</div>
+                    <div>
+                        <div class="edu-brand-title">EduVision</div>
+                        <div class="edu-brand-subtitle">Transparent • Responsive • Better Education</div>
+                    </div>
+                </a>
+
+                <!-- Navigation Links -->
+                <nav>
+                    <ul class="edu-nav-links">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#statistics">Reports &amp; Analytics</a></li>
+                        <li><a href="#footer">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Right Action Buttons -->
+                <div class="edu-nav-actions">
+                    <a href="complaint-portal.html" class="btn-complaint-nav" style="background:#d97706;color:#ffffff;padding:8px 16px;border-radius:4px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;box-shadow:0 2px 6px rgba(217,119,6,0.25);">
+                        <span>📄</span> File a Complaint
+                    </a>
+                    <button type="button" class="btn-officer-login" onclick="RoleAuthModal.open('login')">
+                        <span>🛡️</span> Officer Sign In
+                    </button>
+                    <button type="button" class="btn-track-nav" onclick="openQuickTrackerModal()">
+                        <span>🔍</span> Track Your Complaint
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="edu-hero">
+        <div class="edu-container">
+            <div class="edu-hero-grid">
+                <!-- Hero Left: Content & CTAs -->
+                <div class="edu-hero-left">
+                    <div class="edu-hero-tag">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</div>
+                    <h1 class="edu-hero-title">EduVision</h1>
+                    <h2 class="edu-hero-subtitle">Integrated Institution Complaint Monitoring and Status Dashboard</h2>
+                    <p class="edu-hero-desc">
+                        A unified platform for students, faculty, stakeholders and AICTE officials to file, track and monitor institution-related complaints and grievances across all Bureaus/Cells — ensuring transparency, coordination and timely redressal.
+                    </p>
+                    <div class="edu-hero-ctas">
+                        <a href="complaint-portal.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
+                            <span>📄</span> File a Complaint &rarr;
+                        </a>
+                        <button type="button" class="btn-cta-secondary" onclick="openQuickTrackerModal()">
+                            <span>🔍</span> Track Your Complaint &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Campus Visual with Badge -->
+                <div class="edu-hero-visual">
+                    <img src="assets/aicte-hq-card.jpg" alt="AICTE Headquarters - Better Governance for Quality Technical Education" class="edu-hero-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Shortcut Cards Section -->
+    <section class="edu-shortcuts-section">
+        <div class="edu-container">
+            <div class="edu-shortcuts-grid">
+                <!-- Card 1: File a Complaint -->
+                <div class="edu-shortcut-card">
+                    <div>
+                        <div class="edu-shortcut-icon icon-blue">📄</div>
+                        <h3 class="edu-shortcut-title">File a Complaint</h3>
+                        <p class="edu-shortcut-desc">Submit your complaint or grievance related to a technical education institution.</p>
+                    </div>
+                    <a href="complaint-portal.html" class="edu-shortcut-link link-blue">
+                        Go to Complaint Portal &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 2: Track Your Complaint -->
+                <div class="edu-shortcut-card">
+                    <div>
+                        <div class="edu-shortcut-icon icon-teal">🔍</div>
+                        <h3 class="edu-shortcut-title">Track Your Complaint</h3>
+                        <p class="edu-shortcut-desc">Check the current status and latest updates of your complaint using your Complaint ID.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="edu-shortcut-link link-teal" onclick="openQuickTrackerModal()">
+                        Track Now &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 3: Officer Login -->
+                <div class="edu-shortcut-card">
+                    <div>
+                        <div class="edu-shortcut-icon icon-purple">🛡️</div>
+                        <h3 class="edu-shortcut-title">Officer Login</h3>
+                        <p class="edu-shortcut-desc">Access the dashboards for Super Admin, Bureau/Cell, Regional Office or Senior Authority.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="edu-shortcut-link link-purple" onclick="RoleAuthModal.open('login')">
+                        Login Here &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 4: Reports & Analytics -->
+                <div class="edu-shortcut-card">
+                    <div>
+                        <div class="edu-shortcut-icon icon-amber">📊</div>
+                        <h3 class="edu-shortcut-title">View Reports &amp; Analytics</h3>
+                        <p class="edu-shortcut-desc">Get detailed reports on institutions, regions, bureaus, status and performance.</p>
+                    </div>
+                    <a href="#statistics" class="edu-shortcut-link link-amber">
+                        Explore Reports &rarr;
+                    </a>
+                </div>
+
+                <!-- Card 5: Latest Updates & Alerts -->
+                <div class="edu-shortcut-card">
+                    <div>
+                        <div class="edu-shortcut-icon icon-coral">🔔</div>
+                        <h3 class="edu-shortcut-title">Latest Updates &amp; Alerts</h3>
+                        <p class="edu-shortcut-desc">Stay informed about pending cases, upcoming deadlines and important notifications.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="edu-shortcut-link link-coral" onclick="RoleAuthModal.open('login', 'SENIOR_AUTHORITY')">
+                        View Alerts &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About EduVision & Key Features Section -->
+    <section class="edu-about-section" id="about">
+        <div class="edu-container">
+            <div class="edu-about-grid">
+                <!-- Left: About EduVision -->
+                <div class="edu-about-left">
+                    <h2>About <span style="color:var(--edu-blue);">EduVision</span></h2>
+                    <div class="edu-about-tagline">One Platform. Complete Transparency.</div>
+                    <p>
+                        EduVision is an integrated solution by AICTE to monitor and manage institution-related complaints and regulatory actions. It brings together all Bureaus/Cells, enables real-time tracking, detects overlapping cases and ensures better coordination, faster disposal and data-driven decisions.
+                    </p>
+                    <button type="button" class="btn-cta-primary" onclick="RoleAuthModal.open('login')">
+                        Learn More &rarr;
+                    </button>
+                </div>
+
+                <!-- Right: Key Features Grid -->
+                <div class="edu-features-right">
+                    <h3>Key Features</h3>
+                    <div class="edu-features-grid">
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">🏛️</span>
+                            <span>Centralized Institution Profile</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">🔍</span>
+                            <span>Search &amp; Filters</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">📋</span>
+                            <span>Complaint/Case Tracking</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">🔔</span>
+                            <span>Alerts &amp; Notifications</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">⚡</span>
+                            <span>Overlap Detection</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">📊</span>
+                            <span>Reports &amp; Analytics</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">📈</span>
+                            <span>Real-time Dashboard</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">👥</span>
+                            <span>Role-based Access</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">⏱️</span>
+                            <span>Workflow &amp; Action History</span>
+                        </div>
+                        <div class="edu-feature-item">
+                            <span class="edu-feature-icon">🛡️</span>
+                            <span>Secure &amp; Transparent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Ribbon Section -->
+    <section class="edu-stats-section" id="statistics">
+        <div class="edu-container">
+            <div class="edu-stats-grid">
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">🏛️</div>
+                    <div class="edu-stat-label">Total Complaints / Cases</div>
+                    <div class="edu-stat-value" id="statTotalCases">12,458</div>
+                    <div class="edu-stat-percentage">(All Institutions)</div>
+                </div>
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">⏱️</div>
+                    <div class="edu-stat-label">Pending Cases</div>
+                    <div class="edu-stat-value" id="statPendingCases">3,245</div>
+                    <div class="edu-stat-percentage">(26%)</div>
+                </div>
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">⚙️</div>
+                    <div class="edu-stat-label">Under Process</div>
+                    <div class="edu-stat-value" id="statUnderProcess">4,876</div>
+                    <div class="edu-stat-percentage">(39%)</div>
+                </div>
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">✓</div>
+                    <div class="edu-stat-label">Disposed Cases</div>
+                    <div class="edu-stat-value" id="statDisposedCases">3,982</div>
+                    <div class="edu-stat-percentage">(32%)</div>
+                </div>
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">⇄</div>
+                    <div class="edu-stat-label">Transferred Cases</div>
+                    <div class="edu-stat-value" id="statTransferredCases">356</div>
+                    <div class="edu-stat-percentage">(3%)</div>
+                </div>
+                <div class="edu-stat-item">
+                    <div class="edu-stat-icon-wrap">⚠️</div>
+                    <div class="edu-stat-label">Overdue Cases</div>
+                    <div class="edu-stat-value" id="statOverdueCases">456</div>
+                    <div class="edu-stat-percentage">(4%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflows Section -->
+    <section class="edu-workflows-section" id="how-it-works">
+        <div class="edu-container">
+            <div class="edu-workflows-grid">
+                <!-- Column 1: For Complainants -->
+                <div class="edu-workflow-column">
+                    <div class="edu-workflow-header">
+                        <span style="font-size:1.6rem;color:#0284c7;">👥</span>
+                        <h3>For Complainants</h3>
+                    </div>
+                    <div class="edu-workflow-subtitle">
+                        (Students, Faculty, Stakeholders) — File a new complaint, track status, and stay updated — all in one place.
+                    </div>
+
+                    <div class="edu-steps-row">
+                        <div class="edu-step-box">
+                            <div style="font-size:1.3rem;margin-bottom:6px;">👤</div>
+                            <div class="edu-step-num">1. Register / Login</div>
+                            <div class="edu-step-desc">Create your account or login securely</div>
+                        </div>
+                        <div class="edu-step-arrow">&rarr;</div>
+                        <div class="edu-step-box">
+                            <div style="font-size:1.3rem;margin-bottom:6px;">📄</div>
+                            <div class="edu-step-num">2. File Complaint</div>
+                            <div class="edu-step-desc">Fill the complaint form and upload documents</div>
+                        </div>
+                        <div class="edu-step-arrow">&rarr;</div>
+                        <div class="edu-step-box">
+                            <div style="font-size:1.3rem;margin-bottom:6px;">🔄</div>
+                            <div class="edu-step-num">3. Track Status</div>
+                            <div class="edu-step-desc">Get real-time updates on your complaint</div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-cta-primary" style="width:100%;justify-content:center;" onclick="RoleAuthModal.open('signup', 'COMPLAINANT')">
+                        Go to Complaint Portal &rarr;
+                    </button>
+                </div>
+
+                <!-- Column 2: For AICTE Officials -->
+                <div class="edu-workflow-column">
+                    <div class="edu-workflow-header">
+                        <span style="font-size:1.6rem;color:#0b2545;">🏛️</span>
+                        <h3>For AICTE Officials</h3>
+                    </div>
+                    <div class="edu-workflow-subtitle">
+                        Access your respective dashboard based on your designated role.
+                    </div>
+
+                    <div class="edu-official-roles-grid">
+                        <div class="edu-role-mini-card" onclick="RoleAuthModal.open('login', 'SYS_ADMIN')">
+                            <div style="font-size:1.2rem;margin-bottom:4px;">🛡️</div>
+                            <div class="edu-role-mini-title">Super Admin</div>
+                            <div class="edu-role-mini-desc">System configuration, user management, master data</div>
+                        </div>
+                        <div class="edu-role-mini-card" onclick="RoleAuthModal.open('login', 'BUREAU_OFFICER')">
+                            <div style="font-size:1.2rem;margin-bottom:4px;">⚖️</div>
+                            <div class="edu-role-mini-title">Bureau / Cell</div>
+                            <div class="edu-role-mini-desc">Case handling, coordination, status updates, alerts</div>
+                        </div>
+                        <div class="edu-role-mini-card" onclick="RoleAuthModal.open('login', 'REGIONAL_OFFICER')">
+                            <div style="font-size:1.2rem;margin-bottom:4px;">🌐</div>
+                            <div class="edu-role-mini-title">Regional Office</div>
+                            <div class="edu-role-mini-desc">Region-wise monitoring, escalations, regional reports</div>
+                        </div>
+                        <div class="edu-role-mini-card" onclick="RoleAuthModal.open('login', 'SENIOR_AUTHORITY')">
+                            <div style="font-size:1.2rem;margin-bottom:4px;">🏛️</div>
+                            <div class="edu-role-mini-title">Senior Authority</div>
+                            <div class="edu-role-mini-desc">Consolidated view, performance analytics, decision support</div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-cta-secondary" style="width:100%;justify-content:center;" onclick="RoleAuthModal.open('login')">
+                        Officer Login &rarr;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Public Tracking Modal -->
+    <div id="quickTrackerModal" class="role-modal-overlay">
+        <div class="role-modal-container" style="max-width:640px;">
+            <div class="role-modal-header">
+                <div class="role-modal-title-wrap">
+                    <span style="font-size:1.4rem;">🔍</span>
+                    <div>
+                        <h3>Track Your Complaint</h3>
+                        <p>Enter your Complaint Reference ID for real-time status updates</p>
+                    </div>
+                </div>
+                <button class="role-modal-close-btn" onclick="closeQuickTrackerModal()">&times;</button>
+            </div>
+            <div class="role-modal-body">
+                <form onsubmit="handleQuickTrackSubmit(event)">
+                    <div class="role-form-group">
+                        <label class="role-form-label" for="trackCaseRefInput">Complaint Reference ID *</label>
+                        <input type="text" id="trackCaseRefInput" class="role-form-input" required placeholder="e.g. AICTE-2026-CASE-001 or EDU-2026-COMP-1049">
+                    </div>
+                    <button type="submit" class="role-form-btn-submit" id="btnQuickTrackSubmit">
+                        <span>Check Status</span> &rarr;
+                    </button>
+                </form>
+
+                <div id="trackResultContainer" style="margin-top:20px;display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Government Footer -->
+    <footer class="edu-footer" id="footer">
+        <div class="edu-container">
+            <div class="edu-footer-content">
+                <div class="edu-footer-brand">
+                    <h4>EduVision</h4>
+                    <p>Transparent • Responsive • Better Education &bull; All India Council for Technical Education</p>
+                </div>
+                <ul class="edu-footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="javascript:void(0)" onclick="RoleAuthModal.open('login')">Officer Login</a></li>
+                    <li><a href="javascript:void(0)" onclick="openQuickTrackerModal()">Track Complaint</a></li>
+                    <li><a href="docs/api-documentation.md">API Documentation</a></li>
+                </ul>
+            </div>
+            <div class="edu-footer-bottom">
+                &copy; 2026 EduVision &bull; AICTE Integrated Institution Complaint Monitoring Platform. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/role-auth-modal.js"></script>
+    <script>
+        // Quick Tracker Logic
+        function openQuickTrackerModal() {
+            const modal = document.getElementById('quickTrackerModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeQuickTrackerModal() {
+            const modal = document.getElementById('quickTrackerModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        async function handleQuickTrackSubmit(event) {
+            event.preventDefault();
+            const ref = document.getElementById('trackCaseRefInput').value.trim();
+            const btn = document.getElementById('btnQuickTrackSubmit');
+            const resultBox = document.getElementById('trackResultContainer');
+
+            if (!ref) return;
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = `<div class="spinner" style="width:16px;height:16px;border-width:2px;"></div> Searching...`;
+                resultBox.style.display = 'block';
+                resultBox.innerHTML = `<p style="text-align:center;color:#64748b;">Querying national complaint registry...</p>`;
+
+                const tracking = await Api.get(CONFIG.ENDPOINTS.TRACK_COMPLAINT_PUBLIC(ref));
+
+                btn.disabled = false;
+                btn.innerHTML = `<span>Check Status</span> &rarr;`;
+
+                const statusColor = (tracking.status === 'DISPOSED') ? '#166534' : (tracking.status === 'UNDER_PROCESS' ? '#0369a1' : '#92400e');
+                const statusBg = (tracking.status === 'DISPOSED') ? '#dcfce7' : (tracking.status === 'UNDER_PROCESS' ? '#e0f2fe' : '#fef3c7');
+
+                resultBox.innerHTML = `
+                    <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:6px;padding:16px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                            <span style="font-size:1.05rem;font-weight:700;color:#0b2545;">${tracking.caseNumber}</span>
+                            <span style="background:${statusBg};color:${statusColor};padding:4px 10px;border-radius:4px;font-size:0.8rem;font-weight:700;">
+                                ${tracking.status}
+                            </span>
+                        </div>
+                        <div style="font-size:0.85rem;color:#334155;margin-bottom:6px;">
+                            <strong>Institution:</strong> ${tracking.institutionName} (${tracking.institutionPermanentId || 'Verified'})
+                        </div>
+                        <div style="font-size:0.85rem;color:#334155;margin-bottom:6px;">
+                            <strong>Subject:</strong> ${tracking.title}
+                        </div>
+                        <div style="font-size:0.82rem;color:#64748b;margin-bottom:14px;">
+                            Assigned Bureau: <strong>${tracking.bureauName}</strong> | Receipt: ${tracking.receiptDate ? new Date(tracking.receiptDate).toLocaleDateString() : 'N/A'}
+                        </div>
+
+                        <h4 style="font-size:0.88rem;color:#0b2545;margin:12px 0 8px;">Action Milestones:</h4>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            ${tracking.milestones && tracking.milestones.length > 0 ? tracking.milestones.map(m => `
+                                <div style="display:flex;gap:10px;font-size:0.8rem;background:#ffffff;padding:8px 10px;border-radius:4px;border:1px solid #e2e8f0;">
+                                    <span style="color:#0284c7;font-weight:700;">●</span>
+                                    <div style="flex:1;">
+                                        <div style="font-weight:600;color:#0b2545;">${m.stage}</div>
+                                        <div style="color:#475569;">${m.description}</div>
+                                    </div>
+                                    <span style="color:#94a3b8;font-size:0.75rem;">${m.timestamp ? new Date(m.timestamp).toLocaleDateString() : ''}</span>
+                                </div>
+                            `).join('') : '<div style="font-size:0.8rem;color:#94a3b8;">Complaint under initial scrutiny.</div>'}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Check Status</span> &rarr;`;
+                resultBox.innerHTML = `
+                    <div style="background:#fee2e2;border:1px solid #f87171;color:#991b1b;padding:12px;border-radius:4px;font-size:0.85rem;">
+                        ${error.message || 'No complaint found matching Reference ID: ' + ref}
+                    </div>
+                `;
+            }
+        }
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeQuickTrackerModal();
+        });
+    </script>
 </body>
 </html>
