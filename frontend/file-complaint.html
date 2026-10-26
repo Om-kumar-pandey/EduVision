@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File a New Complaint – EduVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/complaints.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="index.html" class="brand-link">
+        <img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img">
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header">
+          <h4>Notifications</h4>
+          <p>Updates on your submitted grievances</p>
+        </div>
+        <div id="notifications-list-container"></div>
+      </div>
+
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header">
+            <h4 class="user-name-label">Rahul Sharma</h4>
+            <p class="user-role-label">Student</p>
+          </div>
+          <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>Your Complaints</span></a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-nav-item active"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
+        <li class="sidebar-nav-item"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
+        <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
+        <li class="sidebar-nav-item"><a href="guidelines.html#faqs"><i class="far fa-question-circle"></i><span>FAQs</span></a></li>
+      </ul>
+
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="form-card-container">
+        <div class="page-header-block">
+          <h2>File a New Complaint</h2>
+        </div>
+
+        <form id="file-complaint-form">
+          <!-- Section 1: Complainant Details -->
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+            1. Complainant Identification
+          </h3>
+          <div class="form-grid-2" style="margin-bottom:20px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="complainantName">Full Name <span class="req">*</span></label>
+              <input type="text" id="complainantName" class="form-field-input" required readonly style="background-color:#f8fafc;">
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="complainantEmail">Contact Email <span class="req">*</span></label>
+              <input type="email" id="complainantEmail" class="form-field-input" required readonly style="background-color:#f8fafc;">
+            </div>
+          </div>
+
+          <!-- Section 2: Institution Details -->
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+            2. Institution Details
+          </h3>
+          <div class="form-grid-2" style="margin-bottom:20px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="institutionName">Institution Name <span class="req">*</span></label>
+              <div class="institution-search-wrapper">
+                <i class="fas fa-search institution-input-icon"></i>
+                <input type="text" id="institutionName" class="form-field-input institution-search-input" placeholder="Search AICTE-approved institution by name, code or district..." autocomplete="off" required>
+                <i class="fas fa-times-circle institution-clear-btn" id="institution-clear-btn" title="Clear selection"></i>
+                <div class="institution-suggestions-dropdown" id="institution-dropdown"></div>
+              </div>
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="institutionType">Institution Type <span class="req">*</span></label>
+              <select id="institutionType" class="form-field-select" required>
+                <option value="">Select Institution Category...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-bottom:20px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="institutionState">State / UT <span class="req">*</span></label>
+              <input type="text" id="institutionState" class="form-field-input" placeholder="e.g. Uttar Pradesh, Maharashtra, Delhi" required>
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="complaintCategory">Grievance Category <span class="req">*</span></label>
+              <select id="complaintCategory" class="form-field-select" required>
+                <option value="">Select Category...</option>
+                <option value="Academic Issues">Academic Issues</option>
+                <option value="Admission Related">Admission Related</option>
+                <option value="Examination">Examination</option>
+                <option value="Result &amp; Evaluation">Result &amp; Evaluation</option>
+                <option value="Fee Related">Fee Related</option>
+                <option value="Fee Refund">Fee Refund</option>
+                <option value="Scholarship">Scholarship</option>
+                <option value="Attendance Related">Attendance Related</option>
+                <option value="Faculty Related">Faculty Related</option>
+                <option value="Infrastructure">Infrastructure</option>
+                <option value="Hostel &amp; Accommodation">Hostel &amp; Accommodation</option>
+                <option value="Transport &amp; Parking">Transport &amp; Parking</option>
+                <option value="Library &amp; Laboratory">Library &amp; Laboratory</option>
+                <option value="Placement &amp; Internship">Placement &amp; Internship</option>
+                <option value="Harassment or Misconduct">Harassment or Misconduct</option>
+                <option value="Ragging &amp; Bullying">Ragging &amp; Bullying</option>
+                <option value="Discrimination">Discrimination</option>
+                <option value="Student Welfare">Student Welfare</option>
+                <option value="Certificate &amp; Documents">Certificate &amp; Documents</option>
+                <option value="Rules &amp; Policy Violation">Rules &amp; Policy Violation</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Section 3: Grievance Content -->
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+            3. Complaint Details
+          </h3>
+          <div class="form-grid-2" style="margin-bottom:20px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="incidentDate">Date of Incident</label>
+              <input type="date" id="incidentDate" class="form-field-input">
+            </div>
+          </div>
+
+          <div class="form-grid-1" style="margin-bottom:20px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="complaintDescription">Complaint Details <span class="req">*</span></label>
+              <textarea id="complaintDescription" class="form-field-textarea" placeholder="Describe your complaint in detail..." required minlength="10" rows="6"></textarea>
+              <span class="form-hint">Minimum 10 characters. Provide clear chronological facts, dates, and desired resolution.</span>
+            </div>
+          </div>
+
+          <!-- Section 4: Attachments -->
+          <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+            4. Supporting Documents (Optional)
+          </h3>
+          <div class="file-upload-dropzone" id="file-dropzone">
+            <i class="fas fa-cloud-upload-alt file-dropzone-icon"></i>
+            <div class="file-dropzone-text">Click to browse or drag and drop supporting files here</div>
+            <div class="file-dropzone-subtext">Accepted formats: PDF, JPG, PNG, DOCX (Max 5MB per file)</div>
+            <input type="file" id="attachmentInput" multiple style="display:none;" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </div>
+          <div class="file-preview-list" id="file-preview-list"></div>
+
+          <!-- Section 5: Declaration -->
+          <div class="declaration-checkbox-wrap">
+            <input type="checkbox" id="declarationCheckbox" required>
+            <label for="declarationCheckbox" class="declaration-text">
+              I hereby declare that the information provided in this grievance is true and accurate to the best of my knowledge. I understand that submitting knowingly false statements is subject to disciplinary action under AICTE regulations.
+            </label>
+          </div>
+
+          <!-- Actions -->
+          <div class="form-actions-row">
+            <a href="index.html" class="btn-secondary">Cancel</a>
+            <button type="submit" class="btn-primary" id="btn-submit-complaint">
+              <i class="fas fa-paper-plane"></i>
+              <span>Submit Complaint</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fas fa-check-circle" style="color:#10b981;"></i> Complaint Submitted Successfully</h3>
+        <i class="fas fa-times modal-close-btn" onclick="document.getElementById('success-modal').classList.remove('show')"></i>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <p style="font-size:13.5px; color:#475569; margin-bottom:16px;">
+          Your complaint has been registered in the EduVision National Grievance Repository and assigned a unique tracking ID.
+        </p>
+        <div style="background:#eff6ff; border:2px dashed #93c5fd; padding:16px; border-radius:12px; margin-bottom:20px;">
+          <span style="font-size:12px; color:#1e40af; text-transform:uppercase; font-weight:700;">Unique Tracking ID</span>
+          <div style="font-size:24px; font-weight:800; color:#1d4ed8; letter-spacing:1px; margin-top:4px;" id="modal-tracking-id">
+            CMP-2026-000104
+          </div>
+        </div>
+        <p style="font-size:12px; color:#64748b;">
+          Please save this tracking ID to monitor updates and officer remarks in real-time.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <a href="index.html" class="btn-secondary">Dashboard</a>
+        <button type="button" class="btn-primary" id="modal-btn-track">Track Status Now</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-left">EduVision | AICTE Complaint Monitoring Portal</div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a> |
+      <a href="guidelines.html#privacy">Privacy Policy</a> |
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">© 2026 EduVision. All Rights Reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/complaint-form.js"></script>
+</body>
+</html>

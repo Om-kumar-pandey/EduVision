@@ -1,6 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduVision – Complaint Monitoring Portal</title>
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts: Inter / Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP NAVIGATION BAR
+       ========================================== -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="index.html" class="brand-link">
+        <img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img">
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <!-- Notification Icon -->
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+
+      <!-- Notifications Dropdown -->
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h4>Notifications</h4>
+            <p>Updates on your submitted grievances</p>
+          </div>
+          <button id="btn-mark-all-read" style="font-size: 11px; color: var(--primary-blue); font-weight: 600;">Mark all read</button>
+        </div>
+        <div id="notifications-list-container">
+          <!-- Populated by notifications.js -->
+        </div>
+      </div>
+
+      <!-- User Profile Header Menu -->
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <!-- User Dropdown Panel -->
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header">
+            <h4 class="user-name-label">Rahul Sharma</h4>
+            <p class="user-role-label">Student • ABC Institute</p>
+          </div>
+          <a href="profile.html" class="dropdown-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+          </a>
+          <a href="my-complaints.html" class="dropdown-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Your Complaints</span>
+          </a>
+          <a href="guidelines.html" class="dropdown-item">
+            <i class="fas fa-book"></i>
+            <span>Filing Guidelines</span>
+          </a>
+          <a href="support.html" class="dropdown-item">
+            <i class="fas fa-headset"></i>
+            <span>Help & Support</span>
+          </a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign Out</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar Backdrop for Mobile -->
+  <div class="sidebar-backdrop"></div>
+
+  <!-- App Body Layout -->
+  <div class="app-container">
+    
+    <!-- ==========================================
+         LEFT SIDEBAR
+         ========================================== -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item active">
+          <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="file-complaint.html">
+            <i class="fas fa-file-signature"></i>
+            <span>File a New Complaint</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="my-complaints.html">
+            <i class="fas fa-folder-open"></i>
+            <span>Your Complaints</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="track-complaint.html">
+            <i class="fas fa-compass"></i>
+            <span>Track Complaint</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="support.html">
+            <i class="fas fa-question-circle"></i>
+            <span>Help & Support</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="guidelines.html#faqs">
+            <i class="far fa-question-circle"></i>
+            <span>FAQs</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Lower Sidebar: Your Voice Matters + AICTE Seal -->
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN CONTENT AREA
+         ========================================== -->
+    <main class="main-wrapper">
+      
+      <!-- Top 2-Column Grid (Main Dashboard + Right Panels) -->
+      <div class="dashboard-grid-layout">
+        
+        <!-- Left Column: Banner, 3 Cards, Stats, Recent Table -->
+        <div class="dashboard-left-col">
+          
+          <!-- Campus Hero Banner -->
+          <section class="hero-banner-card">
+            <!-- Background Image overlay -->
+            <img src="assets/images/campus-banner.svg" alt="Campus Facade" class="hero-banner-bg">
+            
+            <div class="hero-banner-content">
+              <h1 class="hero-title">Welcome to<br>EduVision Complaint Portal</h1>
+              <p class="hero-subtitle">Raise your concern. We ensure it reaches the right hands.</p>
+              
+              <!-- Role Pill (Dynamically updated for logged-in role) -->
+              <div class="audience-pills-row" id="hero-role-pill-container">
+                <span class="audience-pill"><i class="fas fa-user-graduate"></i> Student</span>
+              </div>
+            </div>
+
+            <!-- Right-Hand Quote Panel -->
+            <div class="hero-quote-box">
+              <p class="hero-quote-text">“ Better Governance for Quality Technical Education ”</p>
+              <span class="hero-quote-author">— AICTE</span>
+            </div>
+          </section>
+
+          <!-- 3 Primary Action Cards (Pastel) -->
+          <section class="action-cards-grid">
+            
+            <!-- Card 1: File a New Complaint -->
+            <a href="file-complaint.html" class="action-card card-blue">
+              <div class="action-card-top">
+                <div class="action-card-icon-box">
+                  <i class="far fa-file-alt"></i>
+                </div>
+                <h2 class="action-card-title">File a New Complaint</h2>
+                <p class="action-card-desc">Submit your complaint or grievance related to a technical education institution.</p>
+              </div>
+              <div class="action-card-bottom">
+                <div class="action-card-arrow-btn">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 2: Track Your Complaint -->
+            <a href="track-complaint.html" class="action-card card-green">
+              <div class="action-card-top">
+                <div class="action-card-icon-box">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h2 class="action-card-title">Track Your Complaint</h2>
+                <p class="action-card-desc">Check the status of your submitted complaint using your Complaint ID.</p>
+              </div>
+              <div class="action-card-bottom">
+                <div class="action-card-arrow-btn">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 3: View Guidelines -->
+            <a href="guidelines.html" class="action-card card-purple">
+              <div class="action-card-top">
+                <div class="action-card-icon-box">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                <h2 class="action-card-title">View Guidelines</h2>
+                <p class="action-card-desc">Learn how to file a complaint, required documents and important instructions.</p>
+              </div>
+              <div class="action-card-bottom">
+                <div class="action-card-arrow-btn">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+            </a>
+
+          </section>
+
+          <!-- Dashboard Overview (5 Dynamic Stat Cards) -->
+          <section class="stats-section-block">
+            <div class="section-header-row">
+              <div class="section-title-wrap">
+                <h3>Dashboard Overview</h3>
+                <p>Here's a quick look at your complaint activity.</p>
+              </div>
+              <div class="section-updated-badge">
+                <i class="far fa-calendar-alt"></i>
+                <span>Last Updated: <span id="dashboard-last-updated">24 Oct 2026, 10:42 AM</span></span>
+              </div>
+            </div>
+
+            <!-- 5 Pastel Metric Cards -->
+            <div class="stats-cards-row" id="stats-cards-container">
+              <!-- Rendered dynamically by dashboard.js -->
+            </div>
+          </section>
+
+          <!-- Recent Complaints Table -->
+          <section class="table-card-block">
+            <div class="section-header-row">
+              <div class="section-title-wrap">
+                <h3>Recent Complaints</h3>
+              </div>
+              <a href="my-complaints.html" class="table-header-link">
+                View All <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="table-responsive-wrapper">
+              <table class="eduvision-data-table">
+                <thead>
+                  <tr>
+                    <th>Complaint ID</th>
+                    <th>Date</th>
+                    <th>Institution</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-complaints-tbody">
+                  <!-- Rendered dynamically by dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Right Column: Quick Links, Need Help, Who Can File -->
+        <div class="dashboard-right-col">
+          
+          <!-- Panel 1: Quick Links -->
+          <div class="side-panel-card">
+            <h3 class="side-panel-title">Quick Links</h3>
+            <ul class="quick-links-list">
+              <li class="quick-link-item">
+                <a href="file-complaint.html">
+                  <div class="quick-link-content">
+                    <i class="far fa-file-alt"></i>
+                    <span>File a New Complaint</span>
+                  </div>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </li>
+              <li class="quick-link-item">
+                <a href="track-complaint.html">
+                  <div class="quick-link-content">
+                    <i class="fas fa-search"></i>
+                    <span>Track Complaint</span>
+                  </div>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </li>
+              <li class="quick-link-item">
+                <a href="guidelines.html#download">
+                  <div class="quick-link-content">
+                    <i class="fas fa-download"></i>
+                    <span>Download Guidelines</span>
+                  </div>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </li>
+              <li class="quick-link-item">
+                <a href="support.html">
+                  <div class="quick-link-content">
+                    <i class="fas fa-headset"></i>
+                    <span>Contact Support</span>
+                  </div>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Panel 2: Need Help? -->
+          <div class="side-panel-card need-help-card">
+            <h3 class="side-panel-title">Need Help?</h3>
+            <p class="need-help-desc">Our support team is here for you.</p>
+
+            <div class="contact-channels-list">
+              <div class="contact-channel-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                  <strong>Toll Free:</strong> 1800-123-4567
+                </div>
+              </div>
+              <div class="contact-channel-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <strong>Email:</strong> support@eduvision.in
+                </div>
+              </div>
+              <div class="contact-channel-item">
+                <i class="fas fa-comment-dots"></i>
+                <div>
+                  <strong>Live Chat</strong> (9 AM - 6 PM)
+                </div>
+              </div>
+            </div>
+
+            <div class="help-action-row">
+              <a href="support.html" class="btn-contact-support">Contact Support</a>
+              <img src="assets/images/support-agent.svg" alt="Support Agent" class="support-agent-illus">
+            </div>
+          </div>
+
+          <!-- Panel 3: Who Can File a Complaint? -->
+          <div class="side-panel-card">
+            <h3 class="side-panel-title">Who Can File a Complaint?</h3>
+            
+            <div class="audience-grid-6">
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-user-graduate"></i></div>
+                <span class="audience-circle-label">Student</span>
+              </div>
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <span class="audience-circle-label">Teacher</span>
+              </div>
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-user-tie"></i></div>
+                <span class="audience-circle-label">HOD</span>
+              </div>
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-university"></i></div>
+                <span class="audience-circle-label">Institution Head</span>
+              </div>
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-user-shield"></i></div>
+                <span class="audience-circle-label">AICTE Officer</span>
+              </div>
+              <div class="audience-circle-item">
+                <div class="audience-circle-icon"><i class="fas fa-ellipsis-h"></i></div>
+                <span class="audience-circle-label">Others</span>
+              </div>
+            </div>
+
+            <div class="jurisdiction-info-banner">
+              <i class="fas fa-info-circle"></i>
+              <span>You can file a complaint related to any technical education institution across India.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Horizontal: Complaint Filing Process -->
+      <section class="process-banner-section">
+        <div class="process-header-wrap">
+          <h3>Complaint Filing Process</h3>
+          <p>It's simple, transparent and effective.</p>
+        </div>
+
+        <div class="process-steps-container">
+          <div class="process-steps-track">
+            
+            <!-- Step 1 -->
+            <div class="process-step-item">
+              <div class="step-num-badge">1</div>
+              <div class="step-content">
+                <span class="step-title">Register / Login</span>
+                <span class="step-desc">Create your account or login securely.</span>
+              </div>
+            </div>
+
+            <div class="step-arrow-divider"><i class="fas fa-arrow-right"></i></div>
+
+            <!-- Step 2 -->
+            <div class="process-step-item">
+              <div class="step-num-badge">2</div>
+              <div class="step-content">
+                <span class="step-title">Fill Complaint Form</span>
+                <span class="step-desc">Provide details and upload documents.</span>
+              </div>
+            </div>
+
+            <div class="step-arrow-divider"><i class="fas fa-arrow-right"></i></div>
+
+            <!-- Step 3 -->
+            <div class="process-step-item">
+              <div class="step-num-badge">3</div>
+              <div class="step-content">
+                <span class="step-title">Submit Complaint</span>
+                <span class="step-desc">Get a unique complaint ID for tracking.</span>
+              </div>
+            </div>
+
+            <div class="step-arrow-divider"><i class="fas fa-arrow-right"></i></div>
+
+            <!-- Step 4 -->
+            <div class="process-step-item">
+              <div class="step-num-badge">4</div>
+              <div class="step-content">
+                <span class="step-title">Track &amp; Get Updates</span>
+                <span class="step-desc">Monitor your complaint status in real-time.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Student with Laptop Illustration -->
+          <div class="process-side-illus">
+            <img src="assets/images/student-working.svg" alt="Better Education Illustration">
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================
+       APP FOOTER
+       ========================================== -->
+  <footer class="app-footer">
+    <div class="footer-left">
+      <span>EduVision | AICTE Complaint Monitoring Portal</span>
+    </div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a>
+      <span>|</span>
+      <a href="guidelines.html#privacy">Privacy Policy</a>
+      <span>|</span>
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">
+      <span>© 2026 EduVision. All Rights Reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/dashboard.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduVision — Integrated Institution Complaint Monitoring &amp; Status Dashboard</title>

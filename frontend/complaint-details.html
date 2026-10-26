@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complaint Details – EduVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/complaints.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="brand-link"><img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img"></a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header"><h4>Notifications</h4><p>Updates on your submitted grievances</p></div>
+        <div id="notifications-list-container"></div>
+      </div>
+
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header"><h4 class="user-name-label">Rahul Sharma</h4><p class="user-role-label">Student</p></div>
+          <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>Your Complaints</span></a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-nav-item"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
+        <li class="sidebar-nav-item active"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
+        <li class="sidebar-nav-item"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
+        <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
+        <li class="sidebar-nav-item"><a href="guidelines.html#faqs"><i class="far fa-question-circle"></i><span>FAQs</span></a></li>
+      </ul>
+
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="form-card-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <a href="my-complaints.html" class="btn-secondary" style="font-size:12.5px; padding:6px 14px;">
+            <i class="fas fa-arrow-left"></i> Back to Complaints
+          </a>
+          <button type="button" class="btn-secondary" style="font-size:12.5px; padding:6px 14px;" onclick="window.print()">
+            <i class="fas fa-print"></i> Print Record
+          </button>
+        </div>
+
+        <div id="complaint-detail-content">
+          <!-- Loaded dynamically by tracking.js / details script -->
+          <div style="text-align:center; padding:30px;">
+            <span class="spinner spinner-blue"></span> Loading grievance specifics...
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-left">EduVision | AICTE Complaint Monitoring Portal</div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a> |
+      <a href="guidelines.html#privacy">Privacy Policy</a> |
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">© 2026 EduVision. All Rights Reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const trackingId = urlParams.get('id') || 'CMP-2026-000103';
+      const container = document.getElementById('complaint-detail-content');
+
+      let c = null;
+      try {
+        c = await api.get(`${CONFIG.ENDPOINTS.COMPLAINTS}/${encodeURIComponent(trackingId)}`);
+      } catch (err) {
+        try {
+          const stored = JSON.parse(localStorage.getItem('eduvision_user_complaints') || '[]');
+          c = stored.find(x => (x.trackingId || x.id || '').toUpperCase() === trackingId.toUpperCase());
+        } catch (e) {}
+
+        if (!c) {
+          c = CONFIG.FALLBACK_DATA.recentComplaints.find(x => (x.id || x.trackingId || '').toUpperCase() === trackingId.toUpperCase()) || CONFIG.FALLBACK_DATA.recentComplaints[0];
+        }
+      }
+
+      const statusMeta = c.status === 'RESOLVED' 
+        ? { label: 'Resolved', css: 'resolved' } 
+        : (c.status === 'UNDER_REVIEW' ? { label: 'Under Review', css: 'under-review' } : { label: 'In Process', css: 'in-process' });
+
+      container.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span style="font-size:11px; text-transform:uppercase; color:#64748b; font-weight:700;">Grievance Record</span>
+            <h2 style="font-size:22px; font-weight:800; color:#1d4ed8;">${c.trackingId || c.id}</h2>
+            <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-top:4px;">${c.subject || 'Complaint subject'}</h3>
+          </div>
+          <span class="status-badge ${statusMeta.css}" style="font-size:13px; padding:6px 14px;">${statusMeta.label}</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; background:#f8fafc; padding:18px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:24px;">
+          <div>
+            <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Institution</div>
+            <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;">${c.institutionName || c.institution || 'ABC Institute of Technology (UP)'}</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Category</div>
+            <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;">${c.category || 'Academic Issues'}</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Filing Date</div>
+            <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;">${c.date || '22 Oct 2026'}</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <h4 style="font-size:14px; font-weight:700; color:#334155; margin-bottom:8px;">Detailed Statement of Grievance:</h4>
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:16px; font-size:13px; line-height:1.6; color:#1e293b;">
+            ${c.description || 'The department has announced mid-term examination dates with only 3 days advance notice, directly conflicting with university-mandated internship evaluation schedules. Despite multiple verbal representations made to the Academic Dean, no revised timetable has been issued.'}
+          </div>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <h4 style="font-size:14px; font-weight:700; color:#334155; margin-bottom:8px;">Uploaded Evidential Attachments:</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div class="file-preview-item">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i class="fas fa-file-pdf" style="color:#ef4444; font-size:16px;"></i>
+                <span><strong>Circular_Notice_Conflicting_Dates.pdf</strong> (1.2 MB)</span>
+              </div>
+              <a href="assets/images/campus-banner.svg" download class="btn-secondary" style="padding:4px 10px; font-size:11.5px;">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; border-top:1px solid #e2e8f0; padding-top:20px;">
+          <h4 style="font-size:15px; font-weight:700; color:#0f172a; margin-bottom:12px;">Progress Log &amp; Regulatory Notes</h4>
+          <div class="complaint-timeline">
+            <div class="timeline-event-item">
+              <div class="timeline-dot"><i class="fas fa-check"></i></div>
+              <div class="timeline-content-card">
+                <div class="timeline-title-row">
+                  <span class="timeline-title">Complaint Filed &amp; Logged</span>
+                  <span class="timeline-time">${c.date || '22 Oct 2026'}</span>
+                </div>
+                <div class="timeline-remarks">Registered through student verified credentials. Assigned to AICTE Regional Monitoring Cell.</div>
+              </div>
+            </div>
+            <div class="timeline-event-item">
+              <div class="timeline-dot warning"><i class="fas fa-clock"></i></div>
+              <div class="timeline-content-card">
+                <div class="timeline-title-row">
+                  <span class="timeline-title">Institutional Notice Dispatched</span>
+                  <span class="timeline-time">23 Oct 2026</span>
+                </div>
+                <div class="timeline-remarks">Official inquiry notice served to Institution Vice-Chancellor / Principal. Formal explanation due within 7 days.</div>
+                <span class="timeline-officer"><i class="fas fa-user-shield"></i> Officer: Dr. S. K. Verma (AICTE Northern Region)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
