@@ -16,6 +16,21 @@
 
   <!-- External JavaScript loaded with defer -->
   <script src="regional-office-dashboard.js" defer></script>
+
+  <!-- Early Sidebar State Initializer -->
+  <script>
+    try {
+      if (sessionStorage.getItem('eduvision_sidebar_state') === 'collapsed') {
+        document.documentElement.classList.add('sidebar-init-collapsed');
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.classList.add('sidebar-collapsed');
+          requestAnimationFrame(function() {
+            document.documentElement.classList.remove('sidebar-init-collapsed');
+          });
+        });
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -28,7 +43,6 @@
     <aside class="sidebar" id="appSidebar" aria-label="Main Navigation">
       <!-- Sidebar Brand Header -->
       <div class="sidebar-header">
-        <img src="eduvision-logo.svg" alt="EduVision Logo" class="sidebar-logo">
         <div class="sidebar-brand-text">
           <span class="sidebar-brand-title">EduVision</span>
           <span class="sidebar-brand-subtitle">Integrated Institution Complaint Monitoring System</span>
@@ -41,14 +55,15 @@
         <nav class="nav-section" aria-label="Main Menu">
           <div class="nav-section-title">Main Menu</div>
           
-          <a href="#" class="nav-item active" id="navDashboard" aria-current="page">
+          <a href="#dashboard" class="nav-item active" id="navDashboard" aria-current="page">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
             <span class="nav-text">Dashboard</span>
+            <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="#institutionsSection" class="nav-item" id="navInstitutions">
+          <a href="regional-institutions.html" class="nav-item" id="navInstitutions">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-5-7L2 7v2h19V7l-10-4z"/>
             </svg>
@@ -56,7 +71,7 @@
             <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="#monitoringTableSection" class="nav-item" id="navTracking">
+          <a href="regional-case-tracking.html" class="nav-item" id="navTracking">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
             </svg>
@@ -64,7 +79,7 @@
             <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="#monitoringTableSection" class="nav-item" id="navPending">
+          <a href="#pendingCases" class="nav-item" id="navPending">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
             </svg>
@@ -72,7 +87,7 @@
             <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="#overlapAlertSection" class="nav-item" id="navOverlap">
+          <a href="#overlapAlerts" class="nav-item" id="navOverlap">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
             </svg>
@@ -80,7 +95,7 @@
             <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="#reportsSection" class="nav-item" id="navReports">
+          <a href="#regionalReports" class="nav-item" id="navReports">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M5 9.2h3V19H5zM10.6 5h2.8v14.2h-2.8zm5.6 8H19v6.2h-2.8z"/>
             </svg>
@@ -93,22 +108,22 @@
         <nav class="nav-section" aria-label="Quick Links">
           <div class="nav-section-title">Quick Links</div>
 
-          <a href="#activitiesSection" class="nav-item" id="navActivities">
+          <a href="#recentActivities" class="nav-item" id="navActivities">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
             </svg>
             <span class="nav-text">Recent Activities</span>
           </a>
 
-          <a href="#" class="nav-item" id="navNotifications" onclick="showToast('You have 5 unread regional notifications')">
+          <a href="#notifications" class="nav-item" id="navNotifications">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
             </svg>
             <span class="nav-text">Notifications</span>
-            <span class="nav-badge">5</span>
+            <span class="nav-badge" id="sidebarNotifBadge">5</span>
           </a>
 
-          <a href="#" class="nav-item" id="navHelp" onclick="showToast('EduVision Regional Officer Portal Helpdesk: Available 24/7')">
+          <a href="#helpSupport" class="nav-item" id="navHelp">
             <svg class="nav-icon" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
             </svg>
@@ -131,7 +146,7 @@
     </aside>
 
     <!-- Mobile Backdrop for Sidebar -->
-    <div class="modal-overlay" id="sidebarBackdrop" style="z-index: 95;"></div>
+    <div class="modal-overlay sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
     <!-- ==========================================================================
          MAIN CONTENT WRAPPER
@@ -142,8 +157,8 @@
       <header class="top-header" role="banner">
         <div class="header-left">
           <!-- Hamburger Sidebar Toggle Button -->
-          <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle navigation sidebar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle navigation sidebar" aria-expanded="true" title="Toggle navigation sidebar (Alt+S)">
+            <svg class="toggle-icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
               <line x1="3" y1="6" x2="21" y2="6"/>
               <line x1="3" y1="12" x2="21" y2="12"/>
               <line x1="3" y1="18" x2="21" y2="18"/>
@@ -178,7 +193,6 @@
 
           <!-- Regional Officer Profile Info -->
           <div class="officer-profile-card">
-            <img src="officer-avatar.png" alt="Ananya Sharma" class="officer-avatar">
             <div class="officer-info">
               <span class="officer-name">Ananya Sharma</span>
               <span class="officer-designation">Regional Officer</span>
@@ -222,6 +236,11 @@
       <main class="dashboard-content" role="main">
 
         <!-- ======================================================================
+             DASHBOARD 1: DASHBOARD OVERVIEW (PRESERVED)
+             ====================================================================== -->
+        <div id="viewDashboard" class="dashboard-section-view active">
+
+        <!-- ======================================================================
              SECTION: TOP GRID (LEFT CONTENT + RIGHT ACTIVITIES)
              ====================================================================== -->
         <section class="dashboard-top-section" aria-label="Dashboard Overview">
@@ -232,7 +251,6 @@
             <!-- 1. WELCOME BANNER -->
             <div class="welcome-banner">
               <div class="welcome-banner-content">
-                <img src="eduvision-logo.svg" alt="EduVision Emblem" class="banner-seal-logo">
                 <div class="banner-text-details">
                   <div class="banner-greeting-row">
                     <h1 class="banner-title">Welcome, Ananya Sharma!</h1>
@@ -560,7 +578,7 @@
                 </div>
                 <h2 class="panel-title">Institutions in Your Region</h2>
               </div>
-              <a href="#" class="panel-action-link" onclick="showToast('Opening full institutions directory...')">View All &rarr;</a>
+              <a href="regional-institutions.html" class="panel-action-link">View All &rarr;</a>
             </div>
 
             <!-- Filter Controls -->
@@ -877,6 +895,1114 @@
           </div>
 
         </section>
+        </div><!-- End of Dashboard 1: viewDashboard -->
+
+        <!-- ======================================================================
+             DASHBOARD 4: PENDING & OVERDUE CASES
+             ====================================================================== -->
+        <div id="viewPendingCases" class="dashboard-section-view">
+          
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Pending &amp; Overdue Cases</span>
+              </div>
+              <h1 class="section-title">Pending &amp; Overdue Cases</h1>
+              <p class="section-subtitle">
+                Monitor pending cases, approaching deadlines, and overdue complaints.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                North Region Jurisdiction
+              </span>
+              <span class="badge-neutral">Surveillance &amp; Escalation Roster</span>
+            </div>
+          </div>
+
+          <!-- 4 Summary Metric Cards -->
+          <div class="section-metric-grid" aria-label="Pending and Overdue Summary">
+            <!-- Card 1: Total Pending -->
+            <div class="section-metric-card" id="cardPendingTotal">
+              <div class="section-metric-icon blue">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Total Pending</span>
+                <span class="section-metric-value" id="valTotalPending">142</span>
+                <span class="section-metric-subtext">Active complaints awaiting action</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Overdue -->
+            <div class="section-metric-card" id="cardPendingOverdue">
+              <div class="section-metric-icon red">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Overdue</span>
+                <span class="section-metric-value" id="valPendingOverdue" style="color: var(--color-red);">28</span>
+                <span class="section-metric-subtext">Exceeded statutory window</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Due Today -->
+            <div class="section-metric-card" id="cardPendingDueToday">
+              <div class="section-metric-icon orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Due Today</span>
+                <span class="section-metric-value" id="valPendingDueToday" style="color: var(--color-orange-dark);">14</span>
+                <span class="section-metric-subtext">Disposal target expires 24 Oct</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Due Soon -->
+            <div class="section-metric-card" id="cardPendingDueSoon">
+              <div class="section-metric-icon cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Due Soon</span>
+                <span class="section-metric-value" id="valPendingDueSoon">36</span>
+                <span class="section-metric-subtext">Target expires in next 7 days</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="section-filter-bar">
+            <div class="section-filter-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="pendingSearchInput" placeholder="Search by Case ID, Institution Name, or Complaint Subject..." aria-label="Search pending and overdue cases">
+            </div>
+
+            <select class="section-filter-select" id="pendingBureauFilter" aria-label="Filter by Bureau / Cell">
+              <option value="All">All Bureaus / Cells</option>
+              <option value="RB">Regulation Bureau (RB)</option>
+              <option value="PGRC">Public Grievance Redressal Cell (PGRC)</option>
+              <option value="Other Cells">Other Specialized Cells</option>
+            </select>
+
+            <select class="section-filter-select" id="pendingStatusFilter" aria-label="Filter by Status">
+              <option value="All">All Case Statuses</option>
+              <option value="Overdue">Overdue</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+            </select>
+
+            <select class="section-filter-select" id="pendingDueDateFilter" aria-label="Filter by Due Date">
+              <option value="All">All Due Dates</option>
+              <option value="Overdue">Overdue Cases</option>
+              <option value="Today">Due Today (24 Oct 2026)</option>
+              <option value="Next7">Due in Next 7 Days</option>
+              <option value="Next15">Due in 8–30 Days</option>
+            </select>
+
+            <button class="btn-filter-clear" id="pendingClearBtn" aria-label="Clear all filters">
+              Clear Filters
+            </button>
+          </div>
+
+          <!-- Cases Table Card -->
+          <div class="table-card">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <h2 class="panel-title">Pending &amp; Overdue Complaints Roster</h2>
+              </div>
+              <span class="cell-muted" id="pendingRecordsCount">Showing 10 demonstration records</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="pendingCasesTable">
+                <thead>
+                  <tr>
+                    <th>Case ID</th>
+                    <th>Institution Name</th>
+                    <th>Bureau / Cell</th>
+                    <th>Current Status</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pendingTableBody">
+                  <!-- Rendered dynamically via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ======================================================================
+             DASHBOARD 5: OVERLAP ALERTS
+             ====================================================================== -->
+        <div id="viewOverlapAlerts" class="dashboard-section-view">
+
+          <!-- Mandatory Governance Notice Banner -->
+          <div class="governance-notice-banner" role="alert">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            <div>
+              <strong>Potential Overlap Review &mdash; Human Determination Required:</strong>
+              Complaints from the same institution or with similar subject lines indicate potential coordination points, not proven duplicate cases. Different institutions reporting similar concerns or same-institution grievances across Bureaus (RB &amp; PGRC) require human review before linking. The reviewing officer makes the final determination.
+            </div>
+          </div>
+
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Overlap Alerts</span>
+              </div>
+              <h1 class="section-title">Overlap Alerts</h1>
+              <p class="section-subtitle">
+                Review potentially related complaints and cross-bureau case overlaps.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                North Region Jurisdiction
+              </span>
+              <span class="badge-neutral">Rule-Based Coordination</span>
+            </div>
+          </div>
+
+          <!-- 4 Summary Metric Cards -->
+          <div class="section-metric-grid" aria-label="Overlap Summary Statistics">
+            <!-- Card 1: Total Potential Overlaps -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon orange">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Total Potential Overlaps</span>
+                <span class="section-metric-value" id="valTotalOverlaps">8</span>
+                <span class="section-metric-subtext">Identified across regional cases</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Cross-Bureau Overlaps -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 3 21 3 21 8"/>
+                  <line x1="4" y1="20" x2="21" y2="3"/>
+                  <polyline points="21 16 21 21 16 21"/>
+                  <line x1="15" y1="15" x2="21" y2="21"/>
+                  <line x1="4" y1="4" x2="9" y2="9"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Cross-Bureau Overlaps</span>
+                <span class="section-metric-value" id="valCrossBureauOverlaps">5</span>
+                <span class="section-metric-subtext">Spans RB, PGRC &amp; Other Cells</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Same-Bureau Duplicates -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon purple">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Same-Bureau Duplicates</span>
+                <span class="section-metric-value" id="valSameBureauOverlaps">3</span>
+                <span class="section-metric-subtext">Multiple filings within same bureau</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Awaiting Review -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon red">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                </svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Awaiting Review</span>
+                <span class="section-metric-value" id="valAwaitingReviewOverlaps" style="color: var(--color-red);">6</span>
+                <span class="section-metric-subtext">Requires regional officer decision</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search & Filters -->
+          <div class="section-filter-bar">
+            <div class="section-filter-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="overlapSearchInput" placeholder="Search by Alert ID, Case ID, or Institution Name..." aria-label="Search overlap alerts">
+            </div>
+
+            <select class="section-filter-select" id="overlapInstFilter" aria-label="Filter by Institution">
+              <option value="All">All Institutions</option>
+              <option value="ABC Institute of Technology">ABC Institute of Technology</option>
+              <option value="Global Institute of Engineering">Global Institute of Engineering</option>
+              <option value="Techno Institute of Management">Techno Institute of Management</option>
+              <option value="Sunrise College of Engineering">Sunrise College of Engineering</option>
+              <option value="Delhi Technical Campus">Delhi Technical Campus</option>
+              <option value="Noida Institute of Engineering">Noida Institute of Engineering</option>
+            </select>
+
+            <select class="section-filter-select" id="overlapBureauFilter" aria-label="Filter by Bureau Combination">
+              <option value="All">All Bureau Combinations</option>
+              <option value="RB ⟷ PGRC">RB ⟷ PGRC</option>
+              <option value="PGRC ⟷ RB">PGRC ⟷ RB</option>
+              <option value="PGRC ⟷ Other Cells">PGRC ⟷ Other Cells</option>
+              <option value="RB ⟷ RB">RB ⟷ RB</option>
+            </select>
+
+            <select class="section-filter-select" id="overlapTypeFilter" aria-label="Filter by Alert Type">
+              <option value="All">All Alert Types</option>
+              <option value="Same Institution">Same Institution</option>
+              <option value="Similar Complaint Reference">Similar Complaint Reference</option>
+              <option value="Same Subject">Same Subject</option>
+              <option value="Cross-Bureau Case">Cross-Bureau Case</option>
+            </select>
+
+            <select class="section-filter-select" id="overlapStatusFilter" aria-label="Filter by Review Status">
+              <option value="All">All Review Statuses</option>
+              <option value="Awaiting Review">Awaiting Review</option>
+              <option value="In Review">In Review</option>
+              <option value="Reviewed">Reviewed</option>
+            </select>
+
+            <button class="btn-filter-clear" id="overlapClearBtn" aria-label="Clear all filters">
+              Clear Filters
+            </button>
+          </div>
+
+          <!-- Overlap Alerts Table Card -->
+          <div class="table-card">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon overlap-header-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                </div>
+                <h2 class="panel-title">Potential Case Overlap Roster</h2>
+              </div>
+              <span class="cell-muted" id="overlapRecordsCount">Showing 6 demonstration alerts</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="overlapAlertsTable">
+                <thead>
+                  <tr>
+                    <th>Alert ID</th>
+                    <th>Related Case IDs</th>
+                    <th>Institution Name</th>
+                    <th>Bureau / Cell Combination</th>
+                    <th>Match Reason</th>
+                    <th>Review Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="overlapTableBody">
+                  <!-- Rendered dynamically via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Alert Review Detail Panel (Side-by-Side Comparison) -->
+          <div class="overlap-review-panel active" id="overlapReviewPanel">
+            <div class="overlap-review-header">
+              <div class="overlap-review-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span id="activeOverlapTitle">Overlap Review: OVL-2026-001 &mdash; ABC Institute of Technology</span>
+              </div>
+              <span class="status-badge in-progress" id="activeOverlapStatusBadge">In Review</span>
+            </div>
+
+            <!-- Two Related Cases Side-by-Side -->
+            <div class="overlap-compare-grid">
+              <!-- Case A Card -->
+              <div class="overlap-case-card case-a" id="overlapCaseCardA">
+                <div class="overlap-case-header-row">
+                  <span class="overlap-case-badge">Case A &bull; Primary Filing</span>
+                  <span class="status-badge in-progress" id="overlapCaseAStatus">In Progress</span>
+                </div>
+                <div class="overlap-case-id-text" id="overlapCaseAId">CASE-2026-0001</div>
+                
+                <div class="overlap-meta-grid">
+                  <div class="overlap-meta-item">
+                    <strong>Institution</strong>
+                    <span id="overlapCaseAInst">ABC Institute of Technology</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Bureau / Cell</strong>
+                    <span id="overlapCaseABureau" style="color: var(--color-blue); font-weight: 700;">Regulation Bureau (RB)</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Complaint Subject</strong>
+                    <span id="overlapCaseASubject">Affiliation Compliance &amp; Faculty Rosters</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Filing Date</strong>
+                    <span id="overlapCaseADate">12 Oct 2026</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Assigned Officer</strong>
+                    <span id="overlapCaseAOfficer">RB-03</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>AICTE ID</strong>
+                    <span>1-563728</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Case B Card -->
+              <div class="overlap-case-card case-b" id="overlapCaseCardB">
+                <div class="overlap-case-header-row">
+                  <span class="overlap-case-badge">Case B &bull; Potential Overlap</span>
+                  <span class="status-badge in-progress" id="overlapCaseBStatus">In Progress</span>
+                </div>
+                <div class="overlap-case-id-text" id="overlapCaseBId">CASE-2026-0014</div>
+                
+                <div class="overlap-meta-grid">
+                  <div class="overlap-meta-item">
+                    <strong>Institution</strong>
+                    <span id="overlapCaseBInst">ABC Institute of Technology</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Bureau / Cell</strong>
+                    <span id="overlapCaseBBureau" style="color: var(--color-orange-dark); font-weight: 700;">Public Grievance Redressal Cell (PGRC)</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Complaint Subject</strong>
+                    <span id="overlapCaseBSubject">Faculty Representation on Workload &amp; Norms</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Filing Date</strong>
+                    <span id="overlapCaseBDate">18 Oct 2026</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>Assigned Officer</strong>
+                    <span id="overlapCaseBOfficer">PGRC-02</span>
+                  </div>
+                  <div class="overlap-meta-item">
+                    <strong>AICTE ID</strong>
+                    <span>1-563728</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="overlap-actions-bar">
+              <div style="font-size: 0.74rem; color: var(--text-muted);">
+                Match Reason: <strong id="activeOverlapReasonText" style="color: var(--text-dark);">Same Institution &amp; Cross-Bureau Subject</strong>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn-action-outline" onclick="openCaseModal(document.getElementById('overlapCaseAId').textContent)" aria-label="View primary case details">
+                  View Case Details
+                </button>
+                <button class="btn-action-outline" id="btnMarkReviewed" onclick="markActiveOverlapReviewed()" aria-label="Mark overlap as reviewed">
+                  Mark Reviewed
+                </button>
+                <button class="btn-review-cases" id="btnLinkCases" onclick="linkActiveOverlapCases()" aria-label="Link cases for joint review">
+                  Link Cases (Demo)
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ======================================================================
+             DASHBOARD 6: REGIONAL REPORTS
+             ====================================================================== -->
+        <div id="viewRegionalReports" class="dashboard-section-view">
+          
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Regional Reports</span>
+              </div>
+              <h1 class="section-title">Regional Reports</h1>
+              <p class="section-subtitle">
+                Review regional complaint volumes, case status, and resolution patterns.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                North Region Office
+              </span>
+              <span class="badge-neutral" id="reportingPeriodLabel">Reporting Period: Oct 2026 (Demonstration Dataset)</span>
+            </div>
+          </div>
+
+          <!-- 4 Summary Metric Cards -->
+          <div class="section-metric-grid" aria-label="Regional Reports Summary">
+            <!-- Card 1: Total Cases -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon blue">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Total Cases</span>
+                <span class="section-metric-value">386</span>
+                <span class="section-metric-subtext">Cumulative regional cases logged</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Resolved Cases -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon green">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Resolved Cases</span>
+                <span class="section-metric-value" style="color: var(--color-green);">98</span>
+                <span class="section-metric-subtext">25.4% regional resolution rate</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Pending Cases -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon orange">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Pending Cases</span>
+                <span class="section-metric-value" style="color: var(--color-orange-dark);">142</span>
+                <span class="section-metric-subtext">Awaiting regulatory compliance</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Overdue Cases -->
+            <div class="section-metric-card">
+              <div class="section-metric-icon red">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Overdue Cases</span>
+                <span class="section-metric-value" style="color: var(--color-red);">28</span>
+                <span class="section-metric-subtext">7.3% of total regional workload</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reporting Filters & Export Controls -->
+          <div class="section-filter-bar" style="justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <!-- Period Selector Buttons -->
+              <div class="reports-period-selector" role="group" aria-label="Reporting period">
+                <button type="button" class="reports-period-btn" data-period="7" onclick="setReportsPeriod(7, this)">Last 7 Days</button>
+                <button type="button" class="reports-period-btn active" data-period="30" onclick="setReportsPeriod(30, this)">Last 30 Days</button>
+                <button type="button" class="reports-period-btn" data-period="custom" onclick="setReportsPeriod('custom', this)">Custom Date Range</button>
+              </div>
+
+              <!-- Bureau Selector -->
+              <select class="section-filter-select" id="reportsBureauSelect" aria-label="Filter by Bureau / Cell">
+                <option value="All">All Bureaus / Cells</option>
+                <option value="RB">Regulation Bureau (RB)</option>
+                <option value="PGRC">Public Grievance Redressal Cell (PGRC)</option>
+                <option value="Other Cells">Other Specialized Cells</option>
+              </select>
+
+              <!-- Apply Button -->
+              <button class="btn-action-outline" id="reportsApplyBtn" onclick="applyReportsFilter()" aria-label="Apply reporting filters">
+                Apply Filter
+              </button>
+            </div>
+
+            <!-- Action Controls -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button class="btn-action-outline" onclick="openReportsModal()" aria-label="View detailed reports catalogue">
+                View Report
+              </button>
+              <button class="btn-export-csv" id="btnExportCsv" onclick="exportReportsCSV()" aria-label="Export demonstration report to CSV">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Charts Row (Two Visualizations) -->
+          <div class="reports-charts-grid">
+            <!-- Chart 1: Case Status Distribution -->
+            <div class="chart-panel-card">
+              <div class="panel-header">
+                <div class="panel-title-wrap">
+                  <div class="panel-title-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                  </div>
+                  <h2 class="panel-title">Case Status Distribution</h2>
+                </div>
+              </div>
+
+              <div class="doughnut-layout">
+                <div class="doughnut-svg-container">
+                  <svg viewBox="0 0 120 120" class="doughnut-svg" id="reportsStatusDoughnut" aria-label="Case status doughnut chart breakdown"></svg>
+                  <div class="doughnut-center-label">
+                    <div class="doughnut-center-number">386</div>
+                    <div class="doughnut-center-subtext">Total Cases</div>
+                  </div>
+                </div>
+
+                <div class="doughnut-legend" role="list">
+                  <div class="legend-item" role="listitem">
+                    <span class="legend-dot blue"></span>
+                    <span class="legend-label">Pending</span>
+                    <span class="legend-count">142</span>
+                    <span class="legend-percent">36.8%</span>
+                  </div>
+                  <div class="legend-item" role="listitem">
+                    <span class="legend-dot orange"></span>
+                    <span class="legend-label">In Progress</span>
+                    <span class="legend-count">118</span>
+                    <span class="legend-percent">30.6%</span>
+                  </div>
+                  <div class="legend-item" role="listitem">
+                    <span class="legend-dot green"></span>
+                    <span class="legend-label">Resolved</span>
+                    <span class="legend-count">98</span>
+                    <span class="legend-percent">25.4%</span>
+                  </div>
+                  <div class="legend-item" role="listitem">
+                    <span class="legend-dot red"></span>
+                    <span class="legend-label">Overdue</span>
+                    <span class="legend-count">28</span>
+                    <span class="legend-percent">7.3%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart 2: Cases by Bureau/Cell -->
+            <div class="chart-panel-card">
+              <div class="panel-header">
+                <div class="panel-title-wrap">
+                  <div class="panel-title-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  </div>
+                  <h2 class="panel-title">Cases by Bureau / Cell</h2>
+                </div>
+              </div>
+
+              <div class="barchart-container">
+                <div class="barchart-canvas-wrapper" id="reportsBureauBarChart">
+                  <!-- Rendered via JavaScript -->
+                </div>
+                <p class="chart-caption">Active regional complaints classified by handling department</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Institution-wise Report Table Card -->
+          <div class="table-card">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+                </div>
+                <h2 class="panel-title">Institution-wise Complaint Performance Report</h2>
+              </div>
+              <span class="cell-muted">North Region &bull; 6 Primary Institutional Centers</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="reportsInstitutionTable">
+                <thead>
+                  <tr>
+                    <th>Institution Name</th>
+                    <th>District / City</th>
+                    <th>Total Cases</th>
+                    <th>Pending</th>
+                    <th>Resolved</th>
+                    <th>Overdue</th>
+                    <th>Resolution Rate</th>
+                  </tr>
+                </thead>
+                <tbody id="reportsTableBody">
+                  <!-- Rendered dynamically via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ======================================================================
+             DASHBOARD 7: RECENT ACTIVITIES
+             ====================================================================== -->
+        <div id="viewRecentActivities" class="dashboard-section-view">
+
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Recent Activities</span>
+              </div>
+              <h1 class="section-title">Recent Activities</h1>
+              <p class="section-subtitle">
+                Review recent case updates and important administrative actions.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                North Region Audit Log
+              </span>
+              <span class="badge-neutral">Chronological History &bull; Read-Only</span>
+            </div>
+          </div>
+
+          <!-- Compact Summary Area (2 Cards) -->
+          <div class="section-metric-grid" style="grid-template-columns: repeat(2, 1fr);" aria-label="Activity Summary">
+            <div class="section-metric-card">
+              <div class="section-metric-icon blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Today's Activities</span>
+                <span class="section-metric-value">18</span>
+                <span class="section-metric-subtext">Actions recorded across North Region today</span>
+              </div>
+            </div>
+
+            <div class="section-metric-card">
+              <div class="section-metric-icon cyan">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Recent Case Updates</span>
+                <span class="section-metric-value">42</span>
+                <span class="section-metric-subtext">Status transitions and institutional submissions this week</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="section-filter-bar">
+            <div class="section-filter-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="activitySearchInput" placeholder="Search activities by description, Case ID, institution, or officer..." aria-label="Search activities">
+            </div>
+
+            <select class="section-filter-select" id="activityDateFilter" aria-label="Filter by Date">
+              <option value="All">All Dates</option>
+              <option value="Today">Today (24 Oct 2026)</option>
+              <option value="Yesterday">Yesterday (23 Oct 2026)</option>
+              <option value="Past7">Past 7 Days</option>
+            </select>
+
+            <select class="section-filter-select" id="activityTypeFilter" aria-label="Filter by Activity Type">
+              <option value="All">All Activity Types</option>
+              <option value="Case Status Changed">Case Status Changed</option>
+              <option value="Institution Response Received">Institution Response Received</option>
+              <option value="Case Assigned">Case Assigned</option>
+              <option value="Overlap Reviewed">Overlap Reviewed</option>
+              <option value="Report Generated">Report Generated</option>
+            </select>
+
+            <button class="btn-filter-clear" id="activityClearBtn" aria-label="Clear activity filters">
+              Clear Filters
+            </button>
+          </div>
+
+          <!-- Activity Timeline Stream Card -->
+          <div class="activities-stream-card">
+            <div class="panel-header" style="padding: 14px 18px; border-bottom: 1px solid var(--border-light);">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.6-6.2 4.6 2.3-7.1-6.1-4.5h7.6z"/></svg>
+                </div>
+                <h2 class="panel-title">Regional Activity Log</h2>
+              </div>
+              <span class="cell-muted" id="activityRecordsCount">Showing 8 activities (Newest at top)</span>
+            </div>
+
+            <div id="activitiesStreamList">
+              <!-- Rendered dynamically via JavaScript -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ======================================================================
+             DASHBOARD 8: NOTIFICATIONS
+             ====================================================================== -->
+        <div id="viewNotifications" class="dashboard-section-view">
+
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Notifications</span>
+              </div>
+              <h1 class="section-title">Notifications</h1>
+              <p class="section-subtitle">
+                Stay informed about important case updates and actions requiring attention.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                North Region Alerts
+              </span>
+              <span class="badge-neutral"><span id="notifUnreadBadgeTop">5</span> Unread Notifications</span>
+            </div>
+          </div>
+
+          <!-- 3 Summary Counters -->
+          <div class="section-metric-grid" style="grid-template-columns: repeat(3, 1fr);" aria-label="Notifications Counters">
+            <div class="section-metric-card" style="cursor: pointer;" onclick="filterNotificationsTab('All')">
+              <div class="section-metric-icon blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">All Notifications</span>
+                <span class="section-metric-value" id="countNotifAll">8</span>
+                <span class="section-metric-subtext">Active regional notifications</span>
+              </div>
+            </div>
+
+            <div class="section-metric-card" style="cursor: pointer;" onclick="filterNotificationsTab('Unread')">
+              <div class="section-metric-icon orange">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Unread</span>
+                <span class="section-metric-value" id="countNotifUnread" style="color: var(--color-orange-dark);">5</span>
+                <span class="section-metric-subtext">Awaiting officer attention</span>
+              </div>
+            </div>
+
+            <div class="section-metric-card" style="cursor: pointer;" onclick="filterNotificationsTab('Important')">
+              <div class="section-metric-icon red">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              </div>
+              <div class="section-metric-info">
+                <span class="section-metric-label">Important / Urgent</span>
+                <span class="section-metric-value" id="countNotifImportant" style="color: var(--color-red);">3</span>
+                <span class="section-metric-subtext">Overdue and high priority alerts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter Tabs & Actions -->
+          <div class="notifications-header-tabs">
+            <div class="notifications-tabs-group" role="tablist">
+              <button type="button" class="notif-tab-btn active" id="tabNotifAll" onclick="filterNotificationsTab('All')" role="tab" aria-selected="true">
+                All <span class="tab-count" id="tabCountAll">8</span>
+              </button>
+              <button type="button" class="notif-tab-btn" id="tabNotifUnread" onclick="filterNotificationsTab('Unread')" role="tab" aria-selected="false">
+                Unread <span class="tab-count" id="tabCountUnread">5</span>
+              </button>
+              <button type="button" class="notif-tab-btn" id="tabNotifImportant" onclick="filterNotificationsTab('Important')" role="tab" aria-selected="false">
+                Important <span class="tab-count" id="tabCountImportant">3</span>
+              </button>
+            </div>
+
+            <button class="btn-action-outline" id="btnMarkAllNotifRead" onclick="markAllNotificationsAsRead()" aria-label="Mark all notifications as read">
+              Mark All as Read
+            </button>
+          </div>
+
+          <!-- Notification Items Container -->
+          <div id="notificationsContainer">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+
+        </div>
+
+        <!-- ======================================================================
+             DASHBOARD 9: HELP & SUPPORT
+             ====================================================================== -->
+        <div id="viewHelpSupport" class="dashboard-section-view">
+
+          <!-- Page Header & Badges -->
+          <div class="section-page-header">
+            <div class="header-text-col">
+              <div class="section-breadcrumb">
+                <a href="#dashboard" onclick="switchDashboardView('viewDashboard')">Dashboard</a>
+                <span class="section-breadcrumb-sep">/</span>
+                <span>Help &amp; Support</span>
+              </div>
+              <h1 class="section-title">Help &amp; Support</h1>
+              <p class="section-subtitle">
+                Find guidance for using EduVision's regional case monitoring tools.
+              </p>
+            </div>
+            <div class="section-header-badges">
+              <span class="badge-jurisdiction">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                Regional Officer Guidance Portal
+              </span>
+              <span class="badge-neutral">Operational Support 24/7</span>
+            </div>
+          </div>
+
+          <!-- Help Search Bar -->
+          <div class="section-filter-bar" style="margin-bottom: 16px;">
+            <div class="section-filter-search" style="min-width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="helpSearchInput" placeholder="Search help topics, FAQs, and monitoring procedures..." aria-label="Search help topics and procedures" oninput="filterHelpFaqs(this.value)">
+            </div>
+          </div>
+
+          <!-- 4 Quick Help Cards -->
+          <div class="help-quick-grid" aria-label="Quick Help Guides">
+            <!-- Card 1: Case Tracking -->
+            <div class="help-quick-card">
+              <div>
+                <div class="help-quick-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-blue);"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                  Case Tracking
+                </div>
+                <p class="help-quick-desc">
+                  Track complaints, jurisdiction, handling Bureau/Cell, and disposal progress across institutions.
+                </p>
+              </div>
+              <a href="regional-case-tracking.html" class="panel-action-link" style="align-self: flex-start; font-weight: 700;">View Guide &rarr;</a>
+            </div>
+
+            <!-- Card 2: Pending & Overdue Cases -->
+            <div class="help-quick-card">
+              <div>
+                <div class="help-quick-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-orange-dark);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                  Pending &amp; Overdue Cases
+                </div>
+                <p class="help-quick-desc">
+                  Identify cases with approaching statutory deadlines, priority flags, and overdue escalations.
+                </p>
+              </div>
+              <a href="#pendingCases" onclick="switchDashboardView('viewPendingCases')" class="panel-action-link" style="align-self: flex-start; font-weight: 700;">View Guide &rarr;</a>
+            </div>
+
+            <!-- Card 3: Overlap Review -->
+            <div class="help-quick-card">
+              <div>
+                <div class="help-quick-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-red);"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                  Overlap Review
+                </div>
+                <p class="help-quick-desc">
+                  Coordinate potential duplicate or overlapping cases across Bureaus without duplicate efforts.
+                </p>
+              </div>
+              <a href="#overlapAlerts" onclick="switchDashboardView('viewOverlapAlerts')" class="panel-action-link" style="align-self: flex-start; font-weight: 700;">View Guide &rarr;</a>
+            </div>
+
+            <!-- Card 4: Regional Reports -->
+            <div class="help-quick-card">
+              <div>
+                <div class="help-quick-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-blue);"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14.2h-2.8zm5.6 8H19v6.2h-2.8z"/></svg>
+                  Regional Reports
+                </div>
+                <p class="help-quick-desc">
+                  Review case volume trends, resolution rates, and export regional summary datasets.
+                </p>
+              </div>
+              <a href="#regionalReports" onclick="switchDashboardView('viewRegionalReports')" class="panel-action-link" style="align-self: flex-start; font-weight: 700;">View Guide &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Frequently Asked Questions (Accordion) -->
+          <div class="help-faq-card">
+            <div class="panel-header" style="padding: 14px 18px; border-bottom: 1px solid var(--border-light);">
+              <div class="panel-title-wrap">
+                <div class="panel-title-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h2 class="panel-title">Frequently Asked Questions</h2>
+              </div>
+              <span class="cell-muted">Click any question to view guidance</span>
+            </div>
+
+            <div class="faq-accordion-list" id="faqAccordionList">
+              <!-- FAQ 1 -->
+              <div class="faq-item open">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>1. How can I find a particular case?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  Use the Global Search input in the top navigation bar or the search and filter controls in the Regional Case Tracking and Pending &amp; Overdue Cases sections. You can search directly by Case ID (e.g., CASE-2026-0143), Institution Name, AICTE Affiliation Code, or Complaint Subject.
+                </div>
+              </div>
+
+              <!-- FAQ 2 -->
+              <div class="faq-item">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>2. How do I identify overdue cases?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  Overdue cases are identified with prominent red status pills and red row accents across the dashboard. Navigate to the Pending &amp; Overdue Cases section and select "Overdue Cases" in the Due Date or Case Status filter dropdown to isolate cases that have exceeded their statutory resolution window.
+                </div>
+              </div>
+
+              <!-- FAQ 3 -->
+              <div class="faq-item">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>3. What does a potential overlap alert mean?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  A potential overlap alert indicates that two or more complaints share significant common parameters—such as being filed against the same regional institution, involving cross-bureau handling (e.g., Regulation Bureau and PGRC), or referencing identical grievance topics. It alerts officers that coordinated handling is recommended to avoid duplicative inquiries.
+                </div>
+              </div>
+
+              <!-- FAQ 4 -->
+              <div class="faq-item">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>4. Does a matching complaint subject automatically mean duplicate cases?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  No. Matching complaint subjects or common institution codes do not automatically prove duplication. Multiple stakeholders (such as students, faculty, or applicants) may submit distinct legitimate grievances regarding the same broad issue, or different Bureaus may have independent statutory jurisdictions. The reviewing regional officer must conduct human review before any administrative linkage is established.
+                </div>
+              </div>
+
+              <!-- FAQ 5 -->
+              <div class="faq-item">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>5. How can I review regional case statistics?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  Navigate to the Regional Reports section. There you will find summary metrics for total, resolved, pending, and overdue cases, accompanied by visual charts (Case Status Distribution doughnut and Bureau/Cell bar distribution) as well as an institution-wise complaint performance table. You can also export this data directly to CSV.
+                </div>
+              </div>
+
+              <!-- FAQ 6 -->
+              <div class="faq-item">
+                <button type="button" class="faq-question-btn" onclick="toggleFaq(this)">
+                  <span>6. Where can I see recent case activities and notifications?</span>
+                  <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-answer">
+                  Chronological records of actions—such as case status updates, institution responses, and assignments—are displayed in the Recent Activities section. Actionable deadline alerts, overlap notices, and priority updates are presented in the Notifications section and via the notification bell icon in the top header.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Grid: User Guide & Verified Support Info -->
+          <div class="help-split-grid">
+            <!-- User Guide Card -->
+            <div class="help-guide-card">
+              <div class="panel-header" style="margin-bottom: 12px;">
+                <div class="panel-title-wrap">
+                  <div class="panel-title-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  </div>
+                  <h3 class="panel-title" style="font-size: 0.95rem;">Dashboard User Guide</h3>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.8rem; color: var(--text-body); line-height: 1.5;">
+                <div style="padding: 8px 10px; background: #f8fafc; border-left: 3px solid var(--color-blue); border-radius: var(--radius-sm);">
+                  <strong style="color: var(--text-dark);">1. Regional Jurisdiction:</strong>
+                  Verify your active assigned region using the region selector in the top navigation header. All dashboard analytics and rosters correspond to the active region.
+                </div>
+                <div style="padding: 8px 10px; background: #f8fafc; border-left: 3px solid var(--color-orange); border-radius: var(--radius-sm);">
+                  <strong style="color: var(--text-dark);">2. Deadline Surveillance:</strong>
+                  Check the Pending &amp; Overdue Cases roster daily. Pay immediate attention to cases marked with urgent red badges or approaching 7-day deadlines.
+                </div>
+                <div style="padding: 8px 10px; background: #f8fafc; border-left: 3px solid var(--color-purple); border-radius: var(--radius-sm);">
+                  <strong style="color: var(--text-dark);">3. Cross-Bureau Coordination:</strong>
+                  Use the Overlap Alerts module to examine complaints with matching parameters side-by-side before dispatching duplicate inquiries to institutions.
+                </div>
+                <div style="padding: 8px 10px; background: #f8fafc; border-left: 3px solid var(--color-green); border-radius: var(--radius-sm);">
+                  <strong style="color: var(--text-dark);">4. Analytical Reporting:</strong>
+                  Generate and review monthly institution-wise complaint ratios under Regional Reports to support regulatory oversight.
+                </div>
+              </div>
+            </div>
+
+            <!-- Support Contact Area (Verified Information Only) -->
+            <div class="help-support-card">
+              <div class="panel-header" style="margin-bottom: 12px;">
+                <div class="panel-title-wrap">
+                  <div class="panel-title-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </div>
+                  <h3 class="panel-title" style="font-size: 0.95rem;">Portal Helpdesk &amp; Support</h3>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.8rem; margin-bottom: 12px;">
+                <div>
+                  <strong style="color: var(--text-dark);">Service Desk:</strong>
+                  <span>EduVision Regional Officer Portal Helpdesk</span>
+                </div>
+                <div>
+                  <strong style="color: var(--text-dark);">Operational Hours:</strong>
+                  <span>Monday &ndash; Friday, 09:00 AM &ndash; 05:30 PM IST</span>
+                </div>
+                <div>
+                  <strong style="color: var(--text-dark);">Framework:</strong>
+                  <span>Integrated Institution Complaint Monitoring System</span>
+                </div>
+              </div>
+
+              <!-- Static Demonstration Contact Form -->
+              <form onsubmit="event.preventDefault(); showToast('Support inquiry logged (Demonstration Mode). Helpdesk team notified.'); this.reset();" style="display: flex; flex-direction: column; gap: 8px;">
+                <div>
+                  <label for="supportTopicSelect" style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px;">Inquiry Topic</label>
+                  <select id="supportTopicSelect" class="section-filter-select" style="width: 100%;" required>
+                    <option value="Technical Issue">Technical / Display Issue</option>
+                    <option value="Jurisdiction Update">Regional Jurisdiction Inquiry</option>
+                    <option value="Grievance Escaltion">Case Escalation Support</option>
+                    <option value="Other">Other Portal Inquiries</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="supportMessageInput" style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px;">Brief Inquiry Description</label>
+                  <textarea id="supportMessageInput" rows="3" style="width: 100%; padding: 8px; font-size: 0.8rem; font-family: inherit; border: 1px solid var(--border-color); border-radius: var(--radius-sm); resize: vertical; outline: none;" placeholder="Describe your inquiry or technical question..." required></textarea>
+                </div>
+                <button type="submit" class="btn-review-cases" style="align-self: flex-start; padding: 7px 16px;">
+                  Submit Inquiry (Demo)
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
 
       </main>
 
