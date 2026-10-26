@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVision — Authorized Portal Access &amp; Registration</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/role-auth-modal.css">
+    <style>
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-header-strip {
+            background: #0b2545;
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #d97706;
+        }
+        .page-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+        .page-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 820px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Strip -->
+    <header class="page-header-strip">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="index.html" style="color:#ffffff;text-decoration:none;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.4rem;">🎓</span>
+                <div>
+                    <strong style="font-size:1.15rem;letter-spacing:-0.01em;">EduVision</strong>
+                    <div style="font-size:0.7rem;color:#cbd5e1;">All India Council for Technical Education</div>
+                </div>
+            </a>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+            <a href="index.html" style="color:#cbd5e1;text-decoration:none;font-size:0.85rem;font-weight:600;">
+                &larr; Return to Homepage
+            </a>
+            <span style="background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:3px;font-size:0.75rem;font-weight:700;">
+                AICTE Official Portal
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Section with Reusable Role Auth Screen -->
+    <main class="page-container">
+        <div class="page-card" id="pageCardWrapper">
+            <!-- Mode Switcher -->
+            <div class="role-mode-switcher">
+                <button class="role-mode-tab active" id="tabModeLogin" onclick="RoleAuthModal.switchMode('login')">
+                    Sign In
+                </button>
+                <button class="role-mode-tab" id="tabModeSignup" onclick="RoleAuthModal.switchMode('signup')">
+                    Sign Up / Register
+                </button>
+            </div>
+
+            <div class="role-modal-body" style="padding:28px;">
+                <!-- Step 1: Five Options View -->
+                <div id="roleSelectionView">
+                    <div style="margin-bottom:18px;">
+                        <h2 style="font-size:1.3rem;font-weight:800;color:#0b2545;margin:0 0 4px;" id="rolePageHeading">Select Your Designated Role</h2>
+                        <p class="role-options-instruction" id="roleOptionsInstruction" style="margin:0;">
+                            Please select the option that corresponds to your relationship with AICTE:
+                        </p>
+                    </div>
+                    <div class="role-cards-grid" id="roleCardsGrid"></div>
+                </div>
+
+                <!-- Step 2: Form View -->
+                <div id="roleFormView" class="role-form-view">
+                    <div class="role-form-header">
+                        <button class="role-form-back-btn" onclick="RoleAuthModal.backToRoleSelection()">
+                            &larr; Back to Role Selection
+                        </button>
+                        <div class="role-form-role-indicator" id="roleFormIndicator"></div>
+                    </div>
+
+                    <div id="roleAlert" class="role-alert"></div>
+
+                    <!-- Login Form -->
+                    <div id="roleLoginFormContainer" style="display:none;">
+                        <form id="roleLoginForm" onsubmit="RoleAuthModal.handleLoginSubmit(event)">
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="roleLoginEmail">Official Email Address *</label>
+                                <input type="email" id="roleLoginEmail" class="role-form-input" required placeholder="name@domain.gov.in" autocomplete="email">
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="roleLoginPassword">Password *</label>
+                                <input type="password" id="roleLoginPassword" class="role-form-input" required placeholder="••••••••" autocomplete="current-password">
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnRoleLoginSubmit">
+                                <span>Sign In to Designated Workspace</span> &rarr;
+                            </button>
+                        </form>
+
+                        <!-- Evaluator Quick Fill Area -->
+                        <div class="role-quickfill-box" id="roleLoginQuickFillBox">
+                            <div class="role-quickfill-title">Evaluator Quick-Fill Credentials:</div>
+                            <div id="roleLoginQuickFillButtons"></div>
+                        </div>
+                    </div>
+
+                    <!-- Complainant Notice / Redirect -->
+                    <div id="roleSignupComplainantContainer" style="display:none;">
+                        <div class="role-notice-box">
+                            <strong>Public Grievance Redressal:</strong> Grievance submission, supporting affidavits, and tracking for students, faculty, and stakeholders do not require officer account registration. Please access the public complaint portal directly.
+                        </div>
+                        <div style="margin-top:16px;text-align:center;">
+                            <a href="complaint-portal.html" class="role-form-btn-submit" style="display:inline-block;text-decoration:none;padding:12px 24px;">
+                                <span>📄 Go to Public Complaint Portal</span> &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Bureau / Cell Officer Registration Request -->
+                    <div id="roleSignupBureauOfficerContainer" style="display:none;">
+                        <div class="role-notice-box">
+                            <strong>Bureau / Cell Officer Registration Protocol:</strong> Official accounts for AICTE Regulation Bureau (RB) and Public Grievance Redressal Cell (PGRC) are provisioned exclusively via Super Admin review and verification. Upon approval, you will receive an official activation token to configure your credentials.
+                        </div>
+                        <form id="roleBureauOfficerForm" onsubmit="RoleAuthModal.handleOfficerRegistrationSubmit(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerFullName">Full Name *</label>
+                                    <input type="text" id="bureauOfficerFullName" class="role-form-input" required placeholder="e.g. Er. Vikram Mehta">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerEmail">Government / Official Email *</label>
+                                    <input type="email" id="bureauOfficerEmail" class="role-form-input" required placeholder="officer@aicte.gov.in">
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerEmpId">Employee ID / Staff Code *</label>
+                                    <input type="text" id="bureauOfficerEmpId" class="role-form-input" required placeholder="e.g. EMP-RB-9021">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerBureau">Designated Bureau / Cell *</label>
+                                    <select id="bureauOfficerBureau" class="role-form-select" required>
+                                        <option value="RB">Regulation Bureau (RB) — Case Scrutiny &amp; Norms</option>
+                                        <option value="PGRC">Public Grievance Redressal Cell (PGRC) — Grievances</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerDesignation">Official Designation *</label>
+                                    <input type="text" id="bureauOfficerDesignation" class="role-form-input" required placeholder="e.g. Scrutiny Officer / Assistant Director">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="bureauOfficerDept">Department / Section</label>
+                                    <input type="text" id="bureauOfficerDept" class="role-form-input" placeholder="e.g. Technical Norms Compliance">
+                                </div>
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="bureauOfficerPhone">Official Mobile / Intercom Phone</label>
+                                <input type="tel" id="bureauOfficerPhone" class="role-form-input" placeholder="+91 11 2958 1000">
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="bureauOfficerVerificationInfo">Official Purpose / Office Order Reference</label>
+                                <textarea id="bureauOfficerVerificationInfo" class="role-form-textarea" rows="2" placeholder="Specify your posting details, official appointment reference, or administrative remarks..."></textarea>
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnBureauOfficerSubmit">
+                                <span>Submit Officer Access Request</span> &rarr;
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Regional Officer Access Request -->
+                    <div id="roleSignupOfficialContainer" style="display:none;">
+                        <div class="role-notice-box">
+                            <strong>Regional Office Access Protocol:</strong> Official accounts for Regional Offices are provisioned through administrative verification by the Super Admin. You may submit an access request below.
+                        </div>
+                        <form id="roleOfficialAccessForm" onsubmit="RoleAuthModal.handleOfficialAccessSubmit(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offFullName">Full Name *</label>
+                                    <input type="text" id="offFullName" class="role-form-input" required placeholder="e.g. Dr. Ramesh Kumar">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offEmail">Government / Official Email *</label>
+                                    <input type="email" id="offEmail" class="role-form-input" required placeholder="officer@aicte.gov.in">
+                                </div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offPhone">Official Phone Number</label>
+                                    <input type="tel" id="offPhone" class="role-form-input" placeholder="+91 11 2958 1000">
+                                </div>
+                                <div class="role-form-group">
+                                    <label class="role-form-label" for="offOrgUnit">Organization / Regional Unit *</label>
+                                    <input type="text" id="offOrgUnit" class="role-form-input" required placeholder="e.g. Western Regional Office">
+                                </div>
+                            </div>
+                            <div class="role-form-group">
+                                <label class="role-form-label" for="offJustification">Official Justification / Designatory Reference *</label>
+                                <textarea id="offJustification" class="role-form-textarea" rows="2" required placeholder="Specify your designation, employee ID, and official purpose for accessing the monitoring dashboard."></textarea>
+                            </div>
+                            <button type="submit" class="role-form-btn-submit" id="btnRoleAccessSubmit">
+                                <span>Submit Official Access Request</span> &rarr;
+                            </button>
+                        </form>
+
+                        <div class="role-quickfill-box" style="margin-top:16px;">
+                            <div class="role-quickfill-title">For Authorized Review / Administrative Verification:</div>
+                            <p style="font-size:0.8rem;color:#475569;margin-bottom:8px;">Switch to the <strong>Sign In</strong> tab to immediately test this role using verified credentials.</p>
+                            <button type="button" class="role-quickfill-btn" onclick="RoleAuthModal.switchMode('login')">Switch to Sign In &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Super Admin Restricted -->
+                    <div id="roleSignupAdminContainer" style="display:none;">
+                        <div class="role-notice-box warning">
+                            <strong>Access Prohibited:</strong> Public self-registration for the <strong>Super Admin</strong> role is strictly disabled under AICTE security directives. Super Admin accounts are provisioned exclusively via secure server-level configuration.
+                        </div>
+                        <p style="font-size:0.85rem;color:#475569;">
+                            If you are an authorized auditor inspecting system administration capabilities, please switch to <strong>Sign In</strong> and use the verified administrator credentials.
+                        </p>
+                        <div style="margin-top:16px;">
+                            <button type="button" class="role-form-btn-submit" onclick="RoleAuthModal.switchMode('login')">
+                                Switch to Super Admin Sign In &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background:#0b2545;color:#94a3b8;text-align:center;padding:16px;font-size:0.75rem;">
+        &copy; 2026 EduVision &bull; AICTE Integrated Institution Complaint Monitoring Platform.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/role-auth-modal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check url parameter ?mode=signup or ?role=...
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode') || 'login';
+            const role = urlParams.get('role') || null;
+
+            RoleAuthModal.switchMode(mode, false);
+            if (role) {
+                RoleAuthModal.selectRole(role);
+            } else {
+                RoleAuthModal.backToRoleSelection();
+            }
+        });
+    </script>
+</body>
+</html>

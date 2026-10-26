@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Complaint – EduVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/complaints.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="brand-link"><img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img"></a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header"><h4>Notifications</h4><p>Updates on your submitted grievances</p></div>
+        <div id="notifications-list-container"></div>
+      </div>
+
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header"><h4 class="user-name-label">Rahul Sharma</h4><p class="user-role-label">Student</p></div>
+          <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>Your Complaints</span></a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item">
+          <a href="../index.html" title="Return to Main Portal">
+            <i class="fas fa-arrow-left"></i>
+            <span>Main Portal</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-nav-item"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
+        <li class="sidebar-nav-item active"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
+        <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
+        <li class="sidebar-nav-item"><a href="guidelines.html#faqs"><i class="far fa-question-circle"></i><span>FAQs</span></a></li>
+      </ul>
+
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="tracking-card-container">
+        <div class="page-header-block" style="text-align:center;">
+          <h2>Track Your Grievance Status</h2>
+          <p>Enter your unique 14-digit Complaint Tracking ID (e.g. <code>CMP-2026-000103</code>) to inspect live progress.</p>
+        </div>
+
+        <!-- Tracking Search Bar -->
+        <form id="tracking-search-form" class="tracking-search-bar">
+          <input type="text" id="tracking-id-input" class="tracking-input" placeholder="Enter Complaint ID (e.g. CMP-2026-000103)..." required>
+          <button type="submit" class="btn-track">
+            <i class="fas fa-search"></i>
+            <span>Track</span>
+          </button>
+        </form>
+
+        <div id="tracking-loader" style="display:none; text-align:center; padding:30px;">
+          <span class="spinner spinner-blue" style="width:30px; height:30px; border-width:3px;"></span>
+          <p style="margin-top:10px; font-size:13px; color:#64748b;">Retrieving grievance records from AICTE database...</p>
+        </div>
+
+        <div id="tracking-empty-state"></div>
+
+        <!-- Tracking Result Card -->
+        <div id="tracking-result-card" style="display:none; border-top:1px solid #e2e8f0; padding-top:24px;">
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+            <div>
+              <span style="font-size:11.5px; color:#64748b; text-transform:uppercase; font-weight:700;">Grievance Tracking Number</span>
+              <h3 style="font-size:22px; font-weight:800; color:#1d4ed8;" id="result-tracking-id">CMP-2026-000103</h3>
+              <div style="font-size:14.5px; font-weight:600; color:#1e293b; margin-top:4px;" id="result-subject">Subject</div>
+            </div>
+            <div>
+              <span id="result-status-badge" class="status-badge in-process">In Process</span>
+            </div>
+          </div>
+
+          <!-- Metadata Grid -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; background:#f8fafc; padding:18px; border-radius:12px; margin-bottom:28px; border:1px solid #e2e8f0;">
+            <div>
+              <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Submission Date</div>
+              <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;" id="result-submission-date">22 Oct 2026</div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Institution</div>
+              <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;" id="result-institution">ABC Institute of Technology (UP)</div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Category</div>
+              <div style="font-size:13.5px; font-weight:700; color:#1e293b; margin-top:2px;" id="result-category">Academic Issues</div>
+            </div>
+          </div>
+
+          <!-- Timeline Section -->
+          <h4 style="font-size:16px; font-weight:700; color:#0f172a; margin-bottom:8px;">
+            <i class="fas fa-history" style="color:var(--primary-blue);"></i> Status Audit History
+          </h4>
+          <p style="font-size:12.5px; color:#64748b; margin-bottom:20px;">
+            Official milestone updates recorded by institutional grievance coordinators and AICTE regional officers.
+          </p>
+
+          <div class="complaint-timeline" id="result-timeline">
+            <!-- Timeline elements populated by tracking.js -->
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-left">EduVision | AICTE Complaint Monitoring Portal</div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a> |
+      <a href="guidelines.html#privacy">Privacy Policy</a> |
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">© 2026 EduVision. All Rights Reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/tracking.js"></script>
+</body>
+</html>

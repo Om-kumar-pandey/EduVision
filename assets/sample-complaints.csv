@@ -1,0 +1,6 @@
+permanent_id,bureau_code,title,category,priority,description,source_case_id
+1-1097234567,RB,Surprise Inspection Deficit in Computing Infrastructure,Infrastructure Deficit,HIGH,Hardware laboratory obsolete and inadequate network nodes.,CPGRAMS-2026-9901
+1-2048912384,PGRC,Excess Hostel Charges Retained Unlawfully,Capitation Fee / Overcharging,URGENT,Security deposit refund withheld for over 9 months.,PGRC-DIRECT-2004
+1-3958102931,RB,Faculty Promotion Irregularity Under CAS Norms,Faculty Irregularities,MEDIUM,Non-compliance with mandatory publication benchmarks.,INSP-2026-5510
+1-4829103948,PGRC,Delay in Issuance of Degree Certificate Post Graduation,Certificate Withholding,HIGH,College authorities withholding marksheet citing library dues.,PGRC-DIRECT-2005
+1-INVALID-0000,RB,Test Invalid Institution Record,Infrastructure Deficit,LOW,This institution does not exist in AICTE master list.,DEMO-ERR-01

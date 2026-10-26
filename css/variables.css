@@ -1,0 +1,98 @@
+﻿/**
+ * AICTE Integrated Institution Complaint Monitoring & Status Dashboard
+ * CSS Custom Properties & Variables
+ */
+
+:root {
+    /* Primary Government Color Palette */
+    --color-primary-navy: #0b2545;
+    --color-primary-dark: #07192e;
+    --color-primary-blue: #134074;
+    --color-gov-blue: #1d4ed8;
+    --color-gov-blue-hover: #1e40af;
+    --color-gov-blue-light: #eff6ff;
+
+    /* Accent Colors (Indian National / AICTE Pride) */
+    --color-accent-amber: #f59e0b;
+    --color-accent-saffron: #ea580c;
+    --color-accent-gold: #fbbf24;
+
+    /* Neutral & Backgrounds */
+    --color-bg-light: #f8fafc;
+    --color-bg-card: #ffffff;
+    --color-bg-subtle: #f1f5f9;
+    --color-bg-hover: #e2e8f0;
+
+    /* Borders & Dividers */
+    --color-border: #e2e8f0;
+    --color-border-dark: #cbd5e1;
+
+    /* Typography Colors */
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted: #64748b;
+    --color-text-light: #ffffff;
+
+    /* Status Badge Colors */
+    --status-received-bg: #dbeafe;
+    --status-received-text: #1e40af;
+    --status-received-border: #bfdbfe;
+
+    --status-underprocess-bg: #fef3c7;
+    --status-underprocess-text: #92400e;
+    --status-underprocess-border: #fde68a;
+
+    --status-disposed-bg: #dcfce7;
+    --status-disposed-text: #166534;
+    --status-disposed-border: #bbf7d0;
+
+    --status-overdue-bg: #fee2e2;
+    --status-overdue-text: #991b1b;
+    --status-overdue-border: #fecaca;
+
+    --status-transferred-bg: #f3e8ff;
+    --status-transferred-text: #6b21a8;
+    --status-transferred-border: #e9d5ff;
+
+    /* Priority Badges */
+    --priority-urgent-bg: #ffe4e6;
+    --priority-urgent-text: #9f1239;
+    --priority-high-bg: #ffedd5;
+    --priority-high-text: #9a3412;
+    --priority-medium-bg: #fef9c3;
+    --priority-medium-text: #854d0e;
+    --priority-low-bg: #f1f5f9;
+    --priority-low-text: #334155;
+
+    /* Spacing Scale */
+    --spacing-xs: 0.25rem;  /* 4px */
+    --spacing-sm: 0.5rem;   /* 8px */
+    --spacing-md: 1rem;     /* 16px */
+    --spacing-lg: 1.5rem;   /* 24px */
+    --spacing-xl: 2rem;     /* 32px */
+    --spacing-2xl: 3rem;    /* 48px */
+
+    /* Typography */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+
+    /* Layout dimensions */
+    --sidebar-width: 260px;
+    --header-height: 70px;
+}

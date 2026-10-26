@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complainant Portal — EduVision AICTE</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/role-auth-modal.css">
+    <style>
+        .portal-tabs {
+            display: flex;
+            background: #ffffff;
+            border-bottom: 2px solid var(--color-border);
+            margin-bottom: 24px;
+        }
+        .portal-tab-btn {
+            padding: 14px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+        .portal-tab-btn:hover {
+            color: var(--color-primary-navy);
+        }
+        .portal-tab-btn.active {
+            color: var(--color-primary-navy);
+            border-bottom-color: var(--color-gov-blue);
+        }
+        .inst-search-card {
+            background: #f8fafc;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            padding: 12px 14px;
+            margin-top: 6px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <!-- Top Government Header Strip -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="index.html" class="app-logo" style="text-decoration:none;color:#ffffff;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.4rem;">🎓</span>
+                <span class="app-title">EduVision &bull; Public Grievance Redressal Portal</span>
+            </a>
+            <span class="gov-badge" style="background:#e0f2fe;color:#0369a1;">Complainant Workspace</span>
+        </div>
+        <div class="header-right">
+            <div class="user-profile-badge">
+                <div class="avatar" id="headerUserAvatar">U</div>
+                <div class="user-details">
+                    <span class="user-name" id="headerUserName">Complainant</span>
+                    <span class="user-role" id="headerUserRole">Public Complainant</span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" style="color:#ffffff;border-color:rgba(255,255,255,0.4);">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="app-container" style="max-width:1200px;margin:24px auto;padding:0 20px;">
+
+        <!-- Welcome Banner -->
+        <div class="card" style="background:linear-gradient(90deg, #0b2545 0%, #1e3a8a 100%);color:#ffffff;padding:22px 28px;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+                <div>
+                    <h2 style="font-size:1.4rem;font-weight:800;color:#ffffff;margin:0 0 4px;">Institutional Grievance Filing &amp; Tracking Portal</h2>
+                    <p style="font-size:0.88rem;color:#cbd5e1;margin:0;">
+                        Submit institution-related complaints, upload supporting affidavits, and track your case in real time across AICTE Bureaus.
+                    </p>
+                </div>
+                <button type="button" class="btn btn-accent" onclick="switchPortalTab('file-complaint')" style="background:#d97706;border:none;color:#ffffff;font-weight:700;">
+                    <span>+</span> File New Complaint
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="portal-tabs">
+            <button class="portal-tab-btn active" id="tabBtnMyComplaints" onclick="switchPortalTab('my-complaints')">
+                <span>📋</span> My Registered Complaints
+            </button>
+            <button class="portal-tab-btn" id="tabBtnFileComplaint" onclick="switchPortalTab('file-complaint')">
+                <span>📄</span> File a Grievance
+            </button>
+            <button class="portal-tab-btn" id="tabBtnTrackRef" onclick="switchPortalTab('track-ref')">
+                <span>🔍</span> Public Reference Tracker
+            </button>
+        </div>
+
+        <!-- Tab 1: My Complaints -->
+        <div id="sectionMyComplaints">
+            <div class="card">
+                <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;">
+                    <div>
+                        <h3 class="card-title">My Registered Complaints</h3>
+                        <p class="card-subtitle">Showing all complaints submitted under your registered complainant profile</p>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="loadMyComplaints()">Refresh</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="data-table" id="myComplaintsTable">
+                            <thead>
+                                <tr>
+                                    <th>Complaint Ref ID</th>
+                                    <th>Institution</th>
+                                    <th>Subject / Category</th>
+                                    <th>Priority</th>
+                                    <th>Assigned Bureau</th>
+                                    <th>Date Filed</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myComplaintsTableBody">
+                                <tr>
+                                    <td colspan="8" style="text-align:center;padding:24px;">
+                                        <div class="spinner"></div>
+                                        <p style="margin-top:8px;">Loading your complaints...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: File a Grievance Form -->
+        <div id="sectionFileComplaint" style="display:none;">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">File an Official Grievance</h3>
+                    <p class="card-subtitle">All complaints are formally scrutinized under AICTE statutory regulations and assigned to the relevant Bureau</p>
+                </div>
+                <div class="card-body">
+                    <form id="fileComplaintForm" onsubmit="handleFileComplaintSubmit(event)">
+                        <!-- Institution Selection with Permanent ID Verification -->
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:16px;margin-bottom:20px;">
+                            <label class="form-label" for="instPermIdInput">
+                                Institution AICTE Permanent ID <span class="required">*</span>
+                            </label>
+                            <div style="display:flex;gap:10px;">
+                                <input type="text" id="instPermIdInput" class="form-input" required placeholder="e.g. 1-1097234567 or 1-2048912384" style="flex:1;">
+                                <button type="button" class="btn btn-primary" onclick="verifyInstitutionId()">Verify Institution</button>
+                            </div>
+                            <div style="font-size:0.75rem;color:#64748b;margin-top:4px;">
+                                Quick demo test IDs: <a href="javascript:void(0)" onclick="setPermId('1-1097234567')">1-1097234567 (Apex Institute)</a>, <a href="javascript:void(0)" onclick="setPermId('1-2048912384')">1-2048912384 (National Engineering Academy)</a>
+                            </div>
+
+                            <!-- Verified Institution Details Card -->
+                            <div id="verifiedInstCard" class="inst-search-card">
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <div>
+                                        <strong style="color:var(--color-primary-navy);font-size:0.95rem;" id="vInstName">-</strong>
+                                        <div style="font-size:0.8rem;color:#64748b;" id="vInstRegion">-</div>
+                                    </div>
+                                    <span class="badge badge-success" id="vInstBadge">Verified AICTE Approved</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Complaint Details -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                            <div class="form-group">
+                                <label class="form-label" for="complaintCategory">Grievance Category <span class="required">*</span></label>
+                                <select id="complaintCategory" class="form-select" required>
+                                    <option value="">-- Select Category --</option>
+                                    <option value="Faculty Irregularities">Faculty Irregularities / Cadre Ratio Deficit (RB)</option>
+                                    <option value="Capitation Fee / Overcharging">Capitation Fee / Illegal Fee Demands (PGRC)</option>
+                                    <option value="Degree Withholding">Withholding of Original Certificates / Degrees (PGRC)</option>
+                                    <option value="Admission Malpractice">Admission Malpractice / Over-intake (Approval Bureau)</option>
+                                    <option value="Infrastructure Deficit">Inadequate Laboratories &amp; Fire Safety Non-renewal (RB)</option>
+                                    <option value="Harassment / Ragging">Harassment / Anti-Ragging Non-compliance (PGRC)</option>
+                                    <option value="Other Regulatory Non-compliance">Other Statutory Non-compliance (General)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="complaintPriority">Urgency Level <span class="required">*</span></label>
+                                <select id="complaintPriority" class="form-select" required>
+                                    <option value="MEDIUM">Medium / Standard Scrutiny</option>
+                                    <option value="HIGH">High / Immediate Attention</option>
+                                    <option value="URGENT">Urgent / Exigent Circumstances</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintTitle">Grievance Subject / Title <span class="required">*</span></label>
+                            <input type="text" id="complaintTitle" class="form-input" required placeholder="Concise summary of the grievance..." style="width:100%;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintDescription">Detailed Factual Description <span class="required">*</span></label>
+                            <textarea id="complaintDescription" class="form-textarea" rows="4" required placeholder="State all relevant facts chronologically, including dates, departments involved, and specific violations..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="complaintDocName">Supporting Document (Affidavit, Payment Receipt, Fee Notice)</label>
+                            <input type="text" id="complaintDocName" class="form-input" placeholder="e.g. Affidavit_Regarding_Caution_Deposit.pdf" style="width:100%;">
+                        </div>
+
+                        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:12px;margin-bottom:20px;">
+                            <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.85rem;color:#1e3a8a;cursor:pointer;">
+                                <input type="checkbox" required style="margin-top:3px;">
+                                <span>I solemnly declare that the information furnished above is true and correct to the best of my knowledge and that no material particulars have been concealed.</span>
+                            </label>
+                        </div>
+
+                        <div style="display:flex;gap:12px;">
+                            <button type="submit" class="btn btn-primary" id="btnSubmitGrievance">
+                                <span>📄</span> Submit Grievance to AICTE &rarr;
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="switchPortalTab('my-complaints')">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Public Reference Tracker -->
+        <div id="sectionTrackRef" style="display:none;">
+            <div class="card" style="max-width:720px;margin:0 auto;">
+                <div class="card-header">
+                    <h3 class="card-title">Public Complaint Tracking</h3>
+                    <p class="card-subtitle">Inspect the current status and chronological updates of any complaint reference ID</p>
+                </div>
+                <div class="card-body">
+                    <form onsubmit="handlePortalTrackSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="portalTrackInput">Complaint Reference ID *</label>
+                            <div style="display:flex;gap:10px;">
+                                <input type="text" id="portalTrackInput" class="form-input" required placeholder="e.g. AICTE-2026-CASE-001 or EDU-2026-COMP-1049" style="flex:1;">
+                                <button type="submit" class="btn btn-primary" id="btnPortalTrackSubmit">Track Case</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="portalTrackResult" style="margin-top:20px;display:none;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Case Details / Timeline Modal -->
+    <div id="caseDetailModal" class="modal-overlay">
+        <div class="modal-container" style="max-width:700px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title" id="modalCaseNumber">Complaint Details</h3>
+                    <div style="font-size:0.8rem;color:#cbd5e1;" id="modalCaseSubtitle">Chronological Action History</div>
+                </div>
+                <button class="modal-close" onclick="closeCaseDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalCaseBody">
+                <div class="spinner"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeCaseDetailModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/complaint-portal.js"></script>
+</body>
+</html>

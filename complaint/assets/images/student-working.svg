@@ -1,0 +1,39 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="160" height="140">
+  <defs>
+    <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#BAE6FD"/>
+    </linearGradient>
+  </defs>
+  <!-- Speech bubble -->
+  <g transform="translate(10, 5)">
+    <rect x="0" y="0" width="105" height="32" rx="16" fill="url(#bubbleGrad)"/>
+    <path d="M50 32 L58 40 L62 32 Z" fill="#BAE6FD"/>
+    <text x="52" y="16" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="700" fill="#0369A1" text-anchor="middle">Together for</text>
+    <text x="52" y="26" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="700" fill="#0369A1" text-anchor="middle">Better Education</text>
+  </g>
+
+  <!-- Student Figure -->
+  <g transform="translate(70, 42)">
+    <!-- Body -->
+    <path d="M10 88 C10 65 24 55 42 55 C60 55 74 65 74 88 Z" fill="#3B82F6"/>
+    <!-- Collar / inner shirt -->
+    <path d="M37 55 L42 63 L47 55 Z" fill="#FFFFFF"/>
+    <!-- Head & Neck -->
+    <rect x="36" y="44" width="12" height="13" rx="2" fill="#FDBA74"/>
+    <circle cx="42" cy="33" r="15" fill="#FED7AA"/>
+    <!-- Hair -->
+    <path d="M27 31 C27 18 34 14 44 14 C54 14 58 20 58 31 C56 24 50 20 42 20 C34 20 29 25 27 31 Z" fill="#1E293B"/>
+    <!-- Eye & Smile -->
+    <circle cx="47" cy="32" r="2" fill="#1E293B"/>
+    <path d="M43 38 Q46 41 50 38" stroke="#C2410C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Desk & Laptop -->
+    <rect x="-20" y="86" width="110" height="6" rx="2" fill="#CBD5E1"/>
+    <!-- Laptop base -->
+    <polygon points="5,86 45,86 42,80 10,80" fill="#64748B"/>
+    <!-- Laptop screen open angled -->
+    <polygon points="12,80 38,80 34,58 14,58" fill="#1E293B"/>
+    <rect x="15" y="60" width="18" height="17" rx="1" fill="#38BDF8" opacity="0.9"/>
+  </g>
+</svg>

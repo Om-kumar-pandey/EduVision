@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile – EduVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/complaints.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="brand-link"><img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img"></a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="global-search-input" class="search-input" placeholder="Search institution, complaint ID or anything...">
+        <i class="fas fa-search search-shortcut"></i>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-notification-btn" id="nav-notifications-btn" aria-label="Notifications">
+        <i class="far fa-bell"></i>
+        <span class="badge-count" id="notification-badge-count">3</span>
+      </button>
+      <div class="dropdown-panel" id="notifications-dropdown">
+        <div class="dropdown-header"><h4>Notifications</h4><p>Updates on your submitted grievances</p></div>
+        <div id="notifications-list-container"></div>
+      </div>
+
+      <div class="user-profile-menu" id="user-profile-menu-btn">
+        <img src="assets/images/avatar-rahul.svg" alt="User Avatar" class="user-avatar-circle">
+        <div class="user-text-meta">
+          <span class="user-name-label">Rahul Sharma</span>
+          <span class="user-role-label">Student</span>
+        </div>
+        <i class="fas fa-chevron-down user-dropdown-arrow"></i>
+
+        <div class="dropdown-panel" id="user-profile-dropdown">
+          <div class="dropdown-header"><h4 class="user-name-label">Rahul Sharma</h4><p class="user-role-label">Student</p></div>
+          <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>Your Complaints</span></a>
+          <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item">
+          <a href="../index.html" title="Return to Main Portal">
+            <i class="fas fa-arrow-left"></i>
+            <span>Main Portal</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-nav-item"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
+        <li class="sidebar-nav-item"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
+        <li class="sidebar-nav-item active"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
+        <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
+        <li class="sidebar-nav-item"><a href="guidelines.html#faqs"><i class="far fa-question-circle"></i><span>FAQs</span></a></li>
+      </ul>
+
+      <div class="sidebar-bottom-block">
+        <img src="assets/images/building-glow.svg" alt="Glow Building" class="building-illustration">
+        <h4 class="sidebar-voice-title">Your Voice Matters</h4>
+        <p class="sidebar-voice-text">Help us build a better technical education system for a brighter future.</p>
+        <div class="sidebar-aicte-seal">
+          <img src="assets/images/aicte-logo.svg" alt="AICTE Emblem" class="aicte-seal-img">
+          <span class="aicte-seal-text">All India Council for Technical Education</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="form-card-container">
+
+        <!-- Profile Banner Card -->
+        <div style="display:flex; align-items:center; gap:20px; background:linear-gradient(135deg, #0c2b4e, #1a4d80); padding:24px; border-radius:12px; color:#fff; margin-bottom:28px;">
+          <img src="assets/images/avatar-rahul.svg" alt="User Avatar" style="width:72px; height:72px; border-radius:50%; border:3px solid #38bdf8;">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; color:#fff;" id="profile-display-name">Rahul Sharma</h2>
+            <div style="font-size:13px; color:#93c5fd; margin-top:2px;">
+              <span id="profile-display-role">Student</span> • <span id="profile-display-inst">ABC Institute of Technology (UP)</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; margin-top:4px;" id="profile-display-email">
+              rahul.sharma@eduvision.in
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1: Edit Details -->
+        <div class="page-header-block">
+          <h3>Personal &amp; Academic Information</h3>
+          <p>Update your contact and institutional identity.</p>
+        </div>
+
+        <form id="edit-profile-form" style="margin-bottom:36px;">
+          <div class="form-grid-2" style="margin-bottom:18px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="profileFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="profileFullName" class="form-field-input" required>
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="profileEmail">Registered Email</label>
+              <input type="email" id="profileEmail" class="form-field-input" readonly style="background-color:#f1f5f9;">
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-bottom:18px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="profilePhone">Phone Number</label>
+              <input type="tel" id="profilePhone" class="form-field-input" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="profileInstitution">Institution Name</label>
+              <input type="text" id="profileInstitution" class="form-field-input">
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" id="btn-save-profile">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+          </div>
+        </form>
+
+        <!-- Section 2: Change Password -->
+        <div class="page-header-block" style="border-top:1px solid #e2e8f0; padding-top:28px;">
+          <h3>Security &amp; Password</h3>
+          <p>Ensure your account uses a secure password (minimum 8 characters).</p>
+        </div>
+
+        <form id="change-password-form">
+          <div class="form-grid-1" style="max-width:480px; margin-bottom:18px;">
+            <div class="form-field-group">
+              <label class="form-field-label" for="currentPassword">Current Password <span class="req">*</span></label>
+              <input type="password" id="currentPassword" class="form-field-input" required>
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="newPassword">New Password <span class="req">*</span></label>
+              <input type="password" id="newPassword" class="form-field-input" required minlength="8">
+            </div>
+            <div class="form-field-group">
+              <label class="form-field-label" for="confirmPassword">Confirm New Password <span class="req">*</span></label>
+              <input type="password" id="confirmPassword" class="form-field-input" required minlength="8">
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-start;">
+            <button type="submit" class="btn-primary" id="btn-save-password">
+              <i class="fas fa-key"></i> Update Password
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-left">EduVision | AICTE Complaint Monitoring Portal</div>
+    <div class="footer-links">
+      <a href="guidelines.html#terms">Terms &amp; Conditions</a> |
+      <a href="guidelines.html#privacy">Privacy Policy</a> |
+      <a href="support.html">Contact Us</a>
+    </div>
+    <div class="footer-right">© 2026 EduVision. All Rights Reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

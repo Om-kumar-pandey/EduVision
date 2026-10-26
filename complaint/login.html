@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – EduVision Complaint Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page-body">
+
+  <div class="auth-container">
+    <div class="auth-header">
+      <a href="index.html">
+        <img src="assets/images/logo.svg" alt="EduVision Logo" class="auth-brand-logo">
+      </a>
+      <h2 class="auth-title">Sign in to your Account</h2>
+      <p class="auth-subtitle">AICTE Technical Education Grievance Portal</p>
+    </div>
+
+    <div class="auth-body">
+      <form id="login-form">
+        <div class="auth-form-group">
+          <label class="auth-label" for="loginEmail">Email Address</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="loginEmail" class="auth-input" placeholder="name@domain.com" required>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="loginPassword">Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPassword" class="auth-input" placeholder="••••••••" required>
+          </div>
+        </div>
+
+        <div class="auth-row-between">
+          <label class="auth-remember-wrap">
+            <input type="checkbox" id="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-forgot-link" onclick="showToast('Please contact your institution grievance officer for password resets.', 'info')">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary-auth" id="btn-login-submit">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Sign In</span>
+        </button>
+      </form>
+
+      <div class="demo-credentials-box">
+        <div class="demo-credentials-title">
+          <i class="fas fa-bolt"></i> Quick Demo Fill:
+        </div>
+        <div class="demo-account-buttons">
+          <button type="button" class="btn-demo-badge" onclick="fillDemo('rahul.sharma@eduvision.in', 'Student@123')">Student (Rahul)</button>
+          <button type="button" class="btn-demo-badge" onclick="fillDemo('sk.verma@aicte-india.org', 'Officer@123')">AICTE Officer</button>
+          <button type="button" class="btn-demo-badge" onclick="fillDemo('admin@eduvision.in', 'Admin@123')">Admin</button>
+        </div>
+      </div>
+
+      <div class="auth-footer-prompt">
+        Don't have an account? <a href="register.html">Register here</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function fillDemo(email, pass) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = pass;
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-login-submit');
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Signing in...';
+
+      try {
+        const res = await auth.login(email, pass);
+        showToast('Login successful! Welcome back.', 'success');
+        setTimeout(() => {
+          if (res.user && (res.user.role === 'ADMIN' || res.user.role === 'AICTE_OFFICER')) {
+            window.location.href = 'admin-dashboard.html';
+          } else {
+            window.location.href = 'index.html';
+          }
+        }, 800);
+      } catch (err) {
+        showToast(err.message || 'Invalid credentials', 'danger');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -809,6 +809,71 @@
                                 </thead>
                                 <tbody id="allCasesQueueTableBody">
                                     <tr><td colspan="8" style="text-align:center;padding:30px;">Loading all bureau cases...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================================================== -->
+                <!-- PANE 5B: CASE ASSIGNMENT & DELEGATION SUITE                -->
+                <!-- ======================================================== -->
+                <div class="tab-pane" id="paneCaseAssignment">
+                    <div class="card-title-row" style="margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin:0;">Case Assignment &amp; Officer Delegation</h2>
+                            <p style="font-size:0.85rem; color:#64748b; margin:4px 0 0;">Direct statutory case assignment, workload rebalancing, and investigation directives</p>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="openAssignModalQuick()">
+                            <span>+</span> Assign New Case
+                        </button>
+                    </div>
+
+                    <!-- Assignment KPI Row -->
+                    <div class="quick-stats-row" style="margin-bottom:20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+                        <div class="dashboard-card" style="padding:16px; border-left:4px solid #f59e0b;">
+                            <div style="font-size:0.78rem; font-weight:700; color:#64748b; text-transform:uppercase;">Unassigned Queue</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:#0f172a; margin:4px 0;" id="kpiUnassignedCount">2</div>
+                            <div style="font-size:0.75rem; color:#f59e0b;">Pending Allocation</div>
+                        </div>
+                        <div class="dashboard-card" style="padding:16px; border-left:4px solid #10b981;">
+                            <div style="font-size:0.78rem; font-weight:700; color:#64748b; text-transform:uppercase;">Active Officers</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:#0f172a; margin:4px 0;">4</div>
+                            <div style="font-size:0.75rem; color:#10b981;">In Regulatory Division</div>
+                        </div>
+                        <div class="dashboard-card" style="padding:16px; border-left:4px solid #0284c7;">
+                            <div style="font-size:0.78rem; font-weight:700; color:#64748b; text-transform:uppercase;">Avg. Assignment Time</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:#0f172a; margin:4px 0;">1.8 Days</div>
+                            <div style="font-size:0.75rem; color:#0284c7;">Target: &lt; 3 Days</div>
+                        </div>
+                        <div class="dashboard-card" style="padding:16px; border-left:4px solid #6366f1;">
+                            <div style="font-size:0.78rem; font-weight:700; color:#64748b; text-transform:uppercase;">Delegated This Month</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:#0f172a; margin:4px 0;" id="kpiDelegatedCount">38</div>
+                            <div style="font-size:0.75rem; color:#6366f1;">94% on schedule</div>
+                        </div>
+                    </div>
+
+                    <!-- Cases Ready for Assignment Table -->
+                    <div class="dashboard-card" style="padding:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <h3 style="font-size:1.05rem; font-weight:700; color:#0f172a; margin:0;">Bureau Case Allocation Queue</h3>
+                            <span style="font-size:0.8rem; color:#64748b;">Click 'Assign / Reassign' to delegate to an investigation officer</span>
+                        </div>
+                        <div class="gov-table-container">
+                            <table class="gov-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Institution</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned Officer</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="caseAssignmentQueueTableBody">
+                                    <tr><td colspan="7" style="text-align:center;padding:30px;">Loading allocation queue...</td></tr>
                                 </tbody>
                             </table>
                         </div>

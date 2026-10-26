@@ -1,7 +1,7 @@
-/**
+﻿/**
  * AICTE Integrated Institution Complaint Monitoring & Status Dashboard
  * Bureau / Cell Workspace Controller (Dashboard 2)
- * 
+ *
  * Features:
  * - Live KPI metrics, Chart.js Donut & Bar workload distributions
  * - AI-Powered Overlapping Complaint Detection Suite
@@ -72,6 +72,8 @@ function switchPane(targetPaneId) {
         loadMyCasesQueue();
     } else if (targetPaneId === 'paneAllCases') {
         loadAllCasesQueue();
+    } else if (targetPaneId === 'paneCaseAssignment') {
+        loadCaseAssignmentQueue();
     } else if (targetPaneId === 'paneInstitutions') {
         loadInstitutionsList();
     } else if (targetPaneId === 'paneAudit') {
@@ -312,9 +314,9 @@ async function loadDashboardStats() {
 
         // Try to fetch real central / bureau KPIs
         const kpis = await Api.get(CONFIG.ENDPOINTS.CENTRAL_KPIS).catch(() => null);
-        
+
         let total = 412, pending = 187, resolved = 198, overdue = 27, inProgress = 102, transferred = 17;
-        
+
         if (kpis && !isDemo && kpis.totalCases > 100) {
             total = kpis.totalCases;
             pending = kpis.pendingCases;
@@ -1238,6 +1240,62 @@ async function loadAllCasesQueue() {
         `).join('');
     } catch(e) {
         tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#dc2626;">Error: ${e.message}</td></tr>`;
+    }
+}
+
+async function loadCaseAssignmentQueue() {
+    const tbody = document.getElementById('caseAssignmentQueueTableBody');
+    if (!tbody) return;
+    try {
+        let cases = [];
+        try {
+            const res = await Api.get(`${CONFIG.ENDPOINTS.CASES_QUEUE}?size=20`);
+            cases = res.content || [];
+        } catch(e) {
+            cases = allBureauCasesCache;
+        }
+
+        if (!cases || cases.length === 0) {
+            cases = [
+                { id: 1, caseNumber: 'CASE-2026-0784', institutionName: 'Global Institute of Technology', category: 'Academic Grievance', priority: 'HIGH', status: 'IN_PROGRESS', assignedOfficer: 'Shri Rajesh Kulkarni' },
+                { id: 2, caseNumber: 'CASE-2026-0732', institutionName: 'Techno College of Engineering', category: 'Fee Discrepancy', priority: 'MEDIUM', status: 'NEW', assignedOfficer: 'Unassigned' },
+                { id: 3, caseNumber: 'CASE-2026-0691', institutionName: 'Apex Institute of Technology', category: 'Infrastructure Violation', priority: 'URGENT', status: 'UNDER_REVIEW', assignedOfficer: 'Dr. Ananya Sen' },
+                { id: 4, caseNumber: 'CASE-2026-0655', institutionName: 'National Academy of Engineering', category: 'Faculty Shortage', priority: 'HIGH', status: 'NEW', assignedOfficer: 'Unassigned' },
+                { id: 5, caseNumber: 'CASE-2026-0610', institutionName: 'Deccan Institute of Higher Tech', category: 'Admission Irregularity', priority: 'MEDIUM', status: 'IN_PROGRESS', assignedOfficer: 'Shri Rajesh Kulkarni' }
+            ];
+        }
+
+        tbody.innerHTML = cases.map(c => {
+            const priorityClass = (c.priority || 'MEDIUM').toLowerCase() === 'urgent' ? 'status-transferred' :
+                                  (c.priority || 'MEDIUM').toLowerCase() === 'high' ? 'status-open' : 'status-in-progress';
+            const isUnassigned = !c.assignedOfficer || c.assignedOfficer === 'Unassigned' || !c.assignedToUserName;
+            const officerName = c.assignedOfficer || c.assignedToUserName || 'Unassigned';
+            const assigneeHtml = isUnassigned
+                ? '<span style="color:#dc2626; font-weight:700;">Unassigned</span>'
+                : `<span style="color:#0f172a; font-weight:600;">${officerName}</span>`;
+
+            return `
+                <tr>
+                    <td><strong style="color:#0076ff;">${c.caseNumber || 'CASE-2026-' + c.id}</strong></td>
+                    <td>${c.institutionName || 'AICTE Institute'}</td>
+                    <td>${c.category || 'General Grievance'}</td>
+                    <td><span class="status-pill ${priorityClass}">${c.priority || 'NORMAL'}</span></td>
+                    <td><span class="status-pill status-in-progress">${c.status || 'PENDING'}</span></td>
+                    <td>${assigneeHtml}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="openAssignModalQuick(${c.id})">
+                            ${isUnassigned ? 'Assign Officer' : 'Reassign'}
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        const unassignedCount = cases.filter(c => !c.assignedOfficer || c.assignedOfficer === 'Unassigned' || !c.assignedToUserName).length;
+        const unassignedEl = document.getElementById('kpiUnassignedCount');
+        if (unassignedEl) unassignedEl.textContent = unassignedCount;
+    } catch(err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#dc2626;">Error: ${err.message}</td></tr>`;
     }
 }
 
