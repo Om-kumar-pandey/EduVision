@@ -9,6 +9,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Global Utility Functions
+ */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+window.escapeHtml = escapeHtml;
+
+function formatDateString(iso) {
+  if (!iso) return '';
+  try {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    const day = d.getDate().toString().padStart(2, '0');
+    const month = d.toLocaleString('en-US', { month: 'short' });
+    const year = d.getFullYear();
+    return `${day} ${month} ${year}`;
+  } catch (e) {
+    return iso;
+  }
+}
+window.formatDateString = formatDateString;
+
+function getStatusBadgeInfo(status) {
+  if (!status) return { label: 'Submitted', cssClass: 'submitted' };
+  const s = String(status).toUpperCase().replace(/\s+/g, '_');
+  switch (s) {
+    case 'IN_PROCESS':
+      return { label: 'In Process', cssClass: 'in-process' };
+    case 'UNDER_REVIEW':
+      return { label: 'Under Review', cssClass: 'under-review' };
+    case 'RESOLVED':
+      return { label: 'Resolved', cssClass: 'resolved' };
+    case 'REJECTED':
+      return { label: 'Rejected', cssClass: 'rejected' };
+    case 'SUBMITTED':
+      return { label: 'Submitted', cssClass: 'submitted' };
+    case 'CLOSED':
+      return { label: 'Closed', cssClass: 'closed' };
+    default:
+      return { label: status, cssClass: 'in-process' };
+  }
+}
+window.getStatusBadgeInfo = getStatusBadgeInfo;
+
+/**
  * Toast notifications
  */
 function showToast(message, type = 'info') {
@@ -50,7 +101,7 @@ function showToast(message, type = 'info') {
 window.showToast = showToast;
 
 /**
- * Populate user avatar, name, and role in top navigation
+ * Populate user avatar, name, role and dynamic hero banner
  */
 function initUserBar() {
   const user = auth.getUser() || CONFIG.FALLBACK_DATA.user;
@@ -66,6 +117,9 @@ function initUserBar() {
     el.src = user.avatarUrl || 'assets/images/avatar-rahul.svg';
     el.alt = user.fullName || 'User';
   });
+
+  // Dynamic Hero Banner role pill based on logged-in user role
+  updateHeroBannerRole(user);
 
   // If user is Admin or AICTE_OFFICER, add Admin Dashboard link to sidebar if not present
   if (user && (user.role === 'ADMIN' || user.role === 'AICTE_OFFICER')) {
@@ -83,6 +137,57 @@ function initUserBar() {
     }
   }
 }
+
+/**
+ * Dynamically displays only the logged in user's role in the Hero Banner
+ */
+function updateHeroBannerRole(user) {
+  const container = document.getElementById('hero-role-pill-container') || document.querySelector('.audience-pills-row');
+  if (!container) return;
+
+  const role = (user && user.role ? user.role.toUpperCase() : 'STUDENT');
+
+  let icon = 'fa-user-graduate';
+  let label = 'Student';
+
+  switch (role) {
+    case 'STUDENT':
+      icon = 'fa-user-graduate';
+      label = 'Student';
+      break;
+    case 'TEACHER':
+      icon = 'fa-chalkboard-teacher';
+      label = 'Teacher';
+      break;
+    case 'HOD':
+      icon = 'fa-user-tie';
+      label = 'HOD';
+      break;
+    case 'INSTITUTION_HEAD':
+      icon = 'fa-university';
+      label = 'Institution Head';
+      break;
+    case 'AICTE_OFFICER':
+      icon = 'fa-user-shield';
+      label = 'AICTE Officer';
+      break;
+    case 'ADMIN':
+      icon = 'fa-user-shield';
+      label = 'Administrator';
+      break;
+    default:
+      icon = 'fa-user';
+      label = auth.formatRole(role);
+      break;
+  }
+
+  container.innerHTML = `
+    <span class="audience-pill" id="active-user-role-pill">
+      <i class="fas ${icon}"></i> ${escapeHtml(label)}
+    </span>
+  `;
+}
+window.updateHeroBannerRole = updateHeroBannerRole;
 
 /**
  * Handle mobile sidebar toggle and active nav links

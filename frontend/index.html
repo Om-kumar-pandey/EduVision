@@ -83,7 +83,7 @@
           </a>
           <a href="my-complaints.html" class="dropdown-item">
             <i class="fas fa-file-alt"></i>
-            <span>My Complaints</span>
+            <span>Your Complaints</span>
           </a>
           <a href="guidelines.html" class="dropdown-item">
             <i class="fas fa-book"></i>
@@ -122,13 +122,13 @@
         <li class="sidebar-nav-item">
           <a href="file-complaint.html">
             <i class="fas fa-file-signature"></i>
-            <span>File a Complaint</span>
+            <span>File a New Complaint</span>
           </a>
         </li>
         <li class="sidebar-nav-item">
           <a href="my-complaints.html">
             <i class="fas fa-folder-open"></i>
-            <span>My Complaints</span>
+            <span>Your Complaints</span>
           </a>
         </li>
         <li class="sidebar-nav-item">
@@ -189,14 +189,9 @@
               <h1 class="hero-title">Welcome to<br>EduVision Complaint Portal</h1>
               <p class="hero-subtitle">Raise your concern. We ensure it reaches the right hands.</p>
               
-              <!-- 6 Category Pills -->
-              <div class="audience-pills-row">
-                <span class="audience-pill"><i class="fas fa-user-graduate"></i> Students</span>
-                <span class="audience-pill"><i class="fas fa-chalkboard-teacher"></i> Teachers</span>
-                <span class="audience-pill"><i class="fas fa-user-tie"></i> HODs</span>
-                <span class="audience-pill"><i class="fas fa-university"></i> Institution Heads</span>
-                <span class="audience-pill"><i class="fas fa-user-shield"></i> AICTE Officers</span>
-                <span class="audience-pill"><i class="fas fa-users"></i> &amp; Others</span>
+              <!-- Role Pill (Dynamically updated for logged-in role) -->
+              <div class="audience-pills-row" id="hero-role-pill-container">
+                <span class="audience-pill"><i class="fas fa-user-graduate"></i> Student</span>
               </div>
             </div>
 
@@ -322,7 +317,7 @@
                 <a href="file-complaint.html">
                   <div class="quick-link-content">
                     <i class="far fa-file-alt"></i>
-                    <span>File a Complaint</span>
+                    <span>File a New Complaint</span>
                   </div>
                   <i class="fas fa-arrow-right"></i>
                 </a>

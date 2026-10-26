@@ -21,8 +21,6 @@ public class CreateComplaintRequest {
     @NotBlank(message = "Grievance category is required")
     private String category;
 
-    @NotBlank(message = "Subject is required")
-    @Size(min = 5, max = 150, message = "Subject must be between 5 and 150 characters")
     private String subject;
 
     @NotBlank(message = "Description is required")
@@ -51,7 +49,16 @@ public class CreateComplaintRequest {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public String getSubject() { return subject; }
+    public String getSubject() {
+        if (subject != null && !subject.trim().isEmpty()) {
+            return subject.trim();
+        }
+        if (description != null && !description.trim().isEmpty()) {
+            String trimmed = description.trim().replaceAll("\\s+", " ");
+            return trimmed.length() > 80 ? trimmed.substring(0, 77) + "..." : trimmed;
+        }
+        return "Complaint Details";
+    }
     public void setSubject(String subject) { this.subject = subject; }
 
     public String getDescription() { return description; }

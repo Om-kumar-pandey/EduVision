@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File a Complaint – EduVision</title>
+  <title>File a New Complaint – EduVision</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -59,7 +59,7 @@
             <p class="user-role-label">Student</p>
           </div>
           <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
-          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>My Complaints</span></a>
+          <a href="my-complaints.html" class="dropdown-item"><i class="fas fa-file-alt"></i><span>Your Complaints</span></a>
           <a href="#" class="dropdown-item danger-link btn-logout-action"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a>
         </div>
       </div>
@@ -72,8 +72,8 @@
     <aside class="sidebar">
       <ul class="sidebar-nav-list">
         <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
-        <li class="sidebar-nav-item active"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a Complaint</span></a></li>
-        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>My Complaints</span></a></li>
+        <li class="sidebar-nav-item active"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
+        <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
         <li class="sidebar-nav-item"><a href="track-complaint.html"><i class="fas fa-compass"></i><span>Track Complaint</span></a></li>
         <li class="sidebar-nav-item"><a href="profile.html"><i class="fas fa-user"></i><span>My Profile</span></a></li>
         <li class="sidebar-nav-item"><a href="support.html"><i class="fas fa-question-circle"></i><span>Help &amp; Support</span></a></li>
@@ -94,7 +94,7 @@
     <main class="main-wrapper">
       <div class="form-card-container">
         <div class="page-header-block">
-          <h2>File a New Grievance</h2>
+          <h2>File a New Complaint</h2>
           <p>Submit your formal complaint regarding a technical institution. Every submission is recorded with an official audit trail.</p>
         </div>
 
@@ -121,7 +121,12 @@
           <div class="form-grid-2" style="margin-bottom:20px;">
             <div class="form-field-group">
               <label class="form-field-label" for="institutionName">Institution Name <span class="req">*</span></label>
-              <input type="text" id="institutionName" class="form-field-input" placeholder="e.g. ABC Institute of Technology" required>
+              <div class="institution-search-wrapper">
+                <i class="fas fa-search institution-input-icon"></i>
+                <input type="text" id="institutionName" class="form-field-input institution-search-input" placeholder="Search AICTE-approved institution by name, code or district..." autocomplete="off" required>
+                <i class="fas fa-times-circle institution-clear-btn" id="institution-clear-btn" title="Clear selection"></i>
+                <div class="institution-suggestions-dropdown" id="institution-dropdown"></div>
+              </div>
             </div>
             <div class="form-field-group">
               <label class="form-field-label" for="institutionType">Institution Type <span class="req">*</span></label>
@@ -140,6 +145,28 @@
               <label class="form-field-label" for="complaintCategory">Grievance Category <span class="req">*</span></label>
               <select id="complaintCategory" class="form-field-select" required>
                 <option value="">Select Category...</option>
+                <optgroup label="Academic Issues">
+                  <option value="Admission Related">Admission Related</option>
+                  <option value="Examination">Examination</option>
+                  <option value="Result &amp; Evaluation">Result &amp; Evaluation</option>
+                  <option value="Fee Related">Fee Related</option>
+                  <option value="Fee Refund">Fee Refund</option>
+                  <option value="Scholarship">Scholarship</option>
+                  <option value="Attendance Related">Attendance Related</option>
+                  <option value="Faculty Related">Faculty Related</option>
+                  <option value="Infrastructure">Infrastructure</option>
+                  <option value="Hostel &amp; Accommodation">Hostel &amp; Accommodation</option>
+                  <option value="Transport &amp; Parking">Transport &amp; Parking</option>
+                  <option value="Library &amp; Laboratory">Library &amp; Laboratory</option>
+                  <option value="Placement &amp; Internship">Placement &amp; Internship</option>
+                  <option value="Harassment or Misconduct">Harassment or Misconduct</option>
+                  <option value="Ragging &amp; Bullying">Ragging &amp; Bullying</option>
+                  <option value="Discrimination">Discrimination</option>
+                  <option value="Student Welfare">Student Welfare</option>
+                  <option value="Certificate &amp; Documents">Certificate &amp; Documents</option>
+                  <option value="Rules &amp; Policy Violation">Rules &amp; Policy Violation</option>
+                  <option value="Other">Other</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -148,14 +175,6 @@
           <h3 style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
             3. Complaint Details
           </h3>
-          <div class="form-grid-1" style="margin-bottom:20px;">
-            <div class="form-field-group">
-              <label class="form-field-label" for="complaintSubject">Subject / Brief Summary <span class="req">*</span></label>
-              <input type="text" id="complaintSubject" class="form-field-input" placeholder="e.g. Delayed mid-term examination schedule publication" required minlength="5" maxlength="150">
-              <span class="form-hint">Summarize your grievance clearly in one sentence (max 150 characters).</span>
-            </div>
-          </div>
-
           <div class="form-grid-2" style="margin-bottom:20px;">
             <div class="form-field-group">
               <label class="form-field-label" for="incidentDate">Date of Incident</label>
@@ -165,9 +184,9 @@
 
           <div class="form-grid-1" style="margin-bottom:20px;">
             <div class="form-field-group">
-              <label class="form-field-label" for="complaintDescription">Detailed Description <span class="req">*</span></label>
-              <textarea id="complaintDescription" class="form-field-textarea" placeholder="Please provide specific facts, dates, affected students/courses, previous internal complaints filed with the college, and desired resolution..." required minlength="20"></textarea>
-              <span class="form-hint">Minimum 20 characters. Include clear chronological facts.</span>
+              <label class="form-field-label" for="complaintDescription">Complaint Details <span class="req">*</span></label>
+              <textarea id="complaintDescription" class="form-field-textarea" placeholder="Describe your complaint in detail..." required minlength="10" rows="6"></textarea>
+              <span class="form-hint">Minimum 10 characters. Provide clear chronological facts, dates, and desired resolution.</span>
             </div>
           </div>
 
@@ -196,7 +215,7 @@
             <a href="index.html" class="btn-secondary">Cancel</a>
             <button type="submit" class="btn-primary" id="btn-submit-complaint">
               <i class="fas fa-paper-plane"></i>
-              <span>Submit Grievance</span>
+              <span>Submit Complaint</span>
             </button>
           </div>
         </form>
@@ -208,7 +227,7 @@
   <div class="modal-overlay" id="success-modal">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3><i class="fas fa-check-circle" style="color:#10b981;"></i> Grievance Submitted Successfully</h3>
+        <h3><i class="fas fa-check-circle" style="color:#10b981;"></i> Complaint Submitted Successfully</h3>
         <i class="fas fa-times modal-close-btn" onclick="document.getElementById('success-modal').classList.remove('show')"></i>
       </div>
       <div class="modal-body" style="text-align:center;">

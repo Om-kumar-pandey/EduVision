@@ -54,15 +54,27 @@ const CONFIG = {
     THEME: 'eduvision_theme'
   },
 
-  // Complaint Categories
+  // Complaint Categories (Academic Issues group)
   CATEGORIES: [
-    'Academic Issues',
+    'Admission Related',
     'Examination',
+    'Result & Evaluation',
     'Fee Related',
-    'Infrastructure',
-    'Faculty Related',
-    'Harassment or Misconduct',
+    'Fee Refund',
     'Scholarship',
+    'Attendance Related',
+    'Faculty Related',
+    'Infrastructure',
+    'Hostel & Accommodation',
+    'Transport & Parking',
+    'Library & Laboratory',
+    'Placement & Internship',
+    'Harassment or Misconduct',
+    'Ragging & Bullying',
+    'Discrimination',
+    'Student Welfare',
+    'Certificate & Documents',
+    'Rules & Policy Violation',
     'Other'
   ],
 

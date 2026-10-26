@@ -19,8 +19,6 @@ public class CreateComplaintRequest {
     @NotBlank(message = "Category is required")
     private String category;
 
-    @NotBlank(message = "Subject is required")
-    @Size(min = 5, max = 255, message = "Subject must be between 5 and 255 characters")
     private String subject;
 
     @NotBlank(message = "Detailed description is required")
@@ -47,7 +45,16 @@ public class CreateComplaintRequest {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public String getSubject() { return subject; }
+    public String getSubject() {
+        if (subject != null && !subject.trim().isEmpty()) {
+            return subject.trim();
+        }
+        if (description != null && !description.trim().isEmpty()) {
+            String trimmed = description.trim().replaceAll("\\s+", " ");
+            return trimmed.length() > 80 ? trimmed.substring(0, 77) + "..." : trimmed;
+        }
+        return "Complaint Details";
+    }
     public void setSubject(String subject) { this.subject = subject; }
 
     public String getDescription() { return description; }
