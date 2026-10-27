@@ -21,13 +21,13 @@
                 <a href="index.html" class="edu-brand">
                     <img src="assets/images/logo.png" alt="EduVision logo" class="edu-logo-img">
                     <div>
-                        <div class="edu-brand-title">EduVision</div>
+                        <div class="edu-brand-title"><span class="brand-edu">Edu</span><span class="brand-vision">Vision</span></div>
                         <div class="edu-brand-subtitle">Transparent • Responsive • Better Education</div>
                     </div>
                 </a>
 
                 <!-- Navigation Links -->
-                <nav>
+                <nav class="edu-nav-menu">
                     <ul class="edu-nav-links">
                         <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="complaint/index.html">Complaint Portal</a></li>
@@ -41,7 +41,7 @@
 
                 <!-- Right Action Buttons -->
                 <div class="edu-nav-actions">
-                    <a href="complaint/index.html" class="btn-complaint-nav" style="background:#d97706;color:#ffffff;padding:8px 16px;border-radius:4px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;box-shadow:0 2px 6px rgba(217,119,6,0.25);">
+                    <a href="complaint/index.html" class="btn-complaint-nav">
                         <span>📄</span> File a Complaint
                     </a>
                     <button type="button" class="btn-officer-login" onclick="RoleAuthModal.open('login')">
@@ -57,29 +57,28 @@
 
     <!-- Main Hero Section -->
     <section class="edu-hero">
-        <div class="edu-container">
-            <div class="edu-hero-grid">
-                <!-- Hero Left: Content & CTAs -->
-                <div class="edu-hero-left">
-                    <div class="edu-hero-tag">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</div>
-                    <h1 class="edu-hero-title">EduVision</h1>
-                    <h2 class="edu-hero-subtitle">Integrated Institution Complaint Monitoring and Status Dashboard</h2>
-                    <p class="edu-hero-desc">
-                        A unified platform for students, faculty, stakeholders and AICTE officials to file, track and monitor institution-related complaints and grievances across all Bureaus/Cells — ensuring transparency, coordination and timely redressal.
-                    </p>
-                    <div class="edu-hero-ctas">
-                        <a href="complaint/index.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
-                            <span>📄</span> File a Complaint &rarr;
-                        </a>
-                        <button type="button" class="btn-cta-secondary" onclick="openQuickTrackerModal()">
-                            <span>🔍</span> Track Your Complaint &rarr;
-                        </button>
-                    </div>
-                </div>
+        <!-- Hero Background Layer with CSS Gradient Mask -->
+        <div class="edu-hero-backdrop" aria-hidden="true">
+            <img src="assets/Aicte-Building.jpeg" alt="" class="edu-hero-backdrop-img">
+            <div class="edu-hero-backdrop-overlay"></div>
+        </div>
 
-                <!-- Hero Right: Campus Visual with Badge -->
-                <div class="edu-hero-visual">
-                    <img src="assets/aicte-hq-card.jpg" alt="AICTE Headquarters - Better Governance for Quality Technical Education" class="edu-hero-img">
+        <div class="edu-container edu-hero-container">
+            <!-- Hero Left: Content & CTAs -->
+            <div class="edu-hero-left">
+                <div class="edu-hero-tag">ALL INDIA COUNCIL FOR TECHNICAL EDUCATION</div>
+                <h1 class="edu-hero-title"><span class="brand-edu">Edu</span><span class="brand-vision">Vision</span></h1>
+                <h2 class="edu-hero-subtitle">Integrated Institution Complaint Monitoring and Status Dashboard</h2>
+                <p class="edu-hero-desc">
+                    A unified platform for students, faculty, stakeholders and AICTE officials to file, track and monitor institution-related complaints and grievances across all Bureaus/Cells — ensuring transparency, coordination and timely redressal.
+                </p>
+                <div class="edu-hero-ctas">
+                    <a href="complaint/index.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
+                        <span>📄</span> File a Complaint &rarr;
+                    </a>
+                    <button type="button" class="btn-cta-secondary" onclick="openQuickTrackerModal()">
+                        <span>🔍</span> Track Your Complaint &rarr;
+                    </button>
                 </div>
             </div>
         </div>
@@ -88,66 +87,76 @@
     <!-- Service Shortcut Cards Section -->
     <section class="edu-shortcuts-section">
         <div class="edu-container">
-            <div class="edu-shortcuts-grid">
-                <!-- Card 1: File a Complaint -->
-                <div class="edu-shortcut-card">
-                    <div>
-                        <div class="edu-shortcut-icon icon-blue">📄</div>
-                        <h3 class="edu-shortcut-title">File a Complaint</h3>
-                        <p class="edu-shortcut-desc">Submit your complaint or grievance related to a technical education institution.</p>
+            <div class="edu-shortcuts-viewport" id="shortcutsViewport">
+                <div class="edu-shortcuts-track" id="shortcutsTrack">
+                    <!-- Card 1: File a Complaint -->
+                    <div class="edu-shortcut-card" data-card-index="0">
+                        <div class="edu-shortcut-card-body">
+                            <div class="edu-shortcut-icon icon-blue">📄</div>
+                            <h3 class="edu-shortcut-title">File a Complaint</h3>
+                            <p class="edu-shortcut-desc">Submit your complaint or grievance related to a technical education institution.</p>
+                        </div>
+                        <a href="complaint/index.html" class="edu-shortcut-link link-blue">
+                            Go to Complaint Portal &rarr;
+                        </a>
                     </div>
-                    <a href="complaint/index.html" class="edu-shortcut-link link-blue">
-                        Go to Complaint Portal &rarr;
-                    </a>
-                </div>
 
-                <!-- Card 2: Track Your Complaint -->
-                <div class="edu-shortcut-card">
-                    <div>
-                        <div class="edu-shortcut-icon icon-teal">🔍</div>
-                        <h3 class="edu-shortcut-title">Track Your Complaint</h3>
-                        <p class="edu-shortcut-desc">Check the current status and latest updates of your complaint using your Complaint ID.</p>
+                    <!-- Card 2: Track Your Complaint -->
+                    <div class="edu-shortcut-card" data-card-index="1">
+                        <div class="edu-shortcut-card-body">
+                            <div class="edu-shortcut-icon icon-teal">🔍</div>
+                            <h3 class="edu-shortcut-title">Track Your Complaint</h3>
+                            <p class="edu-shortcut-desc">Check the current status and latest updates of your complaint using your Complaint ID.</p>
+                        </div>
+                        <a href="javascript:void(0)" class="edu-shortcut-link link-teal" onclick="openQuickTrackerModal()">
+                            Track Now &rarr;
+                        </a>
                     </div>
-                    <a href="javascript:void(0)" class="edu-shortcut-link link-teal" onclick="openQuickTrackerModal()">
-                        Track Now &rarr;
-                    </a>
-                </div>
 
-                <!-- Card 3: Officer Login -->
-                <div class="edu-shortcut-card">
-                    <div>
-                        <div class="edu-shortcut-icon icon-purple">🛡️</div>
-                        <h3 class="edu-shortcut-title">Officer Login</h3>
-                        <p class="edu-shortcut-desc">Access the dashboards for Super Admin, Bureau/Cell, Regional Office or Senior Authority.</p>
+                    <!-- Card 3: Officer Login -->
+                    <div class="edu-shortcut-card" data-card-index="2">
+                        <div class="edu-shortcut-card-body">
+                            <div class="edu-shortcut-icon icon-purple">🛡️</div>
+                            <h3 class="edu-shortcut-title">Officer Login</h3>
+                            <p class="edu-shortcut-desc">Access the dashboards for Super Admin, Bureau/Cell, Regional Office or Senior Authority.</p>
+                        </div>
+                        <a href="javascript:void(0)" class="edu-shortcut-link link-purple" onclick="RoleAuthModal.open('login')">
+                            Login Here &rarr;
+                        </a>
                     </div>
-                    <a href="javascript:void(0)" class="edu-shortcut-link link-purple" onclick="RoleAuthModal.open('login')">
-                        Login Here &rarr;
-                    </a>
-                </div>
 
-                <!-- Card 4: Reports & Analytics -->
-                <div class="edu-shortcut-card">
-                    <div>
-                        <div class="edu-shortcut-icon icon-amber">📊</div>
-                        <h3 class="edu-shortcut-title">View Reports &amp; Analytics</h3>
-                        <p class="edu-shortcut-desc">Get detailed reports on institutions, regions, bureaus, status and performance.</p>
+                    <!-- Card 4: Reports & Analytics -->
+                    <div class="edu-shortcut-card" data-card-index="3">
+                        <div class="edu-shortcut-card-body">
+                            <div class="edu-shortcut-icon icon-amber">📊</div>
+                            <h3 class="edu-shortcut-title">View Reports &amp; Analytics</h3>
+                            <p class="edu-shortcut-desc">Get detailed reports on institutions, regions, bureaus, status and performance.</p>
+                        </div>
+                        <a href="#statistics" class="edu-shortcut-link link-amber">
+                            Explore Reports &rarr;
+                        </a>
                     </div>
-                    <a href="#statistics" class="edu-shortcut-link link-amber">
-                        Explore Reports &rarr;
-                    </a>
-                </div>
 
-                <!-- Card 5: Latest Updates & Alerts -->
-                <div class="edu-shortcut-card">
-                    <div>
-                        <div class="edu-shortcut-icon icon-coral">🔔</div>
-                        <h3 class="edu-shortcut-title">Latest Updates &amp; Alerts</h3>
-                        <p class="edu-shortcut-desc">Stay informed about pending cases, upcoming deadlines and important notifications.</p>
+                    <!-- Card 5: Latest Updates & Alerts -->
+                    <div class="edu-shortcut-card" data-card-index="4">
+                        <div class="edu-shortcut-card-body">
+                            <div class="edu-shortcut-icon icon-coral">🔔</div>
+                            <h3 class="edu-shortcut-title">Latest Updates &amp; Alerts</h3>
+                            <p class="edu-shortcut-desc">Stay informed about pending cases, upcoming deadlines and important notifications.</p>
+                        </div>
+                        <a href="javascript:void(0)" class="edu-shortcut-link link-coral" onclick="RoleAuthModal.open('login', 'SENIOR_AUTHORITY')">
+                            View Alerts &rarr;
+                        </a>
                     </div>
-                    <a href="javascript:void(0)" class="edu-shortcut-link link-coral" onclick="RoleAuthModal.open('login', 'SENIOR_AUTHORITY')">
-                        View Alerts &rarr;
-                    </a>
                 </div>
+            </div>
+            <!-- Rotation Dots Indicator -->
+            <div class="edu-carousel-dots" id="carouselDots" aria-hidden="true">
+                <span class="carousel-dot active" data-index="0"></span>
+                <span class="carousel-dot" data-index="1"></span>
+                <span class="carousel-dot" data-index="2"></span>
+                <span class="carousel-dot" data-index="3"></span>
+                <span class="carousel-dot" data-index="4"></span>
             </div>
         </div>
     </section>
@@ -378,7 +387,7 @@
                 <div class="edu-footer-brand" style="display:flex;align-items:center;gap:12px;">
                     <img src="assets/images/logo.png" alt="EduVision logo" class="edu-footer-logo">
                     <div>
-                        <h4 style="margin:0;">EduVision</h4>
+                        <h4 style="margin:0;"><span class="brand-edu">Edu</span><span class="brand-vision">Vision</span></h4>
                         <p style="margin:2px 0 0;">Transparent • Responsive • Better Education &bull; All India Council for Technical Education</p>
                     </div>
                 </div>
@@ -491,6 +500,94 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeQuickTrackerModal();
         });
+
+        // Automatic Card Rotation: Exactly 1,000 milliseconds (one second) interval
+        (function initCardRotation() {
+            const track = document.getElementById('shortcutsTrack');
+            const viewport = document.getElementById('shortcutsViewport');
+            const dots = document.querySelectorAll('.carousel-dot');
+            if (!track || !viewport) return;
+
+            let isTransitioning = false;
+            let rotationTimer = null;
+            const ROTATION_INTERVAL = 1000; // exactly 1,000ms
+
+            function getStepDistance() {
+                const firstCard = track.firstElementChild;
+                if (!firstCard) return 0;
+                const style = window.getComputedStyle(track);
+                const gap = parseFloat(style.gap) || 16;
+                return firstCard.offsetWidth + gap;
+            }
+
+            function rotateNext() {
+                if (isTransitioning) return;
+                const firstCard = track.firstElementChild;
+                if (!firstCard) return;
+
+                const step = getStepDistance();
+                if (step <= 0) return;
+
+                isTransitioning = true;
+                track.style.transition = 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+                track.style.transform = `translateX(-${step}px)`;
+
+                function onEnd() {
+                    track.removeEventListener('transitionend', onEnd);
+                    track.style.transition = 'none';
+                    track.appendChild(firstCard);
+                    track.style.transform = 'translateX(0)';
+                    isTransitioning = false;
+
+                    // Update active dot indicator based on the new front card
+                    const currentFront = track.firstElementChild;
+                    if (currentFront && currentFront.dataset.cardIndex !== undefined) {
+                        const idx = parseInt(currentFront.dataset.cardIndex, 10);
+                        dots.forEach((dot, dIdx) => {
+                            dot.classList.toggle('active', dIdx === idx);
+                        });
+                    }
+                }
+
+                track.addEventListener('transitionend', onEnd);
+            }
+
+            function startTimer() {
+                if (rotationTimer) clearInterval(rotationTimer);
+                rotationTimer = setInterval(rotateNext, ROTATION_INTERVAL);
+            }
+
+            function stopTimer() {
+                if (rotationTimer) {
+                    clearInterval(rotationTimer);
+                    rotationTimer = null;
+                }
+            }
+
+            // Start rotation immediately
+            startTimer();
+
+            // Pause on hover, resume on mouse leave
+            viewport.addEventListener('mouseenter', stopTimer);
+            viewport.addEventListener('mouseleave', startTimer);
+
+            // Pause when page is hidden (tab switch) to avoid queued animations
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    stopTimer();
+                } else {
+                    startTimer();
+                }
+            });
+
+            // Cleanup on window unload
+            window.addEventListener('beforeunload', stopTimer);
+            window.EduCardRotation = {
+                stop: stopTimer,
+                start: startTimer,
+                rotateNext: rotateNext
+            };
+        })();
     </script>
 </body>
 </html>

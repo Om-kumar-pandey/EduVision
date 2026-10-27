@@ -55,6 +55,14 @@ body {
 /* -------------------------------------------------------------
  * 1. HEADER & NAVIGATION (Deep Navy #04244a)
  * ------------------------------------------------------------- */
+.brand-edu {
+    color: #ffffff !important;
+}
+
+.brand-vision {
+    color: #f97316 !important; /* vivid official orange */
+}
+
 .edu-navbar {
     background: var(--edu-navy);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -69,6 +77,7 @@ body {
     align-items: center;
     justify-content: space-between;
     height: 72px;
+    gap: 16px;
 }
 
 .edu-brand {
@@ -77,6 +86,7 @@ body {
     gap: 12px;
     text-decoration: none;
     color: inherit;
+    flex-shrink: 0;
 }
 
 .edu-logo-icon {
@@ -138,7 +148,7 @@ body {
 .edu-nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 18px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -147,10 +157,11 @@ body {
 .edu-nav-links a {
     text-decoration: none;
     color: var(--edu-text-light);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     padding: 8px 0;
     position: relative;
+    white-space: nowrap;
     transition: color 0.15s ease;
 }
 
@@ -167,21 +178,49 @@ body {
 .edu-nav-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+}
+
+.btn-complaint-nav {
+    background: #d97706;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border: 1px solid #d97706;
+    box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);
+    transition: all 0.15s ease;
+}
+
+.btn-complaint-nav:hover {
+    background: #b45309;
+    border-color: #b45309;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.35);
 }
 
 .btn-officer-login {
     background: transparent;
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 9px 18px;
+    padding: 8px 16px;
     font-size: 0.85rem;
     font-weight: 600;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    white-space: nowrap;
     text-decoration: none;
     transition: all 0.15s ease;
 }
@@ -195,14 +234,15 @@ body {
     background: var(--edu-blue);
     color: #ffffff;
     border: 1px solid var(--edu-blue);
-    padding: 9px 18px;
+    padding: 8px 16px;
     font-size: 0.85rem;
     font-weight: 600;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    white-space: nowrap;
     text-decoration: none;
     transition: all 0.15s ease;
 }
@@ -217,23 +257,58 @@ body {
  * 2. MAIN HERO SECTION (Deep Navy Hero #042141)
  * ------------------------------------------------------------- */
 .edu-hero {
-    padding: 56px 0 60px;
-    background: var(--edu-navy-hero);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
+    background: var(--edu-navy-hero);
+    min-height: 480px;
+    display: flex;
+    align-items: center;
     overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.edu-hero-grid {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 48px;
-    align-items: center;
+/* Hero Background Layer with CSS Gradient Masking */
+.edu-hero-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+    min-width: 640px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 14%, rgba(0, 0, 0, 0.85) 32%, #000000 48%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 14%, rgba(0, 0, 0, 0.85) 32%, #000000 48%);
+}
+
+.edu-hero-backdrop-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    display: block;
+}
+
+.edu-hero-backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--edu-navy-hero) 0%, rgba(4, 33, 65, 0.35) 18%, transparent 45%);
+    pointer-events: none;
+}
+
+.edu-hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-top: 54px;
+    padding-bottom: 58px;
 }
 
 .edu-hero-left {
     display: flex;
     flex-direction: column;
+    max-width: 600px;
 }
 
 .edu-hero-tag {
@@ -248,7 +323,6 @@ body {
 .edu-hero-title {
     font-size: 3.1rem;
     font-weight: 800;
-    color: #ffffff;
     letter-spacing: -0.03em;
     line-height: 1.05;
     margin: 0 0 10px;
@@ -268,7 +342,7 @@ body {
     color: #cbd5e1;
     line-height: 1.65;
     margin: 0 0 28px;
-    max-width: 620px;
+    max-width: 580px;
 }
 
 .edu-hero-ctas {
@@ -322,55 +396,54 @@ body {
     transform: translateY(-1px);
 }
 
-/* Hero Right: Campus Visual Card */
-.edu-hero-visual {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: var(--edu-navy-dark);
-}
-
-.edu-hero-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
 /* -------------------------------------------------------------
- * 3. SERVICE SHORTCUT CARDS (5 Cards on #f6f9fe)
+ * 3. SERVICE SHORTCUT CARDS (5 Cards with 1,000ms Auto-Rotation)
  * ------------------------------------------------------------- */
 .edu-shortcuts-section {
-    padding: 40px 0;
+    padding: 38px 0;
     background: var(--edu-bg-section);
     border-bottom: 1px solid var(--edu-border);
+    overflow: hidden;
 }
 
-.edu-shortcuts-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.edu-shortcuts-viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 4px 0 8px;
+}
+
+.edu-shortcuts-track {
+    display: flex;
     gap: 16px;
+    width: 100%;
+    will-change: transform;
 }
 
 .edu-shortcut-card {
     background: #ffffff;
     border: 1px solid var(--edu-border);
-    border-radius: 6px;
-    padding: 22px 18px;
+    border-radius: 8px;
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.18s ease-in-out;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    min-height: 230px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+    flex: 0 0 calc((100% - 48px) / 4); /* Exactly 4 cards visible on desktop */
 }
 
 .edu-shortcut-card:hover {
     border-color: var(--edu-border-dark);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.edu-shortcut-card-body {
+    display: flex;
+    flex-direction: column;
 }
 
 .edu-shortcut-icon {
@@ -382,6 +455,7 @@ body {
     justify-content: center;
     font-size: 1.25rem;
     margin-bottom: 14px;
+    flex-shrink: 0;
 }
 
 .icon-blue { background: #eff6ff; color: #0076ff; }
@@ -395,35 +469,113 @@ body {
     font-weight: 700;
     color: var(--edu-text);
     margin: 0 0 6px;
+    line-height: 1.3;
 }
 
 .edu-shortcut-desc {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--edu-text-muted);
-    line-height: 1.45;
+    line-height: 1.5;
     margin: 0 0 16px;
-    flex: 1;
 }
 
+/* Clearly visible button-like background for action links */
 .edu-shortcut-link {
     font-size: 0.82rem;
     font-weight: 700;
     text-decoration: none;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
-    transition: gap 0.15s ease;
-}
-
-.edu-shortcut-link:hover {
+    justify-content: center;
     gap: 6px;
+    padding: 7px 14px;
+    border-radius: 5px;
+    align-self: flex-start;
+    transition: all 0.18s ease;
+    border: 1px solid transparent;
 }
 
-.link-blue { color: #0076ff; }
-.link-teal { color: #16a34a; }
-.link-purple { color: #7c3aed; }
-.link-amber { color: #d97706; }
-.link-coral { color: #e11d48; }
+.link-blue {
+    background: #eff6ff;
+    color: #0076ff;
+    border-color: #bfdbfe;
+}
+.link-blue:hover {
+    background: #0076ff;
+    color: #ffffff;
+    border-color: #0076ff;
+    box-shadow: 0 2px 8px rgba(0, 118, 255, 0.3);
+}
+
+.link-teal {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #bbf7d0;
+}
+.link-teal:hover {
+    background: #15803d;
+    color: #ffffff;
+    border-color: #15803d;
+    box-shadow: 0 2px 8px rgba(21, 128, 61, 0.3);
+}
+
+.link-purple {
+    background: #faf5ff;
+    color: #7c3aed;
+    border-color: #e9d5ff;
+}
+.link-purple:hover {
+    background: #7c3aed;
+    color: #ffffff;
+    border-color: #7c3aed;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+.link-amber {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+}
+.link-amber:hover {
+    background: #b45309;
+    color: #ffffff;
+    border-color: #b45309;
+    box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3);
+}
+
+.link-coral {
+    background: #fff1f2;
+    color: #be123c;
+    border-color: #fecdd3;
+}
+.link-coral:hover {
+    background: #be123c;
+    color: #ffffff;
+    border-color: #be123c;
+    box-shadow: 0 2px 8px rgba(190, 18, 60, 0.3);
+}
+
+.edu-carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    transition: all 0.25s ease;
+}
+
+.carousel-dot.active {
+    width: 22px;
+    border-radius: 4px;
+    background: var(--edu-blue);
+}
 
 /* -------------------------------------------------------------
  * 4. ABOUT EDUVISION & KEY FEATURES
@@ -746,18 +898,54 @@ body {
 /* -------------------------------------------------------------
  * RESPONSIVE BREAKPOINTS
  * ------------------------------------------------------------- */
-@media (max-width: 1024px) {
-    .edu-shortcuts-grid {
-        grid-template-columns: repeat(3, 1fr);
+@media (max-width: 1200px) {
+    .edu-nav-links {
+        gap: 12px;
+    }
+    .edu-nav-links a {
+        font-size: 0.82rem;
+    }
+    .edu-nav-actions {
+        margin-left: 12px;
+        padding-left: 12px;
+        gap: 8px;
+    }
+    .btn-complaint-nav, .btn-officer-login, .btn-track-nav {
+        padding: 7px 12px;
+        font-size: 0.8rem;
+    }
+    .edu-shortcut-card {
+        flex: 0 0 calc((100% - 32px) / 3);
+    }
+}
+
+@media (max-width: 992px) {
+    .edu-nav-links {
+        display: none;
+    }
+    .edu-nav-actions {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+    }
+    .edu-hero-backdrop {
+        width: 100%;
+        min-width: auto;
+    }
+    .edu-hero-backdrop-overlay {
+        background: linear-gradient(to right, rgba(4, 33, 65, 0.94) 0%, rgba(4, 33, 65, 0.82) 55%, rgba(4, 33, 65, 0.5) 100%);
+    }
+    .edu-hero-left {
+        max-width: 100%;
+    }
+    .edu-shortcut-card {
+        flex: 0 0 calc((100% - 16px) / 2);
     }
     .edu-stats-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    .edu-hero-grid, .edu-about-grid, .edu-workflows-grid {
+    .edu-about-grid, .edu-workflows-grid {
         grid-template-columns: 1fr;
-    }
-    .edu-nav-links {
-        display: none;
     }
 }
 
@@ -772,29 +960,31 @@ body {
     .edu-nav-actions {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         gap: 8px;
     }
+    .btn-complaint-nav,
     .btn-officer-login,
     .btn-track-nav {
-        flex: 1;
+        flex: 1 1 auto;
         justify-content: center;
         padding: 8px 10px;
         font-size: 0.8rem;
     }
-    .edu-shortcuts-grid {
-        grid-template-columns: 1fr;
+    .edu-shortcut-card {
+        flex: 0 0 100%;
+    }
+    .edu-hero-title {
+        font-size: 2.1rem;
+    }
+    .edu-hero-subtitle {
+        font-size: 1.15rem;
     }
     .edu-stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     .edu-features-grid {
         grid-template-columns: 1fr;
-    }
-    .edu-hero-title {
-        font-size: 2rem;
-    }
-    .edu-hero-subtitle {
-        font-size: 1.05rem;
     }
     .edu-footer-content {
         flex-direction: column;
