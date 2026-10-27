@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AICTE Integrated Institution Complaint Monitoring & Status Dashboard
  * Role Selection & Authentication Controller
  * Enforces role isolation, server-side verified authorization, and official request workflows.
@@ -102,13 +102,14 @@ const RoleAuthModal = (function() {
         const div = document.createElement('div');
         div.id = 'roleAuthModalOverlay';
         div.className = 'role-modal-overlay';
+        const logoPath = (window.location.pathname.indexOf('/complaint/') !== -1 || window.location.pathname.indexOf('\\complaint\\') !== -1) ? '../assets/images/logo.png' : 'assets/images/logo.png';
         div.setAttribute('role', 'dialog');
         div.setAttribute('aria-modal', 'true');
         div.innerHTML = `
             <div class="role-modal-container" id="roleModalContainer">
                 <div class="role-modal-header">
                     <div class="role-modal-title-wrap">
-                        <span style="font-size:1.4rem;">🏛️</span>
+                        <img src="${logoPath}" onerror="if(this.src.indexOf('../')===-1){this.src='../assets/images/logo.png';}else{this.src='assets/images/logo.png';}" alt="EduVision logo" class="role-modal-logo-img">
                         <div>
                             <h3 id="roleModalHeaderTitle">EduVision — Portal Access</h3>
                             <p id="roleModalHeaderSubtitle">Select your role to continue</p>

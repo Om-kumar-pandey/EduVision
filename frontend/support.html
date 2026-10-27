@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Help &amp; Support – EduVision</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -16,7 +17,13 @@
   <header class="top-navbar">
     <div class="nav-left">
       <button class="mobile-menu-toggle" style="display: none;" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
-      <a href="index.html" class="brand-link"><img src="assets/images/logo.svg" alt="EduVision Logo" class="brand-logo-img"></a>
+      <a href="index.html" class="brand-link">
+        <img src="assets/images/logo.png" alt="EduVision logo" class="brand-logo-img">
+        <div class="brand-text-wrap">
+          <span class="brand-title">EduVision</span>
+          <span class="brand-subtitle">Grievance Portal</span>
+        </div>
+      </a>
     </div>
 
     <div class="nav-center">
@@ -60,6 +67,12 @@
   <div class="app-container">
     <aside class="sidebar">
       <ul class="sidebar-nav-list">
+        <li class="sidebar-nav-item">
+          <a href="../index.html" title="Return to Main Portal">
+            <i class="fas fa-arrow-left"></i>
+            <span>Main Portal</span>
+          </a>
+        </li>
         <li class="sidebar-nav-item"><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
         <li class="sidebar-nav-item"><a href="file-complaint.html"><i class="fas fa-file-signature"></i><span>File a New Complaint</span></a></li>
         <li class="sidebar-nav-item"><a href="my-complaints.html"><i class="fas fa-folder-open"></i><span>Your Complaints</span></a></li>
@@ -82,7 +95,7 @@
 
     <main class="main-wrapper">
       <div class="form-card-container">
-        
+
         <div class="page-header-block">
           <h2>EduVision Grievance Help Desk</h2>
           <p>Get in touch with the technical support team or raise an inquiry regarding portal operations.</p>

@@ -18,7 +18,7 @@ const RoleAuthModal = (function() {
             desc: 'For students, faculty, and stakeholders to submit institution complaints, affidavits, and track redressal.',
             actionLogin: 'Sign In to Portal →',
             actionSignup: 'File a Complaint →',
-            targetDashboard: 'complaint-portal.html',
+            targetDashboard: 'complaint/index.html',
             allowedRoles: ['COMPLAINANT', 'SYS_ADMIN'],
             demoAccounts: []
         },
@@ -46,7 +46,7 @@ const RoleAuthModal = (function() {
             desc: 'For authorized regional officers monitoring institution-level compliance, hearings, inspections, and regional complaint resolution.',
             actionLogin: 'Access Regional Queue →',
             actionSignup: 'Submit RO Request →',
-            targetDashboard: 'regional-dashboard.html',
+            targetDashboard: 'regional-office-dashboard.html',
             allowedRoles: ['REGIONAL_OFFICER', 'SYS_ADMIN', 'CENTRAL_MONITOR'],
             demoAccounts: [
                 { label: 'Western RO (Dr. Sandeep Deshmukh)', email: 'western_ro@aicte.gov.in', pass: 'Officer@123' },
@@ -102,13 +102,14 @@ const RoleAuthModal = (function() {
         const div = document.createElement('div');
         div.id = 'roleAuthModalOverlay';
         div.className = 'role-modal-overlay';
+        const logoPath = (window.location.pathname.indexOf('/complaint/') !== -1 || window.location.pathname.indexOf('\\complaint\\') !== -1) ? '../assets/images/logo.png' : 'assets/images/logo.png';
         div.setAttribute('role', 'dialog');
         div.setAttribute('aria-modal', 'true');
         div.innerHTML = `
             <div class="role-modal-container" id="roleModalContainer">
                 <div class="role-modal-header">
                     <div class="role-modal-title-wrap">
-                        <span style="font-size:1.4rem;">🏛️</span>
+                        <img src="${logoPath}" onerror="if(this.src.indexOf('../')===-1){this.src='../assets/images/logo.png';}else{this.src='assets/images/logo.png';}" alt="EduVision logo" class="role-modal-logo-img">
                         <div>
                             <h3 id="roleModalHeaderTitle">EduVision — Portal Access</h3>
                             <p id="roleModalHeaderSubtitle">Select your role to continue</p>

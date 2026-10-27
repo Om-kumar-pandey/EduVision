@@ -68,6 +68,17 @@
     gap: 12px;
 }
 
+.role-modal-logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
 .role-modal-header h3 {
     margin: 0;
     font-size: 1.15rem;

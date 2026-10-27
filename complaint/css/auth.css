@@ -1,4 +1,4 @@
-﻿/* EduVision – Authentication Page Styles */
+/* EduVision – Authentication Page Styles */
 
 .auth-page-body {
   background: linear-gradient(135deg, #091e3a 0%, #0f3d6c 50%, #1e5ba0 100%);
@@ -28,7 +28,14 @@
 }
 
 .auth-brand-logo {
-  height: 48px;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   margin-bottom: 12px;
 }
 

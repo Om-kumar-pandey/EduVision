@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EduVision — Integrated Institution Complaint Monitoring & Status Dashboard
  * Official AICTE Portal Homepage Stylesheet
  *
@@ -90,6 +90,34 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
+}
+
+.edu-logo-img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0;
+    flex-shrink: 0;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.edu-brand:hover .edu-logo-img {
+    transform: scale(1.04);
+}
+
+.edu-footer-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0;
+    flex-shrink: 0;
+    display: inline-block;
 }
 
 .edu-brand-title {

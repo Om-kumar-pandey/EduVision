@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduVision — Integrated Institution Complaint Monitoring &amp; Status Dashboard</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <!-- Government Design Tokens & Reusable Styles -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/variables.css">
@@ -18,7 +19,7 @@
             <div class="edu-nav-content">
                 <!-- Brand / Logo -->
                 <a href="index.html" class="edu-brand">
-                    <div class="edu-logo-icon">🎓</div>
+                    <img src="assets/images/logo.png" alt="EduVision logo" class="edu-logo-img">
                     <div>
                         <div class="edu-brand-title">EduVision</div>
                         <div class="edu-brand-subtitle">Transparent • Responsive • Better Education</div>
@@ -29,6 +30,8 @@
                 <nav>
                     <ul class="edu-nav-links">
                         <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="complaint/index.html">Complaint Portal</a></li>
+                        <li><a href="regional-office-dashboard.html">Regional Dashboard</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
                         <li><a href="#statistics">Reports &amp; Analytics</a></li>
@@ -38,7 +41,7 @@
 
                 <!-- Right Action Buttons -->
                 <div class="edu-nav-actions">
-                    <a href="complaint-portal.html" class="btn-complaint-nav" style="background:#d97706;color:#ffffff;padding:8px 16px;border-radius:4px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;box-shadow:0 2px 6px rgba(217,119,6,0.25);">
+                    <a href="complaint/index.html" class="btn-complaint-nav" style="background:#d97706;color:#ffffff;padding:8px 16px;border-radius:4px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;box-shadow:0 2px 6px rgba(217,119,6,0.25);">
                         <span>📄</span> File a Complaint
                     </a>
                     <button type="button" class="btn-officer-login" onclick="RoleAuthModal.open('login')">
@@ -65,7 +68,7 @@
                         A unified platform for students, faculty, stakeholders and AICTE officials to file, track and monitor institution-related complaints and grievances across all Bureaus/Cells — ensuring transparency, coordination and timely redressal.
                     </p>
                     <div class="edu-hero-ctas">
-                        <a href="complaint-portal.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
+                        <a href="complaint/index.html" class="btn-cta-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
                             <span>📄</span> File a Complaint &rarr;
                         </a>
                         <button type="button" class="btn-cta-secondary" onclick="openQuickTrackerModal()">
@@ -93,7 +96,7 @@
                         <h3 class="edu-shortcut-title">File a Complaint</h3>
                         <p class="edu-shortcut-desc">Submit your complaint or grievance related to a technical education institution.</p>
                     </div>
-                    <a href="complaint-portal.html" class="edu-shortcut-link link-blue">
+                    <a href="complaint/index.html" class="edu-shortcut-link link-blue">
                         Go to Complaint Portal &rarr;
                     </a>
                 </div>
@@ -372,12 +375,17 @@
     <footer class="edu-footer" id="footer">
         <div class="edu-container">
             <div class="edu-footer-content">
-                <div class="edu-footer-brand">
-                    <h4>EduVision</h4>
-                    <p>Transparent • Responsive • Better Education &bull; All India Council for Technical Education</p>
+                <div class="edu-footer-brand" style="display:flex;align-items:center;gap:12px;">
+                    <img src="assets/images/logo.png" alt="EduVision logo" class="edu-footer-logo">
+                    <div>
+                        <h4 style="margin:0;">EduVision</h4>
+                        <p style="margin:2px 0 0;">Transparent • Responsive • Better Education &bull; All India Council for Technical Education</p>
+                    </div>
                 </div>
                 <ul class="edu-footer-links">
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="complaint/index.html">Complaint Portal</a></li>
+                    <li><a href="regional-office-dashboard.html">Regional Dashboard</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="javascript:void(0)" onclick="RoleAuthModal.open('login')">Officer Login</a></li>
                     <li><a href="javascript:void(0)" onclick="openQuickTrackerModal()">Track Complaint</a></li>
